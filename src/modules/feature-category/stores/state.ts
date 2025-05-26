@@ -35,6 +35,7 @@ export interface CategoryState {
     ) => void;
     onClose: () => void;
   };
+  resetModal: () => void;
   resetUpdateCategoryState: () => void;
   resetCategoriesState: () => void;
   resetCreateCategoryState: () => void;

@@ -16,6 +16,7 @@ import { Route as rootRoute } from './routes/__root'
 import { Route as IndexImport } from './routes/index'
 import { Route as DashboardSidebarLayoutImport } from './routes/dashboard/_sidebarLayout'
 import { Route as DashboardSidebarLayoutIndexImport } from './routes/dashboard/_sidebarLayout/index'
+import { Route as DashboardSidebarLayoutUserImport } from './routes/dashboard/_sidebarLayout/user'
 import { Route as DashboardSidebarLayoutProductImport } from './routes/dashboard/_sidebarLayout/product'
 import { Route as DashboardSidebarLayoutCategoryImport } from './routes/dashboard/_sidebarLayout/category'
 
@@ -90,6 +91,14 @@ const DashboardSidebarLayoutIndexRoute =
     path: '/',
     getParentRoute: () => DashboardSidebarLayoutRoute,
   } as any)
+
+const DashboardSidebarLayoutUserRoute = DashboardSidebarLayoutUserImport.update(
+  {
+    id: '/user',
+    path: '/user',
+    getParentRoute: () => DashboardSidebarLayoutRoute,
+  } as any,
+)
 
 const DashboardSidebarLayoutProductRoute =
   DashboardSidebarLayoutProductImport.update({
@@ -172,6 +181,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardSidebarLayoutProductImport
       parentRoute: typeof DashboardSidebarLayoutImport
     }
+    '/dashboard/_sidebarLayout/user': {
+      id: '/dashboard/_sidebarLayout/user'
+      path: '/user'
+      fullPath: '/dashboard/user'
+      preLoaderRoute: typeof DashboardSidebarLayoutUserImport
+      parentRoute: typeof DashboardSidebarLayoutImport
+    }
     '/dashboard/_sidebarLayout/': {
       id: '/dashboard/_sidebarLayout/'
       path: '/'
@@ -187,6 +203,7 @@ declare module '@tanstack/react-router' {
 interface DashboardSidebarLayoutRouteChildren {
   DashboardSidebarLayoutCategoryRoute: typeof DashboardSidebarLayoutCategoryRoute
   DashboardSidebarLayoutProductRoute: typeof DashboardSidebarLayoutProductRoute
+  DashboardSidebarLayoutUserRoute: typeof DashboardSidebarLayoutUserRoute
   DashboardSidebarLayoutIndexRoute: typeof DashboardSidebarLayoutIndexRoute
 }
 
@@ -194,6 +211,7 @@ const DashboardSidebarLayoutRouteChildren: DashboardSidebarLayoutRouteChildren =
   {
     DashboardSidebarLayoutCategoryRoute: DashboardSidebarLayoutCategoryRoute,
     DashboardSidebarLayoutProductRoute: DashboardSidebarLayoutProductRoute,
+    DashboardSidebarLayoutUserRoute: DashboardSidebarLayoutUserRoute,
     DashboardSidebarLayoutIndexRoute: DashboardSidebarLayoutIndexRoute,
   }
 
@@ -223,6 +241,7 @@ export interface FileRoutesByFullPath {
   '/reset-password': typeof authResetPasswordLazyRoute
   '/dashboard/category': typeof DashboardSidebarLayoutCategoryRoute
   '/dashboard/product': typeof DashboardSidebarLayoutProductRoute
+  '/dashboard/user': typeof DashboardSidebarLayoutUserRoute
   '/dashboard/': typeof DashboardSidebarLayoutIndexRoute
 }
 
@@ -235,6 +254,7 @@ export interface FileRoutesByTo {
   '/reset-password': typeof authResetPasswordLazyRoute
   '/dashboard/category': typeof DashboardSidebarLayoutCategoryRoute
   '/dashboard/product': typeof DashboardSidebarLayoutProductRoute
+  '/dashboard/user': typeof DashboardSidebarLayoutUserRoute
 }
 
 export interface FileRoutesById {
@@ -248,6 +268,7 @@ export interface FileRoutesById {
   '/(auth)/reset-password': typeof authResetPasswordLazyRoute
   '/dashboard/_sidebarLayout/category': typeof DashboardSidebarLayoutCategoryRoute
   '/dashboard/_sidebarLayout/product': typeof DashboardSidebarLayoutProductRoute
+  '/dashboard/_sidebarLayout/user': typeof DashboardSidebarLayoutUserRoute
   '/dashboard/_sidebarLayout/': typeof DashboardSidebarLayoutIndexRoute
 }
 
@@ -262,6 +283,7 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/dashboard/category'
     | '/dashboard/product'
+    | '/dashboard/user'
     | '/dashboard/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -273,6 +295,7 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/dashboard/category'
     | '/dashboard/product'
+    | '/dashboard/user'
   id:
     | '__root__'
     | '/'
@@ -284,6 +307,7 @@ export interface FileRouteTypes {
     | '/(auth)/reset-password'
     | '/dashboard/_sidebarLayout/category'
     | '/dashboard/_sidebarLayout/product'
+    | '/dashboard/_sidebarLayout/user'
     | '/dashboard/_sidebarLayout/'
   fileRoutesById: FileRoutesById
 }
@@ -339,6 +363,7 @@ export const routeTree = rootRoute
       "children": [
         "/dashboard/_sidebarLayout/category",
         "/dashboard/_sidebarLayout/product",
+        "/dashboard/_sidebarLayout/user",
         "/dashboard/_sidebarLayout/"
       ]
     },
@@ -360,6 +385,10 @@ export const routeTree = rootRoute
     },
     "/dashboard/_sidebarLayout/product": {
       "filePath": "dashboard/_sidebarLayout/product.tsx",
+      "parent": "/dashboard/_sidebarLayout"
+    },
+    "/dashboard/_sidebarLayout/user": {
+      "filePath": "dashboard/_sidebarLayout/user.tsx",
       "parent": "/dashboard/_sidebarLayout"
     },
     "/dashboard/_sidebarLayout/": {

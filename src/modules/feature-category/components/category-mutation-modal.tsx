@@ -37,6 +37,7 @@ export const CategoryMutationModal = ({
     handleSubmitCreate,
     isLoading: isLoadingCreate,
   } = useCreateCategory();
+
   const {
     isOpen: isOpenEdit,
     onOpenChange,
@@ -51,8 +52,13 @@ export const CategoryMutationModal = ({
         name: data.name || "",
         description: data.description || "",
       });
+    } else if (!isEdit && isOpenCreate) {
+      forms.reset({
+        name: "",
+        description: "",
+      });
     }
-  }, [data, isEdit, forms]);
+  }, [data, isEdit, forms, isOpenCreate]);
 
   return (
     <Modal

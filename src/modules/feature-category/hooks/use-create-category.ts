@@ -4,8 +4,13 @@ import { toast } from "sonner";
 import type { CreateCategoryDTOType } from "../data";
 
 export const useCreateCategory = () => {
-  const { modal, createCategory, categories, resetCreateCategoryState } =
-    useCategoryStore();
+  const {
+    modal,
+    createCategory,
+    categories,
+    resetCreateCategoryState,
+    resetModal,
+  } = useCategoryStore();
 
   const isLoading = createCategory.state.state === "loading";
 
@@ -15,6 +20,7 @@ export const useCreateCategory = () => {
       await categories.getAllCategories();
     } finally {
       modal.onClose();
+      resetModal();
     }
   };
 

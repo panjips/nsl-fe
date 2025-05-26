@@ -173,6 +173,17 @@ export const useCategoryStore = create<CategoryState>((set) => ({
       }));
     },
   },
+  resetModal: () => {
+    set((state) => ({
+      modal: {
+        ...state.modal,
+        isOpen: false,
+        mode: null,
+        data: null,
+        id: null,
+      },
+    }));
+  },
   resetUpdateCategoryState: () => {
     set((state) => ({
       updateCategory: {

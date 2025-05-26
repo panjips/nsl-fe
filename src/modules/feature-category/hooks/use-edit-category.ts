@@ -4,12 +4,18 @@ import { useCategoryStore } from "../stores";
 import { toast } from "sonner";
 
 export const useEditCategory = () => {
-  const { modal, updateCategory, categories, resetUpdateCategoryState } =
-    useCategoryStore();
+  const {
+    modal,
+    updateCategory,
+    categories,
+    resetUpdateCategoryState,
+    resetModal,
+  } = useCategoryStore();
 
   const onOpenChange = (isOpen: boolean) => {
     if (!isOpen) {
       modal.onClose();
+      resetModal();
     }
   };
 
@@ -22,6 +28,7 @@ export const useEditCategory = () => {
         await categories.getAllCategories();
       } finally {
         modal.onClose();
+        resetModal();
       }
     }
   };

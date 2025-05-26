@@ -22,7 +22,6 @@ export const CategoryTable = () => {
 
   const handleOpenModalDelete = (id: string | number) => {
     modal.onOpen("delete", null, id);
-    
   };
 
   const columns = useMemo(() => {

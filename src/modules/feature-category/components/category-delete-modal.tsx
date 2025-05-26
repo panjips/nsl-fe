@@ -9,8 +9,6 @@ export const CategoryDeleteModal = ({
   const { isLoading, isOpen, handleSubmitDelete, onOpenChange } =
     useDeleteCategory();
 
-  console.log(id);
-
   return (
     <Modal
       open={isOpen}

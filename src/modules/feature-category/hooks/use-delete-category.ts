@@ -3,8 +3,13 @@ import { useCategoryStore } from "../stores";
 import { toast } from "sonner";
 
 export const useDeleteCategory = () => {
-  const { modal, deleteCategory, categories, resetDeleteCategoryState } =
-    useCategoryStore();
+  const {
+    modal,
+    deleteCategory,
+    categories,
+    resetDeleteCategoryState,
+    resetModal,
+  } = useCategoryStore();
 
   const onOpenChange = (isOpen: boolean) => {
     if (!isOpen) {
@@ -20,6 +25,7 @@ export const useDeleteCategory = () => {
       await categories.getAllCategories();
     } finally {
       modal.onClose();
+      resetModal();
     }
   };
 
