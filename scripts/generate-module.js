@@ -38,20 +38,20 @@ dirs.forEach((dir) => {
 
 // Create index files
 const indexFiles = {
-  "": `export * from "./components";
-export * from "./data";
-export * from "./domain";
-export * from "./pages";
-export * from "./stores";
-export * from "./hooks";
+  "": `// export * from "./components";
+// export * from "./data";
+// export * from "./domain";
+// export * from "./pages";
+// export * from "./stores";
+// export * from "./hooks";
 `,
-  components: `export * from "./example-component";`,
-  data: `export * from "./example-data";`,
-  domain: `export * from "./example-domain;`,
-  hooks: `export * from "./use-example";`,
-  pages: `export * from "./example-page";`,
-  stores: `export * from "./state";
-export * from "./store";
+  components: `// export * from "./example-component";`,
+  data: `// export * from "./example-data";`,
+  domain: `// export * from "./example-domain;`,
+  hooks: `// export * from "./use-example";`,
+  pages: `// export * from "./example-page";`,
+  stores: `// export * from "./state";
+// export * from "./store";
 `,
 };
 
@@ -69,10 +69,5 @@ Object.entries(indexFiles).forEach(([dir, content]) => {
   fs.writeFileSync(filePath, content);
   console.log(`Created file: ${filePath}`);
 });
-
-// Write domain entity file
-const domainFilePath = path.join(moduleDir, "domain", `${kebabCase}.ts`);
-fs.writeFileSync(domainFilePath, domainFile);
-console.log(`Created file: ${domainFilePath}`);
 
 console.log(`\nModule ${moduleName} has been successfully created!`);

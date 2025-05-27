@@ -17,8 +17,10 @@ import { Route as IndexImport } from './routes/index'
 import { Route as DashboardSidebarLayoutImport } from './routes/dashboard/_sidebarLayout'
 import { Route as DashboardSidebarLayoutIndexImport } from './routes/dashboard/_sidebarLayout/index'
 import { Route as DashboardSidebarLayoutUserImport } from './routes/dashboard/_sidebarLayout/user'
-import { Route as DashboardSidebarLayoutProductImport } from './routes/dashboard/_sidebarLayout/product'
 import { Route as DashboardSidebarLayoutCategoryImport } from './routes/dashboard/_sidebarLayout/category'
+import { Route as DashboardSidebarLayoutProductIndexImport } from './routes/dashboard/_sidebarLayout/product/index'
+import { Route as DashboardSidebarLayoutProductCreateImport } from './routes/dashboard/_sidebarLayout/product/create'
+import { Route as DashboardSidebarLayoutProductUpdateProductIdImport } from './routes/dashboard/_sidebarLayout/product/update.$productId'
 
 // Create Virtual Routes
 
@@ -100,17 +102,31 @@ const DashboardSidebarLayoutUserRoute = DashboardSidebarLayoutUserImport.update(
   } as any,
 )
 
-const DashboardSidebarLayoutProductRoute =
-  DashboardSidebarLayoutProductImport.update({
-    id: '/product',
-    path: '/product',
-    getParentRoute: () => DashboardSidebarLayoutRoute,
-  } as any)
-
 const DashboardSidebarLayoutCategoryRoute =
   DashboardSidebarLayoutCategoryImport.update({
     id: '/category',
     path: '/category',
+    getParentRoute: () => DashboardSidebarLayoutRoute,
+  } as any)
+
+const DashboardSidebarLayoutProductIndexRoute =
+  DashboardSidebarLayoutProductIndexImport.update({
+    id: '/product/',
+    path: '/product/',
+    getParentRoute: () => DashboardSidebarLayoutRoute,
+  } as any)
+
+const DashboardSidebarLayoutProductCreateRoute =
+  DashboardSidebarLayoutProductCreateImport.update({
+    id: '/product/create',
+    path: '/product/create',
+    getParentRoute: () => DashboardSidebarLayoutRoute,
+  } as any)
+
+const DashboardSidebarLayoutProductUpdateProductIdRoute =
+  DashboardSidebarLayoutProductUpdateProductIdImport.update({
+    id: '/product/update/$productId',
+    path: '/product/update/$productId',
     getParentRoute: () => DashboardSidebarLayoutRoute,
   } as any)
 
@@ -174,13 +190,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardSidebarLayoutCategoryImport
       parentRoute: typeof DashboardSidebarLayoutImport
     }
-    '/dashboard/_sidebarLayout/product': {
-      id: '/dashboard/_sidebarLayout/product'
-      path: '/product'
-      fullPath: '/dashboard/product'
-      preLoaderRoute: typeof DashboardSidebarLayoutProductImport
-      parentRoute: typeof DashboardSidebarLayoutImport
-    }
     '/dashboard/_sidebarLayout/user': {
       id: '/dashboard/_sidebarLayout/user'
       path: '/user'
@@ -195,6 +204,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardSidebarLayoutIndexImport
       parentRoute: typeof DashboardSidebarLayoutImport
     }
+    '/dashboard/_sidebarLayout/product/create': {
+      id: '/dashboard/_sidebarLayout/product/create'
+      path: '/product/create'
+      fullPath: '/dashboard/product/create'
+      preLoaderRoute: typeof DashboardSidebarLayoutProductCreateImport
+      parentRoute: typeof DashboardSidebarLayoutImport
+    }
+    '/dashboard/_sidebarLayout/product/': {
+      id: '/dashboard/_sidebarLayout/product/'
+      path: '/product'
+      fullPath: '/dashboard/product'
+      preLoaderRoute: typeof DashboardSidebarLayoutProductIndexImport
+      parentRoute: typeof DashboardSidebarLayoutImport
+    }
+    '/dashboard/_sidebarLayout/product/update/$productId': {
+      id: '/dashboard/_sidebarLayout/product/update/$productId'
+      path: '/product/update/$productId'
+      fullPath: '/dashboard/product/update/$productId'
+      preLoaderRoute: typeof DashboardSidebarLayoutProductUpdateProductIdImport
+      parentRoute: typeof DashboardSidebarLayoutImport
+    }
   }
 }
 
@@ -202,17 +232,24 @@ declare module '@tanstack/react-router' {
 
 interface DashboardSidebarLayoutRouteChildren {
   DashboardSidebarLayoutCategoryRoute: typeof DashboardSidebarLayoutCategoryRoute
-  DashboardSidebarLayoutProductRoute: typeof DashboardSidebarLayoutProductRoute
   DashboardSidebarLayoutUserRoute: typeof DashboardSidebarLayoutUserRoute
   DashboardSidebarLayoutIndexRoute: typeof DashboardSidebarLayoutIndexRoute
+  DashboardSidebarLayoutProductCreateRoute: typeof DashboardSidebarLayoutProductCreateRoute
+  DashboardSidebarLayoutProductIndexRoute: typeof DashboardSidebarLayoutProductIndexRoute
+  DashboardSidebarLayoutProductUpdateProductIdRoute: typeof DashboardSidebarLayoutProductUpdateProductIdRoute
 }
 
 const DashboardSidebarLayoutRouteChildren: DashboardSidebarLayoutRouteChildren =
   {
     DashboardSidebarLayoutCategoryRoute: DashboardSidebarLayoutCategoryRoute,
-    DashboardSidebarLayoutProductRoute: DashboardSidebarLayoutProductRoute,
     DashboardSidebarLayoutUserRoute: DashboardSidebarLayoutUserRoute,
     DashboardSidebarLayoutIndexRoute: DashboardSidebarLayoutIndexRoute,
+    DashboardSidebarLayoutProductCreateRoute:
+      DashboardSidebarLayoutProductCreateRoute,
+    DashboardSidebarLayoutProductIndexRoute:
+      DashboardSidebarLayoutProductIndexRoute,
+    DashboardSidebarLayoutProductUpdateProductIdRoute:
+      DashboardSidebarLayoutProductUpdateProductIdRoute,
   }
 
 const DashboardSidebarLayoutRouteWithChildren =
@@ -240,9 +277,11 @@ export interface FileRoutesByFullPath {
   '/register': typeof authRegisterLazyRoute
   '/reset-password': typeof authResetPasswordLazyRoute
   '/dashboard/category': typeof DashboardSidebarLayoutCategoryRoute
-  '/dashboard/product': typeof DashboardSidebarLayoutProductRoute
   '/dashboard/user': typeof DashboardSidebarLayoutUserRoute
   '/dashboard/': typeof DashboardSidebarLayoutIndexRoute
+  '/dashboard/product/create': typeof DashboardSidebarLayoutProductCreateRoute
+  '/dashboard/product': typeof DashboardSidebarLayoutProductIndexRoute
+  '/dashboard/product/update/$productId': typeof DashboardSidebarLayoutProductUpdateProductIdRoute
 }
 
 export interface FileRoutesByTo {
@@ -253,8 +292,10 @@ export interface FileRoutesByTo {
   '/register': typeof authRegisterLazyRoute
   '/reset-password': typeof authResetPasswordLazyRoute
   '/dashboard/category': typeof DashboardSidebarLayoutCategoryRoute
-  '/dashboard/product': typeof DashboardSidebarLayoutProductRoute
   '/dashboard/user': typeof DashboardSidebarLayoutUserRoute
+  '/dashboard/product/create': typeof DashboardSidebarLayoutProductCreateRoute
+  '/dashboard/product': typeof DashboardSidebarLayoutProductIndexRoute
+  '/dashboard/product/update/$productId': typeof DashboardSidebarLayoutProductUpdateProductIdRoute
 }
 
 export interface FileRoutesById {
@@ -267,9 +308,11 @@ export interface FileRoutesById {
   '/(auth)/register': typeof authRegisterLazyRoute
   '/(auth)/reset-password': typeof authResetPasswordLazyRoute
   '/dashboard/_sidebarLayout/category': typeof DashboardSidebarLayoutCategoryRoute
-  '/dashboard/_sidebarLayout/product': typeof DashboardSidebarLayoutProductRoute
   '/dashboard/_sidebarLayout/user': typeof DashboardSidebarLayoutUserRoute
   '/dashboard/_sidebarLayout/': typeof DashboardSidebarLayoutIndexRoute
+  '/dashboard/_sidebarLayout/product/create': typeof DashboardSidebarLayoutProductCreateRoute
+  '/dashboard/_sidebarLayout/product/': typeof DashboardSidebarLayoutProductIndexRoute
+  '/dashboard/_sidebarLayout/product/update/$productId': typeof DashboardSidebarLayoutProductUpdateProductIdRoute
 }
 
 export interface FileRouteTypes {
@@ -282,9 +325,11 @@ export interface FileRouteTypes {
     | '/register'
     | '/reset-password'
     | '/dashboard/category'
-    | '/dashboard/product'
     | '/dashboard/user'
     | '/dashboard/'
+    | '/dashboard/product/create'
+    | '/dashboard/product'
+    | '/dashboard/product/update/$productId'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -294,8 +339,10 @@ export interface FileRouteTypes {
     | '/register'
     | '/reset-password'
     | '/dashboard/category'
-    | '/dashboard/product'
     | '/dashboard/user'
+    | '/dashboard/product/create'
+    | '/dashboard/product'
+    | '/dashboard/product/update/$productId'
   id:
     | '__root__'
     | '/'
@@ -306,9 +353,11 @@ export interface FileRouteTypes {
     | '/(auth)/register'
     | '/(auth)/reset-password'
     | '/dashboard/_sidebarLayout/category'
-    | '/dashboard/_sidebarLayout/product'
     | '/dashboard/_sidebarLayout/user'
     | '/dashboard/_sidebarLayout/'
+    | '/dashboard/_sidebarLayout/product/create'
+    | '/dashboard/_sidebarLayout/product/'
+    | '/dashboard/_sidebarLayout/product/update/$productId'
   fileRoutesById: FileRoutesById
 }
 
@@ -362,9 +411,11 @@ export const routeTree = rootRoute
       "parent": "/dashboard",
       "children": [
         "/dashboard/_sidebarLayout/category",
-        "/dashboard/_sidebarLayout/product",
         "/dashboard/_sidebarLayout/user",
-        "/dashboard/_sidebarLayout/"
+        "/dashboard/_sidebarLayout/",
+        "/dashboard/_sidebarLayout/product/create",
+        "/dashboard/_sidebarLayout/product/",
+        "/dashboard/_sidebarLayout/product/update/$productId"
       ]
     },
     "/(auth)/forgot-password": {
@@ -383,16 +434,24 @@ export const routeTree = rootRoute
       "filePath": "dashboard/_sidebarLayout/category.tsx",
       "parent": "/dashboard/_sidebarLayout"
     },
-    "/dashboard/_sidebarLayout/product": {
-      "filePath": "dashboard/_sidebarLayout/product.tsx",
-      "parent": "/dashboard/_sidebarLayout"
-    },
     "/dashboard/_sidebarLayout/user": {
       "filePath": "dashboard/_sidebarLayout/user.tsx",
       "parent": "/dashboard/_sidebarLayout"
     },
     "/dashboard/_sidebarLayout/": {
       "filePath": "dashboard/_sidebarLayout/index.tsx",
+      "parent": "/dashboard/_sidebarLayout"
+    },
+    "/dashboard/_sidebarLayout/product/create": {
+      "filePath": "dashboard/_sidebarLayout/product/create.tsx",
+      "parent": "/dashboard/_sidebarLayout"
+    },
+    "/dashboard/_sidebarLayout/product/": {
+      "filePath": "dashboard/_sidebarLayout/product/index.tsx",
+      "parent": "/dashboard/_sidebarLayout"
+    },
+    "/dashboard/_sidebarLayout/product/update/$productId": {
+      "filePath": "dashboard/_sidebarLayout/product/update.$productId.tsx",
       "parent": "/dashboard/_sidebarLayout"
     }
   }

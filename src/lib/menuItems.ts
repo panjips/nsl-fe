@@ -27,6 +27,7 @@ export const menuItems: NavMainProps[] = [
       },
       {
         title: "User",
+        url: "/dashboard/user",
         icon: User,
         items: [
           {

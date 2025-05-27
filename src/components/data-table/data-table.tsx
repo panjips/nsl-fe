@@ -97,6 +97,10 @@ export function DataTable<TData extends TableRowData>({
   return (
     <div className="flex flex-col gap-4">
       <div className="flex justify-between">
+        <div className="flex items-center gap-2">
+          <ColumnVisibility table={table} />
+          {/* Add other table controls here */}
+        </div>
         <div className="flex-1 max-w-1/2 md:max-w-1/3">
           {enableSearch && (
             <SearchInput
@@ -106,10 +110,6 @@ export function DataTable<TData extends TableRowData>({
               value={searchValue}
             />
           )}
-        </div>
-        <div className="flex items-center gap-2">
-          <ColumnVisibility table={table} />
-          {/* Add other table controls here */}
         </div>
       </div>
 

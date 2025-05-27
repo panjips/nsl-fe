@@ -1,8 +1,35 @@
-import * as React from "react"
+import type * as React from "react";
+import { cn } from "@/lib/utils";
 
-import { cn } from "@/lib/utils"
+interface InputProps extends Omit<React.ComponentProps<"input">, "prefix"> {
+  prefix?: React.ReactNode;
+}
 
-function Input({ className, type, ...props }: React.ComponentProps<"input">) {
+function Input({ className, type, prefix, ...props }: InputProps) {
+  if (prefix) {
+    return (
+      <div className="relative flex items-center">
+        <div className="absolute left-3 flex items-center pointer-events-none text-muted-foreground">
+          {prefix}
+        </div>
+        <input
+          type={type}
+          data-slot="input"
+          className={cn(
+            "flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors",
+            "file:border-0 file:bg-transparent file:text-sm file:font-medium",
+            "placeholder:text-muted-foreground",
+            "focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring",
+            "disabled:cursor-not-allowed disabled:opacity-50",
+            "pl-10",
+            className
+          )}
+          {...props}
+        />
+      </div>
+    );
+  }
+
   return (
     <input
       type={type}
@@ -15,7 +42,7 @@ function Input({ className, type, ...props }: React.ComponentProps<"input">) {
       )}
       {...props}
     />
-  )
+  );
 }
 
-export { Input }
+export { Input };

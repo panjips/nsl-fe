@@ -22,6 +22,31 @@ export function NavMain({ items }: { items: NavMainProps[] }) {
   const location = useLocation();
   const currentPath = location.pathname;
 
+  const isMenuActive = (url: string | undefined) => {
+    if (!url) return false;
+
+    if (url === "/dashboard" && currentPath !== "/dashboard") {
+      return false;
+    }
+
+    const urlSegments = url.split("/").filter(Boolean);
+    const pathSegments = currentPath.split("/").filter(Boolean);
+
+    if (urlSegments.length > pathSegments.length) return false;
+
+    for (let i = 0; i < urlSegments.length; i++) {
+      if (urlSegments[i] !== pathSegments[i]) {
+        return false;
+      }
+    }
+
+    return true;
+  };
+
+  const isSubMenuActive = (url: string | undefined) => {
+    return url === currentPath;
+  };
+
   return (
     <>
       {items.map((group) => (
@@ -33,7 +58,7 @@ export function NavMain({ items }: { items: NavMainProps[] }) {
                 <Collapsible
                   key={item.title}
                   asChild
-                  defaultOpen={item.isActive}
+                  defaultOpen={item.isActive || isMenuActive(item.url)}
                   className="group/collapsible"
                 >
                   <SidebarMenuItem>
@@ -41,7 +66,7 @@ export function NavMain({ items }: { items: NavMainProps[] }) {
                       <SidebarMenuButton
                         tooltip={item.title}
                         className={
-                          currentPath.startsWith(item.url)
+                          isMenuActive(item.url)
                             ? "bg-primary text-primary-foreground pointer-events-none"
                             : "hover:bg-muted"
                         }
@@ -58,7 +83,7 @@ export function NavMain({ items }: { items: NavMainProps[] }) {
                             <SidebarMenuSubButton
                               asChild
                               className={
-                                currentPath === subItem.url
+                                isSubMenuActive(subItem.url)
                                   ? "bg-primary text-primary-foreground pointer-events-none"
                                   : "hover:bg-muted"
                               }
@@ -79,7 +104,7 @@ export function NavMain({ items }: { items: NavMainProps[] }) {
                     tooltip={item.title}
                     asChild
                     className={
-                      currentPath === item.url
+                      isMenuActive(item.url)
                         ? "bg-primary text-primary-foreground pointer-events-none"
                         : "hover:bg-muted"
                     }

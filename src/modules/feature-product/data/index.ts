@@ -1,1 +1,2 @@
-export * from "./example-data";
+export * from "./product-api";
+export * from "./product-dto";
