@@ -1,5 +1,5 @@
 import type { NavMainProps } from "@/components/sidebar/types";
-import { Box, LayoutDashboard, Tags, User } from "lucide-react";
+import { Box, LayoutDashboard, Tags, User, Package } from "lucide-react";
 
 export const menuItems: NavMainProps[] = [
   {
@@ -39,6 +39,11 @@ export const menuItems: NavMainProps[] = [
             url: "/dashboard/user/customer",
           },
         ],
+      },
+      {
+        title: "Inventory",
+        url: "/dashboard/inventory",
+        icon: Package,
       },
     ],
   },
