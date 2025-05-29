@@ -17,6 +17,7 @@ import {
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
 import type { NavMainProps } from "./types";
+import { cn } from "@/lib/utils";
 
 export function NavMain({ items }: { items: NavMainProps[] }) {
   const location = useLocation();
@@ -77,16 +78,23 @@ export function NavMain({ items }: { items: NavMainProps[] }) {
                       </SidebarMenuButton>
                     </CollapsibleTrigger>
                     <CollapsibleContent>
-                      <SidebarMenuSub>
+                      <SidebarMenuSub data-active={isMenuActive(item.url)}>
                         {item.items?.map((subItem) => (
-                          <SidebarMenuSubItem key={subItem.title}>
+                          <SidebarMenuSubItem
+                            key={subItem.title}
+                            className={cn(
+                              "px-2.5",
+                              isSubMenuActive(subItem.url) &&
+                                "border-l-2 border-l-primary "
+                            )}
+                          >
                             <SidebarMenuSubButton
                               asChild
-                              className={
-                                isSubMenuActive(subItem.url)
-                                  ? "bg-primary text-primary-foreground pointer-events-none"
-                                  : "hover:bg-muted"
-                              }
+                              className={cn(
+                                "hover:bg-muted transition-colors",
+                                isSubMenuActive(subItem.url) &&
+                                  "text-primary font-semibold"
+                              )}
                             >
                               <a href={subItem.url}>
                                 <span>{subItem.title}</span>

@@ -10,4 +10,5 @@ export enum ENDPOINTS {
   LOGOUT = "/auth/logout",
   CATEGORY = "/category",
   PRODUCT = "/product",
+  USER = "/user",
 }

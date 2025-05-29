@@ -31,8 +31,8 @@ export const menuItems: NavMainProps[] = [
         icon: User,
         items: [
           {
-            title: "Management User",
-            url: "/dashboard/user",
+            title: "Management Employee",
+            url: "/dashboard/user/employee",
           },
           {
             title: "Management Customer",

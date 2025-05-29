@@ -1,3 +1,4 @@
+import { useLocation } from "@tanstack/react-router";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 
@@ -33,4 +34,13 @@ export async function convertUrlToFile(url: string): Promise<File | undefined> {
     console.error("Error converting URL to File:", error);
     return undefined;
   }
+}
+
+export function useLastCurrentLocation() {
+  const location = useLocation();
+
+  const pathname = location.pathname.split("/");
+  const currentLocation = pathname[pathname.length - 1];
+
+  return currentLocation;
 }
