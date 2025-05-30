@@ -16,6 +16,7 @@ import { Route as rootRoute } from './routes/__root'
 import { Route as IndexImport } from './routes/index'
 import { Route as DashboardSidebarLayoutImport } from './routes/dashboard/_sidebarLayout'
 import { Route as DashboardSidebarLayoutIndexImport } from './routes/dashboard/_sidebarLayout/index'
+import { Route as DashboardSidebarLayoutPurchaseImport } from './routes/dashboard/_sidebarLayout/purchase'
 import { Route as DashboardSidebarLayoutInventoryImport } from './routes/dashboard/_sidebarLayout/inventory'
 import { Route as DashboardSidebarLayoutCategoryImport } from './routes/dashboard/_sidebarLayout/category'
 import { Route as DashboardSidebarLayoutProductIndexImport } from './routes/dashboard/_sidebarLayout/product/index'
@@ -95,6 +96,13 @@ const DashboardSidebarLayoutIndexRoute =
   DashboardSidebarLayoutIndexImport.update({
     id: '/',
     path: '/',
+    getParentRoute: () => DashboardSidebarLayoutRoute,
+  } as any)
+
+const DashboardSidebarLayoutPurchaseRoute =
+  DashboardSidebarLayoutPurchaseImport.update({
+    id: '/purchase',
+    path: '/purchase',
     getParentRoute: () => DashboardSidebarLayoutRoute,
   } as any)
 
@@ -228,6 +236,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardSidebarLayoutInventoryImport
       parentRoute: typeof DashboardSidebarLayoutImport
     }
+    '/dashboard/_sidebarLayout/purchase': {
+      id: '/dashboard/_sidebarLayout/purchase'
+      path: '/purchase'
+      fullPath: '/dashboard/purchase'
+      preLoaderRoute: typeof DashboardSidebarLayoutPurchaseImport
+      parentRoute: typeof DashboardSidebarLayoutImport
+    }
     '/dashboard/_sidebarLayout/': {
       id: '/dashboard/_sidebarLayout/'
       path: '/'
@@ -292,6 +307,7 @@ declare module '@tanstack/react-router' {
 interface DashboardSidebarLayoutRouteChildren {
   DashboardSidebarLayoutCategoryRoute: typeof DashboardSidebarLayoutCategoryRoute
   DashboardSidebarLayoutInventoryRoute: typeof DashboardSidebarLayoutInventoryRoute
+  DashboardSidebarLayoutPurchaseRoute: typeof DashboardSidebarLayoutPurchaseRoute
   DashboardSidebarLayoutIndexRoute: typeof DashboardSidebarLayoutIndexRoute
   DashboardSidebarLayoutProductCreateRoute: typeof DashboardSidebarLayoutProductCreateRoute
   DashboardSidebarLayoutUserCreateRoute: typeof DashboardSidebarLayoutUserCreateRoute
@@ -306,6 +322,7 @@ const DashboardSidebarLayoutRouteChildren: DashboardSidebarLayoutRouteChildren =
   {
     DashboardSidebarLayoutCategoryRoute: DashboardSidebarLayoutCategoryRoute,
     DashboardSidebarLayoutInventoryRoute: DashboardSidebarLayoutInventoryRoute,
+    DashboardSidebarLayoutPurchaseRoute: DashboardSidebarLayoutPurchaseRoute,
     DashboardSidebarLayoutIndexRoute: DashboardSidebarLayoutIndexRoute,
     DashboardSidebarLayoutProductCreateRoute:
       DashboardSidebarLayoutProductCreateRoute,
@@ -349,6 +366,7 @@ export interface FileRoutesByFullPath {
   '/reset-password': typeof authResetPasswordLazyRoute
   '/dashboard/category': typeof DashboardSidebarLayoutCategoryRoute
   '/dashboard/inventory': typeof DashboardSidebarLayoutInventoryRoute
+  '/dashboard/purchase': typeof DashboardSidebarLayoutPurchaseRoute
   '/dashboard/': typeof DashboardSidebarLayoutIndexRoute
   '/dashboard/product/create': typeof DashboardSidebarLayoutProductCreateRoute
   '/dashboard/user/create': typeof DashboardSidebarLayoutUserCreateRoute
@@ -368,6 +386,7 @@ export interface FileRoutesByTo {
   '/reset-password': typeof authResetPasswordLazyRoute
   '/dashboard/category': typeof DashboardSidebarLayoutCategoryRoute
   '/dashboard/inventory': typeof DashboardSidebarLayoutInventoryRoute
+  '/dashboard/purchase': typeof DashboardSidebarLayoutPurchaseRoute
   '/dashboard/product/create': typeof DashboardSidebarLayoutProductCreateRoute
   '/dashboard/user/create': typeof DashboardSidebarLayoutUserCreateRoute
   '/dashboard/user/customer': typeof DashboardSidebarLayoutUserCustomerRoute
@@ -388,6 +407,7 @@ export interface FileRoutesById {
   '/(auth)/reset-password': typeof authResetPasswordLazyRoute
   '/dashboard/_sidebarLayout/category': typeof DashboardSidebarLayoutCategoryRoute
   '/dashboard/_sidebarLayout/inventory': typeof DashboardSidebarLayoutInventoryRoute
+  '/dashboard/_sidebarLayout/purchase': typeof DashboardSidebarLayoutPurchaseRoute
   '/dashboard/_sidebarLayout/': typeof DashboardSidebarLayoutIndexRoute
   '/dashboard/_sidebarLayout/product/create': typeof DashboardSidebarLayoutProductCreateRoute
   '/dashboard/_sidebarLayout/user/create': typeof DashboardSidebarLayoutUserCreateRoute
@@ -409,6 +429,7 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/dashboard/category'
     | '/dashboard/inventory'
+    | '/dashboard/purchase'
     | '/dashboard/'
     | '/dashboard/product/create'
     | '/dashboard/user/create'
@@ -427,6 +448,7 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/dashboard/category'
     | '/dashboard/inventory'
+    | '/dashboard/purchase'
     | '/dashboard/product/create'
     | '/dashboard/user/create'
     | '/dashboard/user/customer'
@@ -445,6 +467,7 @@ export interface FileRouteTypes {
     | '/(auth)/reset-password'
     | '/dashboard/_sidebarLayout/category'
     | '/dashboard/_sidebarLayout/inventory'
+    | '/dashboard/_sidebarLayout/purchase'
     | '/dashboard/_sidebarLayout/'
     | '/dashboard/_sidebarLayout/product/create'
     | '/dashboard/_sidebarLayout/user/create'
@@ -507,6 +530,7 @@ export const routeTree = rootRoute
       "children": [
         "/dashboard/_sidebarLayout/category",
         "/dashboard/_sidebarLayout/inventory",
+        "/dashboard/_sidebarLayout/purchase",
         "/dashboard/_sidebarLayout/",
         "/dashboard/_sidebarLayout/product/create",
         "/dashboard/_sidebarLayout/user/create",
@@ -535,6 +559,10 @@ export const routeTree = rootRoute
     },
     "/dashboard/_sidebarLayout/inventory": {
       "filePath": "dashboard/_sidebarLayout/inventory.tsx",
+      "parent": "/dashboard/_sidebarLayout"
+    },
+    "/dashboard/_sidebarLayout/purchase": {
+      "filePath": "dashboard/_sidebarLayout/purchase.tsx",
       "parent": "/dashboard/_sidebarLayout"
     },
     "/dashboard/_sidebarLayout/": {
