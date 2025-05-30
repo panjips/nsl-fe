@@ -19,6 +19,7 @@ import { Route as DashboardSidebarLayoutIndexImport } from './routes/dashboard/_
 import { Route as DashboardSidebarLayoutPurchaseImport } from './routes/dashboard/_sidebarLayout/purchase'
 import { Route as DashboardSidebarLayoutInventoryImport } from './routes/dashboard/_sidebarLayout/inventory'
 import { Route as DashboardSidebarLayoutCategoryImport } from './routes/dashboard/_sidebarLayout/category'
+import { Route as DashboardSidebarLayoutAddonImport } from './routes/dashboard/_sidebarLayout/addon'
 import { Route as DashboardSidebarLayoutProductIndexImport } from './routes/dashboard/_sidebarLayout/product/index'
 import { Route as DashboardSidebarLayoutUserEmployeeImport } from './routes/dashboard/_sidebarLayout/user/employee'
 import { Route as DashboardSidebarLayoutUserCustomerImport } from './routes/dashboard/_sidebarLayout/user/customer'
@@ -117,6 +118,13 @@ const DashboardSidebarLayoutCategoryRoute =
   DashboardSidebarLayoutCategoryImport.update({
     id: '/category',
     path: '/category',
+    getParentRoute: () => DashboardSidebarLayoutRoute,
+  } as any)
+
+const DashboardSidebarLayoutAddonRoute =
+  DashboardSidebarLayoutAddonImport.update({
+    id: '/addon',
+    path: '/addon',
     getParentRoute: () => DashboardSidebarLayoutRoute,
   } as any)
 
@@ -222,6 +230,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof authResetPasswordLazyImport
       parentRoute: typeof rootRoute
     }
+    '/dashboard/_sidebarLayout/addon': {
+      id: '/dashboard/_sidebarLayout/addon'
+      path: '/addon'
+      fullPath: '/dashboard/addon'
+      preLoaderRoute: typeof DashboardSidebarLayoutAddonImport
+      parentRoute: typeof DashboardSidebarLayoutImport
+    }
     '/dashboard/_sidebarLayout/category': {
       id: '/dashboard/_sidebarLayout/category'
       path: '/category'
@@ -305,6 +320,7 @@ declare module '@tanstack/react-router' {
 // Create and export the route tree
 
 interface DashboardSidebarLayoutRouteChildren {
+  DashboardSidebarLayoutAddonRoute: typeof DashboardSidebarLayoutAddonRoute
   DashboardSidebarLayoutCategoryRoute: typeof DashboardSidebarLayoutCategoryRoute
   DashboardSidebarLayoutInventoryRoute: typeof DashboardSidebarLayoutInventoryRoute
   DashboardSidebarLayoutPurchaseRoute: typeof DashboardSidebarLayoutPurchaseRoute
@@ -320,6 +336,7 @@ interface DashboardSidebarLayoutRouteChildren {
 
 const DashboardSidebarLayoutRouteChildren: DashboardSidebarLayoutRouteChildren =
   {
+    DashboardSidebarLayoutAddonRoute: DashboardSidebarLayoutAddonRoute,
     DashboardSidebarLayoutCategoryRoute: DashboardSidebarLayoutCategoryRoute,
     DashboardSidebarLayoutInventoryRoute: DashboardSidebarLayoutInventoryRoute,
     DashboardSidebarLayoutPurchaseRoute: DashboardSidebarLayoutPurchaseRoute,
@@ -364,6 +381,7 @@ export interface FileRoutesByFullPath {
   '/login': typeof authLoginLazyRoute
   '/register': typeof authRegisterLazyRoute
   '/reset-password': typeof authResetPasswordLazyRoute
+  '/dashboard/addon': typeof DashboardSidebarLayoutAddonRoute
   '/dashboard/category': typeof DashboardSidebarLayoutCategoryRoute
   '/dashboard/inventory': typeof DashboardSidebarLayoutInventoryRoute
   '/dashboard/purchase': typeof DashboardSidebarLayoutPurchaseRoute
@@ -384,6 +402,7 @@ export interface FileRoutesByTo {
   '/login': typeof authLoginLazyRoute
   '/register': typeof authRegisterLazyRoute
   '/reset-password': typeof authResetPasswordLazyRoute
+  '/dashboard/addon': typeof DashboardSidebarLayoutAddonRoute
   '/dashboard/category': typeof DashboardSidebarLayoutCategoryRoute
   '/dashboard/inventory': typeof DashboardSidebarLayoutInventoryRoute
   '/dashboard/purchase': typeof DashboardSidebarLayoutPurchaseRoute
@@ -405,6 +424,7 @@ export interface FileRoutesById {
   '/(auth)/login': typeof authLoginLazyRoute
   '/(auth)/register': typeof authRegisterLazyRoute
   '/(auth)/reset-password': typeof authResetPasswordLazyRoute
+  '/dashboard/_sidebarLayout/addon': typeof DashboardSidebarLayoutAddonRoute
   '/dashboard/_sidebarLayout/category': typeof DashboardSidebarLayoutCategoryRoute
   '/dashboard/_sidebarLayout/inventory': typeof DashboardSidebarLayoutInventoryRoute
   '/dashboard/_sidebarLayout/purchase': typeof DashboardSidebarLayoutPurchaseRoute
@@ -427,6 +447,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/register'
     | '/reset-password'
+    | '/dashboard/addon'
     | '/dashboard/category'
     | '/dashboard/inventory'
     | '/dashboard/purchase'
@@ -446,6 +467,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/register'
     | '/reset-password'
+    | '/dashboard/addon'
     | '/dashboard/category'
     | '/dashboard/inventory'
     | '/dashboard/purchase'
@@ -465,6 +487,7 @@ export interface FileRouteTypes {
     | '/(auth)/login'
     | '/(auth)/register'
     | '/(auth)/reset-password'
+    | '/dashboard/_sidebarLayout/addon'
     | '/dashboard/_sidebarLayout/category'
     | '/dashboard/_sidebarLayout/inventory'
     | '/dashboard/_sidebarLayout/purchase'
@@ -528,6 +551,7 @@ export const routeTree = rootRoute
       "filePath": "dashboard/_sidebarLayout.tsx",
       "parent": "/dashboard",
       "children": [
+        "/dashboard/_sidebarLayout/addon",
         "/dashboard/_sidebarLayout/category",
         "/dashboard/_sidebarLayout/inventory",
         "/dashboard/_sidebarLayout/purchase",
@@ -552,6 +576,10 @@ export const routeTree = rootRoute
     },
     "/(auth)/reset-password": {
       "filePath": "(auth)/reset-password.lazy.tsx"
+    },
+    "/dashboard/_sidebarLayout/addon": {
+      "filePath": "dashboard/_sidebarLayout/addon.tsx",
+      "parent": "/dashboard/_sidebarLayout"
     },
     "/dashboard/_sidebarLayout/category": {
       "filePath": "dashboard/_sidebarLayout/category.tsx",
