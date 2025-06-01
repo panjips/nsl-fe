@@ -24,6 +24,8 @@ import { Route as DashboardSidebarLayoutProductIndexImport } from './routes/dash
 import { Route as DashboardSidebarLayoutUserEmployeeImport } from './routes/dashboard/_sidebarLayout/user/employee'
 import { Route as DashboardSidebarLayoutUserCustomerImport } from './routes/dashboard/_sidebarLayout/user/customer'
 import { Route as DashboardSidebarLayoutUserCreateImport } from './routes/dashboard/_sidebarLayout/user/create'
+import { Route as DashboardSidebarLayoutRecipeProductImport } from './routes/dashboard/_sidebarLayout/recipe/product'
+import { Route as DashboardSidebarLayoutRecipeAddonImport } from './routes/dashboard/_sidebarLayout/recipe/addon'
 import { Route as DashboardSidebarLayoutProductCreateImport } from './routes/dashboard/_sidebarLayout/product/create'
 import { Route as DashboardSidebarLayoutUserUpdateUserIdImport } from './routes/dashboard/_sidebarLayout/user/update.$userId'
 import { Route as DashboardSidebarLayoutProductUpdateProductIdImport } from './routes/dashboard/_sidebarLayout/product/update.$productId'
@@ -156,6 +158,20 @@ const DashboardSidebarLayoutUserCreateRoute =
     getParentRoute: () => DashboardSidebarLayoutRoute,
   } as any)
 
+const DashboardSidebarLayoutRecipeProductRoute =
+  DashboardSidebarLayoutRecipeProductImport.update({
+    id: '/recipe/product',
+    path: '/recipe/product',
+    getParentRoute: () => DashboardSidebarLayoutRoute,
+  } as any)
+
+const DashboardSidebarLayoutRecipeAddonRoute =
+  DashboardSidebarLayoutRecipeAddonImport.update({
+    id: '/recipe/addon',
+    path: '/recipe/addon',
+    getParentRoute: () => DashboardSidebarLayoutRoute,
+  } as any)
+
 const DashboardSidebarLayoutProductCreateRoute =
   DashboardSidebarLayoutProductCreateImport.update({
     id: '/product/create',
@@ -272,6 +288,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardSidebarLayoutProductCreateImport
       parentRoute: typeof DashboardSidebarLayoutImport
     }
+    '/dashboard/_sidebarLayout/recipe/addon': {
+      id: '/dashboard/_sidebarLayout/recipe/addon'
+      path: '/recipe/addon'
+      fullPath: '/dashboard/recipe/addon'
+      preLoaderRoute: typeof DashboardSidebarLayoutRecipeAddonImport
+      parentRoute: typeof DashboardSidebarLayoutImport
+    }
+    '/dashboard/_sidebarLayout/recipe/product': {
+      id: '/dashboard/_sidebarLayout/recipe/product'
+      path: '/recipe/product'
+      fullPath: '/dashboard/recipe/product'
+      preLoaderRoute: typeof DashboardSidebarLayoutRecipeProductImport
+      parentRoute: typeof DashboardSidebarLayoutImport
+    }
     '/dashboard/_sidebarLayout/user/create': {
       id: '/dashboard/_sidebarLayout/user/create'
       path: '/user/create'
@@ -326,6 +356,8 @@ interface DashboardSidebarLayoutRouteChildren {
   DashboardSidebarLayoutPurchaseRoute: typeof DashboardSidebarLayoutPurchaseRoute
   DashboardSidebarLayoutIndexRoute: typeof DashboardSidebarLayoutIndexRoute
   DashboardSidebarLayoutProductCreateRoute: typeof DashboardSidebarLayoutProductCreateRoute
+  DashboardSidebarLayoutRecipeAddonRoute: typeof DashboardSidebarLayoutRecipeAddonRoute
+  DashboardSidebarLayoutRecipeProductRoute: typeof DashboardSidebarLayoutRecipeProductRoute
   DashboardSidebarLayoutUserCreateRoute: typeof DashboardSidebarLayoutUserCreateRoute
   DashboardSidebarLayoutUserCustomerRoute: typeof DashboardSidebarLayoutUserCustomerRoute
   DashboardSidebarLayoutUserEmployeeRoute: typeof DashboardSidebarLayoutUserEmployeeRoute
@@ -343,6 +375,10 @@ const DashboardSidebarLayoutRouteChildren: DashboardSidebarLayoutRouteChildren =
     DashboardSidebarLayoutIndexRoute: DashboardSidebarLayoutIndexRoute,
     DashboardSidebarLayoutProductCreateRoute:
       DashboardSidebarLayoutProductCreateRoute,
+    DashboardSidebarLayoutRecipeAddonRoute:
+      DashboardSidebarLayoutRecipeAddonRoute,
+    DashboardSidebarLayoutRecipeProductRoute:
+      DashboardSidebarLayoutRecipeProductRoute,
     DashboardSidebarLayoutUserCreateRoute:
       DashboardSidebarLayoutUserCreateRoute,
     DashboardSidebarLayoutUserCustomerRoute:
@@ -387,6 +423,8 @@ export interface FileRoutesByFullPath {
   '/dashboard/purchase': typeof DashboardSidebarLayoutPurchaseRoute
   '/dashboard/': typeof DashboardSidebarLayoutIndexRoute
   '/dashboard/product/create': typeof DashboardSidebarLayoutProductCreateRoute
+  '/dashboard/recipe/addon': typeof DashboardSidebarLayoutRecipeAddonRoute
+  '/dashboard/recipe/product': typeof DashboardSidebarLayoutRecipeProductRoute
   '/dashboard/user/create': typeof DashboardSidebarLayoutUserCreateRoute
   '/dashboard/user/customer': typeof DashboardSidebarLayoutUserCustomerRoute
   '/dashboard/user/employee': typeof DashboardSidebarLayoutUserEmployeeRoute
@@ -407,6 +445,8 @@ export interface FileRoutesByTo {
   '/dashboard/inventory': typeof DashboardSidebarLayoutInventoryRoute
   '/dashboard/purchase': typeof DashboardSidebarLayoutPurchaseRoute
   '/dashboard/product/create': typeof DashboardSidebarLayoutProductCreateRoute
+  '/dashboard/recipe/addon': typeof DashboardSidebarLayoutRecipeAddonRoute
+  '/dashboard/recipe/product': typeof DashboardSidebarLayoutRecipeProductRoute
   '/dashboard/user/create': typeof DashboardSidebarLayoutUserCreateRoute
   '/dashboard/user/customer': typeof DashboardSidebarLayoutUserCustomerRoute
   '/dashboard/user/employee': typeof DashboardSidebarLayoutUserEmployeeRoute
@@ -430,6 +470,8 @@ export interface FileRoutesById {
   '/dashboard/_sidebarLayout/purchase': typeof DashboardSidebarLayoutPurchaseRoute
   '/dashboard/_sidebarLayout/': typeof DashboardSidebarLayoutIndexRoute
   '/dashboard/_sidebarLayout/product/create': typeof DashboardSidebarLayoutProductCreateRoute
+  '/dashboard/_sidebarLayout/recipe/addon': typeof DashboardSidebarLayoutRecipeAddonRoute
+  '/dashboard/_sidebarLayout/recipe/product': typeof DashboardSidebarLayoutRecipeProductRoute
   '/dashboard/_sidebarLayout/user/create': typeof DashboardSidebarLayoutUserCreateRoute
   '/dashboard/_sidebarLayout/user/customer': typeof DashboardSidebarLayoutUserCustomerRoute
   '/dashboard/_sidebarLayout/user/employee': typeof DashboardSidebarLayoutUserEmployeeRoute
@@ -453,6 +495,8 @@ export interface FileRouteTypes {
     | '/dashboard/purchase'
     | '/dashboard/'
     | '/dashboard/product/create'
+    | '/dashboard/recipe/addon'
+    | '/dashboard/recipe/product'
     | '/dashboard/user/create'
     | '/dashboard/user/customer'
     | '/dashboard/user/employee'
@@ -472,6 +516,8 @@ export interface FileRouteTypes {
     | '/dashboard/inventory'
     | '/dashboard/purchase'
     | '/dashboard/product/create'
+    | '/dashboard/recipe/addon'
+    | '/dashboard/recipe/product'
     | '/dashboard/user/create'
     | '/dashboard/user/customer'
     | '/dashboard/user/employee'
@@ -493,6 +539,8 @@ export interface FileRouteTypes {
     | '/dashboard/_sidebarLayout/purchase'
     | '/dashboard/_sidebarLayout/'
     | '/dashboard/_sidebarLayout/product/create'
+    | '/dashboard/_sidebarLayout/recipe/addon'
+    | '/dashboard/_sidebarLayout/recipe/product'
     | '/dashboard/_sidebarLayout/user/create'
     | '/dashboard/_sidebarLayout/user/customer'
     | '/dashboard/_sidebarLayout/user/employee'
@@ -557,6 +605,8 @@ export const routeTree = rootRoute
         "/dashboard/_sidebarLayout/purchase",
         "/dashboard/_sidebarLayout/",
         "/dashboard/_sidebarLayout/product/create",
+        "/dashboard/_sidebarLayout/recipe/addon",
+        "/dashboard/_sidebarLayout/recipe/product",
         "/dashboard/_sidebarLayout/user/create",
         "/dashboard/_sidebarLayout/user/customer",
         "/dashboard/_sidebarLayout/user/employee",
@@ -599,6 +649,14 @@ export const routeTree = rootRoute
     },
     "/dashboard/_sidebarLayout/product/create": {
       "filePath": "dashboard/_sidebarLayout/product/create.tsx",
+      "parent": "/dashboard/_sidebarLayout"
+    },
+    "/dashboard/_sidebarLayout/recipe/addon": {
+      "filePath": "dashboard/_sidebarLayout/recipe/addon.tsx",
+      "parent": "/dashboard/_sidebarLayout"
+    },
+    "/dashboard/_sidebarLayout/recipe/product": {
+      "filePath": "dashboard/_sidebarLayout/recipe/product.tsx",
       "parent": "/dashboard/_sidebarLayout"
     },
     "/dashboard/_sidebarLayout/user/create": {

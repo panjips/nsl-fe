@@ -63,6 +63,21 @@ export const menuItems: NavMainProps[] = [
         url: "/dashboard/addon",
         icon: NotepadText,
       },
+      {
+        title: "Recipe",
+        url: "/dashboard/recipe",
+        icon: User,
+        items: [
+          {
+            title: "Product",
+            url: "/dashboard/recipe/product",
+          },
+          {
+            title: "Addon",
+            url: "/dashboard/recipe/addon",
+          },
+        ],
+      },
     ],
   },
 ];

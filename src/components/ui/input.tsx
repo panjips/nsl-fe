@@ -1,17 +1,21 @@
 import type * as React from "react";
 import { cn } from "@/lib/utils";
 
-interface InputProps extends Omit<React.ComponentProps<"input">, "prefix"> {
+interface InputProps
+  extends Omit<React.ComponentProps<"input">, "prefix" | "suffix"> {
   prefix?: React.ReactNode;
+  suffix?: React.ReactNode;
 }
 
-function Input({ className, type, prefix, ...props }: InputProps) {
-  if (prefix) {
+function Input({ className, type, prefix, suffix, ...props }: InputProps) {
+  if (prefix || suffix) {
     return (
       <div className="relative flex items-center">
-        <div className="absolute left-3 flex items-center pointer-events-none text-muted-foreground">
-          {prefix}
-        </div>
+        {prefix && (
+          <div className="absolute left-3 flex items-center pointer-events-none text-muted-foreground">
+            {prefix}
+          </div>
+        )}
         <input
           type={type}
           data-slot="input"
@@ -21,11 +25,17 @@ function Input({ className, type, prefix, ...props }: InputProps) {
             "placeholder:text-muted-foreground",
             "focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring",
             "disabled:cursor-not-allowed disabled:opacity-50",
-            "pl-10",
+            prefix && "pl-10",
+            suffix && "pr-10",
             className
           )}
           {...props}
         />
+        {suffix && (
+          <div className="absolute right-3 flex items-center pointer-events-none text-muted-foreground">
+            {suffix}
+          </div>
+        )}
       </div>
     );
   }

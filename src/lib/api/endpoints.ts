@@ -14,4 +14,6 @@ export enum ENDPOINTS {
   INVENTORY = "/inventory",
   PURCHASE = "/purchase",
   ADDON = "/addon",
+  PRODUCT_RECIPE = "/recipe/product",
+  ADDON_RECIPE = "/recipe/addon",
 }
