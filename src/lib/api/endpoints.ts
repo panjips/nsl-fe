@@ -16,4 +16,5 @@ export enum ENDPOINTS {
   ADDON = "/addon",
   PRODUCT_RECIPE = "/recipe/product",
   ADDON_RECIPE = "/recipe/addon",
+  CATERING_PACKAGE = "/catering-package",
 }

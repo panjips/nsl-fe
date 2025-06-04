@@ -7,6 +7,8 @@ import {
   Package,
   BadgeDollarSign,
   NotepadText,
+  ReceiptText,
+  ShoppingBasket,
 } from "lucide-react";
 
 export const menuItems: NavMainProps[] = [
@@ -39,11 +41,11 @@ export const menuItems: NavMainProps[] = [
         icon: User,
         items: [
           {
-            title: "Management Employee",
+            title: "Employee",
             url: "/dashboard/user/employee",
           },
           {
-            title: "Management Customer",
+            title: "Customer",
             url: "/dashboard/user/customer",
           },
         ],
@@ -66,7 +68,7 @@ export const menuItems: NavMainProps[] = [
       {
         title: "Recipe",
         url: "/dashboard/recipe",
-        icon: User,
+        icon: ReceiptText,
         items: [
           {
             title: "Product",
@@ -77,6 +79,11 @@ export const menuItems: NavMainProps[] = [
             url: "/dashboard/recipe/addon",
           },
         ],
+      },
+      {
+        title: "Catering Package",
+        url: "/dashboard/catering-package",
+        icon: ShoppingBasket,
       },
     ],
   },

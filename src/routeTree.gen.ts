@@ -18,6 +18,7 @@ import { Route as DashboardSidebarLayoutImport } from './routes/dashboard/_sideb
 import { Route as DashboardSidebarLayoutIndexImport } from './routes/dashboard/_sidebarLayout/index'
 import { Route as DashboardSidebarLayoutPurchaseImport } from './routes/dashboard/_sidebarLayout/purchase'
 import { Route as DashboardSidebarLayoutInventoryImport } from './routes/dashboard/_sidebarLayout/inventory'
+import { Route as DashboardSidebarLayoutCateringPackageImport } from './routes/dashboard/_sidebarLayout/catering-package'
 import { Route as DashboardSidebarLayoutCategoryImport } from './routes/dashboard/_sidebarLayout/category'
 import { Route as DashboardSidebarLayoutAddonImport } from './routes/dashboard/_sidebarLayout/addon'
 import { Route as DashboardSidebarLayoutProductIndexImport } from './routes/dashboard/_sidebarLayout/product/index'
@@ -113,6 +114,13 @@ const DashboardSidebarLayoutInventoryRoute =
   DashboardSidebarLayoutInventoryImport.update({
     id: '/inventory',
     path: '/inventory',
+    getParentRoute: () => DashboardSidebarLayoutRoute,
+  } as any)
+
+const DashboardSidebarLayoutCateringPackageRoute =
+  DashboardSidebarLayoutCateringPackageImport.update({
+    id: '/catering-package',
+    path: '/catering-package',
     getParentRoute: () => DashboardSidebarLayoutRoute,
   } as any)
 
@@ -260,6 +268,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardSidebarLayoutCategoryImport
       parentRoute: typeof DashboardSidebarLayoutImport
     }
+    '/dashboard/_sidebarLayout/catering-package': {
+      id: '/dashboard/_sidebarLayout/catering-package'
+      path: '/catering-package'
+      fullPath: '/dashboard/catering-package'
+      preLoaderRoute: typeof DashboardSidebarLayoutCateringPackageImport
+      parentRoute: typeof DashboardSidebarLayoutImport
+    }
     '/dashboard/_sidebarLayout/inventory': {
       id: '/dashboard/_sidebarLayout/inventory'
       path: '/inventory'
@@ -352,6 +367,7 @@ declare module '@tanstack/react-router' {
 interface DashboardSidebarLayoutRouteChildren {
   DashboardSidebarLayoutAddonRoute: typeof DashboardSidebarLayoutAddonRoute
   DashboardSidebarLayoutCategoryRoute: typeof DashboardSidebarLayoutCategoryRoute
+  DashboardSidebarLayoutCateringPackageRoute: typeof DashboardSidebarLayoutCateringPackageRoute
   DashboardSidebarLayoutInventoryRoute: typeof DashboardSidebarLayoutInventoryRoute
   DashboardSidebarLayoutPurchaseRoute: typeof DashboardSidebarLayoutPurchaseRoute
   DashboardSidebarLayoutIndexRoute: typeof DashboardSidebarLayoutIndexRoute
@@ -370,6 +386,8 @@ const DashboardSidebarLayoutRouteChildren: DashboardSidebarLayoutRouteChildren =
   {
     DashboardSidebarLayoutAddonRoute: DashboardSidebarLayoutAddonRoute,
     DashboardSidebarLayoutCategoryRoute: DashboardSidebarLayoutCategoryRoute,
+    DashboardSidebarLayoutCateringPackageRoute:
+      DashboardSidebarLayoutCateringPackageRoute,
     DashboardSidebarLayoutInventoryRoute: DashboardSidebarLayoutInventoryRoute,
     DashboardSidebarLayoutPurchaseRoute: DashboardSidebarLayoutPurchaseRoute,
     DashboardSidebarLayoutIndexRoute: DashboardSidebarLayoutIndexRoute,
@@ -419,6 +437,7 @@ export interface FileRoutesByFullPath {
   '/reset-password': typeof authResetPasswordLazyRoute
   '/dashboard/addon': typeof DashboardSidebarLayoutAddonRoute
   '/dashboard/category': typeof DashboardSidebarLayoutCategoryRoute
+  '/dashboard/catering-package': typeof DashboardSidebarLayoutCateringPackageRoute
   '/dashboard/inventory': typeof DashboardSidebarLayoutInventoryRoute
   '/dashboard/purchase': typeof DashboardSidebarLayoutPurchaseRoute
   '/dashboard/': typeof DashboardSidebarLayoutIndexRoute
@@ -442,6 +461,7 @@ export interface FileRoutesByTo {
   '/reset-password': typeof authResetPasswordLazyRoute
   '/dashboard/addon': typeof DashboardSidebarLayoutAddonRoute
   '/dashboard/category': typeof DashboardSidebarLayoutCategoryRoute
+  '/dashboard/catering-package': typeof DashboardSidebarLayoutCateringPackageRoute
   '/dashboard/inventory': typeof DashboardSidebarLayoutInventoryRoute
   '/dashboard/purchase': typeof DashboardSidebarLayoutPurchaseRoute
   '/dashboard/product/create': typeof DashboardSidebarLayoutProductCreateRoute
@@ -466,6 +486,7 @@ export interface FileRoutesById {
   '/(auth)/reset-password': typeof authResetPasswordLazyRoute
   '/dashboard/_sidebarLayout/addon': typeof DashboardSidebarLayoutAddonRoute
   '/dashboard/_sidebarLayout/category': typeof DashboardSidebarLayoutCategoryRoute
+  '/dashboard/_sidebarLayout/catering-package': typeof DashboardSidebarLayoutCateringPackageRoute
   '/dashboard/_sidebarLayout/inventory': typeof DashboardSidebarLayoutInventoryRoute
   '/dashboard/_sidebarLayout/purchase': typeof DashboardSidebarLayoutPurchaseRoute
   '/dashboard/_sidebarLayout/': typeof DashboardSidebarLayoutIndexRoute
@@ -491,6 +512,7 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/dashboard/addon'
     | '/dashboard/category'
+    | '/dashboard/catering-package'
     | '/dashboard/inventory'
     | '/dashboard/purchase'
     | '/dashboard/'
@@ -513,6 +535,7 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/dashboard/addon'
     | '/dashboard/category'
+    | '/dashboard/catering-package'
     | '/dashboard/inventory'
     | '/dashboard/purchase'
     | '/dashboard/product/create'
@@ -535,6 +558,7 @@ export interface FileRouteTypes {
     | '/(auth)/reset-password'
     | '/dashboard/_sidebarLayout/addon'
     | '/dashboard/_sidebarLayout/category'
+    | '/dashboard/_sidebarLayout/catering-package'
     | '/dashboard/_sidebarLayout/inventory'
     | '/dashboard/_sidebarLayout/purchase'
     | '/dashboard/_sidebarLayout/'
@@ -601,6 +625,7 @@ export const routeTree = rootRoute
       "children": [
         "/dashboard/_sidebarLayout/addon",
         "/dashboard/_sidebarLayout/category",
+        "/dashboard/_sidebarLayout/catering-package",
         "/dashboard/_sidebarLayout/inventory",
         "/dashboard/_sidebarLayout/purchase",
         "/dashboard/_sidebarLayout/",
@@ -633,6 +658,10 @@ export const routeTree = rootRoute
     },
     "/dashboard/_sidebarLayout/category": {
       "filePath": "dashboard/_sidebarLayout/category.tsx",
+      "parent": "/dashboard/_sidebarLayout"
+    },
+    "/dashboard/_sidebarLayout/catering-package": {
+      "filePath": "dashboard/_sidebarLayout/catering-package.tsx",
       "parent": "/dashboard/_sidebarLayout"
     },
     "/dashboard/_sidebarLayout/inventory": {
