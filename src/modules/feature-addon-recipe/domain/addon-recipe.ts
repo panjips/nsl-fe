@@ -1,6 +1,6 @@
-import type { Addon } from '@/modules/feature-addon';
+import type { Addon } from "@/modules/feature-addon";
 
-export interface Recipe{
+export interface Recipe {
     id: number;
     product_id: number;
     inventory_id: number;
@@ -8,6 +8,6 @@ export interface Recipe{
     is_active: boolean;
 }
 
-export interface AddonRecipe extends Addon{
-    recipes: Recipe[]
+export interface AddonRecipe extends Addon {
+    recipes: Recipe[];
 }

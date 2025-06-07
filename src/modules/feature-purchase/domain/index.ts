@@ -1,1 +1,1 @@
-export * from "./purhcase"
+export * from "./purhcase";

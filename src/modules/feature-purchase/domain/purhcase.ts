@@ -10,5 +10,5 @@ export interface Purchase {
 }
 
 export interface PurchaseWithInventory extends Purchase {
-    inventory: Inventory
+    inventory: Inventory;
 }

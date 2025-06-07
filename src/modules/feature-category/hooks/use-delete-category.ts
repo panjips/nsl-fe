@@ -3,51 +3,43 @@ import { useCategoryStore } from "../stores";
 import { toast } from "sonner";
 
 export const useDeleteCategory = () => {
-  const {
-    modal,
-    deleteCategory,
-    categories,
-    resetDeleteCategoryState,
-    resetModal,
-  } = useCategoryStore();
+    const { modal, deleteCategory, categories, resetDeleteCategoryState, resetModal } = useCategoryStore();
 
-  const onOpenChange = (isOpen: boolean) => {
-    if (!isOpen) {
-      modal.onClose();
-    }
-  };
-
-  const isLoading = deleteCategory.state.state === "loading";
-
-  const handleSubmitDelete = async (id: string | number) => {
-    try {
-      await deleteCategory.deleteCategory(id);
-      await categories.getAllCategories();
-    } finally {
-      modal.onClose();
-      resetModal();
-    }
-  };
-
-  useEffect(() => {
-    if (deleteCategory.state.state === "success") {
-      toast.success(
-        deleteCategory.state.data.message || "Category deleted successfully"
-      );
-    }
-    if (deleteCategory.state.state === "error") {
-      toast.error(deleteCategory.state.error || "Failed to create category");
-    }
-
-    return () => {
-      resetDeleteCategoryState();
+    const onOpenChange = (isOpen: boolean) => {
+        if (!isOpen) {
+            modal.onClose();
+        }
     };
-  }, [deleteCategory.state.state, resetDeleteCategoryState]);
 
-  return {
-    isOpen: modal.isOpen && modal.mode === "delete",
-    onOpenChange,
-    handleSubmitDelete,
-    isLoading,
-  };
+    const isLoading = deleteCategory.state.state === "loading";
+
+    const handleSubmitDelete = async (id: string | number) => {
+        try {
+            await deleteCategory.deleteCategory(id);
+            await categories.getAllCategories();
+        } finally {
+            modal.onClose();
+            resetModal();
+        }
+    };
+
+    useEffect(() => {
+        if (deleteCategory.state.state === "success") {
+            toast.success(deleteCategory.state.data.message || "Category deleted successfully");
+        }
+        if (deleteCategory.state.state === "error") {
+            toast.error(deleteCategory.state.error || "Failed to create category");
+        }
+
+        return () => {
+            resetDeleteCategoryState();
+        };
+    }, [deleteCategory.state.state, resetDeleteCategoryState]);
+
+    return {
+        isOpen: modal.isOpen && modal.mode === "delete",
+        onOpenChange,
+        handleSubmitDelete,
+        isLoading,
+    };
 };

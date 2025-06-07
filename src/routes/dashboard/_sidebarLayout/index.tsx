@@ -8,25 +8,25 @@ import { useEffect, useState } from "react";
 import type { TableDashboardSchemaType } from "@/modules/feature-dashboard/data";
 
 export const Route = createFileRoute("/dashboard/_sidebarLayout/")({
-  component: RouteComponent,
+    component: RouteComponent,
 });
 
 function RouteComponent() {
-  const [data, setData] = useState<TableDashboardSchemaType[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+    const [data, setData] = useState<TableDashboardSchemaType[]>([]);
+    const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    setTimeout(() => {
-      setData(dataEc);
-      setIsLoading(false);
-    }, 1000);
-  }, []);
+    useEffect(() => {
+        setTimeout(() => {
+            setData(dataEc);
+            setIsLoading(false);
+        }, 1000);
+    }, []);
 
-  return (
-    <>
-      <SectionCards />
-      <ChartAreaInteractive />
-      <DashboardTable data={dataEc} isLoading={isLoading} />
-    </>
-  );
+    return (
+        <>
+            <SectionCards />
+            <ChartAreaInteractive />
+            <DashboardTable data={dataEc} isLoading={isLoading} />
+        </>
+    );
 }

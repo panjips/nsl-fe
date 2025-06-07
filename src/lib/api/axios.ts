@@ -1,32 +1,28 @@
-import axios, {
-  AxiosError,
-  type AxiosRequestConfig,
-  type InternalAxiosRequestConfig,
-} from "axios";
+import axios, { AxiosError, type AxiosRequestConfig, type InternalAxiosRequestConfig } from "axios";
 import { API_URL, ENDPOINTS } from "./endpoints";
 import Cookies from "js-cookie";
 
 const axiosInstance = axios.create({
-  baseURL: API_URL,
-  headers: {
-    "Content-Type": "application/json",
-  },
-  withCredentials: true,
+    baseURL: API_URL,
+    headers: {
+        "Content-Type": "application/json",
+    },
+    withCredentials: true,
 });
 
 axiosInstance.interceptors.request.use(
-  (config: InternalAxiosRequestConfig): InternalAxiosRequestConfig => {
-    const token = Cookies.get("token");
+    (config: InternalAxiosRequestConfig): InternalAxiosRequestConfig => {
+        const token = Cookies.get("token");
 
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
-    }
+        if (token) {
+            config.headers.Authorization = `Bearer ${token}`;
+        }
 
-    return config;
-  },
-  (error: AxiosError) => {
-    return Promise.reject(error);
-  }
+        return config;
+    },
+    (error: AxiosError) => {
+        return Promise.reject(error);
+    },
 );
 
 // axiosInstance.interceptors.response.use(
