@@ -93,8 +93,18 @@ export const menuItems: NavMainProps[] = [
             {
                 title: "Reservation",
                 url: "/dashboard/reservation",
+                icon: NotepadText,
+            },
+            {
+                title: "Reservation Catering",
+                url: "/dashboard/reservation-catering",
                 icon: ShoppingBasket,
             },
+            {
+                title: "My Reservation",
+                url: "/dashboard/my-reservation",
+                icon: ShoppingBasket,
+            }
         ],
     },
 ];

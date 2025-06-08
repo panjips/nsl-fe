@@ -8,578 +8,665 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute } from '@tanstack/react-router'
 
 // Import Routes
 
-import { Route as rootRoute } from "./routes/__root";
-import { Route as IndexImport } from "./routes/index";
-import { Route as DashboardSidebarLayoutImport } from "./routes/dashboard/_sidebarLayout";
-import { Route as DashboardSidebarLayoutIndexImport } from "./routes/dashboard/_sidebarLayout/index";
-import { Route as DashboardSidebarLayoutReservationImport } from "./routes/dashboard/_sidebarLayout/reservation";
-import { Route as DashboardSidebarLayoutPurchaseImport } from "./routes/dashboard/_sidebarLayout/purchase";
-import { Route as DashboardSidebarLayoutInventoryImport } from "./routes/dashboard/_sidebarLayout/inventory";
-import { Route as DashboardSidebarLayoutCateringPackageImport } from "./routes/dashboard/_sidebarLayout/catering-package";
-import { Route as DashboardSidebarLayoutCategoryImport } from "./routes/dashboard/_sidebarLayout/category";
-import { Route as DashboardSidebarLayoutAddonImport } from "./routes/dashboard/_sidebarLayout/addon";
-import { Route as DashboardSidebarLayoutProductIndexImport } from "./routes/dashboard/_sidebarLayout/product/index";
-import { Route as DashboardSidebarLayoutUserEmployeeImport } from "./routes/dashboard/_sidebarLayout/user/employee";
-import { Route as DashboardSidebarLayoutUserCustomerImport } from "./routes/dashboard/_sidebarLayout/user/customer";
-import { Route as DashboardSidebarLayoutUserCreateImport } from "./routes/dashboard/_sidebarLayout/user/create";
-import { Route as DashboardSidebarLayoutRecipeProductImport } from "./routes/dashboard/_sidebarLayout/recipe/product";
-import { Route as DashboardSidebarLayoutRecipeAddonImport } from "./routes/dashboard/_sidebarLayout/recipe/addon";
-import { Route as DashboardSidebarLayoutProductCreateImport } from "./routes/dashboard/_sidebarLayout/product/create";
-import { Route as DashboardSidebarLayoutUserUpdateUserIdImport } from "./routes/dashboard/_sidebarLayout/user/update.$userId";
-import { Route as DashboardSidebarLayoutProductUpdateProductIdImport } from "./routes/dashboard/_sidebarLayout/product/update.$productId";
+import { Route as rootRoute } from './routes/__root'
+import { Route as IndexImport } from './routes/index'
+import { Route as DashboardSidebarLayoutImport } from './routes/dashboard/_sidebarLayout'
+import { Route as DashboardSidebarLayoutIndexImport } from './routes/dashboard/_sidebarLayout/index'
+import { Route as DashboardSidebarLayoutReservationCateringImport } from './routes/dashboard/_sidebarLayout/reservation-catering'
+import { Route as DashboardSidebarLayoutReservationImport } from './routes/dashboard/_sidebarLayout/reservation'
+import { Route as DashboardSidebarLayoutPurchaseImport } from './routes/dashboard/_sidebarLayout/purchase'
+import { Route as DashboardSidebarLayoutMyReservationImport } from './routes/dashboard/_sidebarLayout/my-reservation'
+import { Route as DashboardSidebarLayoutInventoryImport } from './routes/dashboard/_sidebarLayout/inventory'
+import { Route as DashboardSidebarLayoutCateringPackageImport } from './routes/dashboard/_sidebarLayout/catering-package'
+import { Route as DashboardSidebarLayoutCategoryImport } from './routes/dashboard/_sidebarLayout/category'
+import { Route as DashboardSidebarLayoutAddonImport } from './routes/dashboard/_sidebarLayout/addon'
+import { Route as DashboardSidebarLayoutProductIndexImport } from './routes/dashboard/_sidebarLayout/product/index'
+import { Route as DashboardSidebarLayoutUserEmployeeImport } from './routes/dashboard/_sidebarLayout/user/employee'
+import { Route as DashboardSidebarLayoutUserCustomerImport } from './routes/dashboard/_sidebarLayout/user/customer'
+import { Route as DashboardSidebarLayoutUserCreateImport } from './routes/dashboard/_sidebarLayout/user/create'
+import { Route as DashboardSidebarLayoutRecipeProductImport } from './routes/dashboard/_sidebarLayout/recipe/product'
+import { Route as DashboardSidebarLayoutRecipeAddonImport } from './routes/dashboard/_sidebarLayout/recipe/addon'
+import { Route as DashboardSidebarLayoutProductCreateImport } from './routes/dashboard/_sidebarLayout/product/create'
+import { Route as DashboardSidebarLayoutUserUpdateUserIdImport } from './routes/dashboard/_sidebarLayout/user/update.$userId'
+import { Route as DashboardSidebarLayoutProductUpdateProductIdImport } from './routes/dashboard/_sidebarLayout/product/update.$productId'
 
 // Create Virtual Routes
 
-const DashboardImport = createFileRoute("/dashboard")();
-const authResetPasswordLazyImport = createFileRoute("/(auth)/reset-password")();
-const authRegisterLazyImport = createFileRoute("/(auth)/register")();
-const authLoginLazyImport = createFileRoute("/(auth)/login")();
-const authForgotPasswordLazyImport = createFileRoute("/(auth)/forgot-password")();
+const DashboardImport = createFileRoute('/dashboard')()
+const authResetPasswordLazyImport = createFileRoute('/(auth)/reset-password')()
+const authRegisterLazyImport = createFileRoute('/(auth)/register')()
+const authLoginLazyImport = createFileRoute('/(auth)/login')()
+const authForgotPasswordLazyImport = createFileRoute(
+  '/(auth)/forgot-password',
+)()
 
 // Create/Update Routes
 
 const DashboardRoute = DashboardImport.update({
-    id: "/dashboard",
-    path: "/dashboard",
-    getParentRoute: () => rootRoute,
-} as any);
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const IndexRoute = IndexImport.update({
-    id: "/",
-    path: "/",
-    getParentRoute: () => rootRoute,
-} as any);
+  id: '/',
+  path: '/',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const authResetPasswordLazyRoute = authResetPasswordLazyImport
-    .update({
-        id: "/(auth)/reset-password",
-        path: "/reset-password",
-        getParentRoute: () => rootRoute,
-    } as any)
-    .lazy(() => import("./routes/(auth)/reset-password.lazy").then((d) => d.Route));
+  .update({
+    id: '/(auth)/reset-password',
+    path: '/reset-password',
+    getParentRoute: () => rootRoute,
+  } as any)
+  .lazy(() =>
+    import('./routes/(auth)/reset-password.lazy').then((d) => d.Route),
+  )
 
 const authRegisterLazyRoute = authRegisterLazyImport
-    .update({
-        id: "/(auth)/register",
-        path: "/register",
-        getParentRoute: () => rootRoute,
-    } as any)
-    .lazy(() => import("./routes/(auth)/register.lazy").then((d) => d.Route));
+  .update({
+    id: '/(auth)/register',
+    path: '/register',
+    getParentRoute: () => rootRoute,
+  } as any)
+  .lazy(() => import('./routes/(auth)/register.lazy').then((d) => d.Route))
 
 const authLoginLazyRoute = authLoginLazyImport
-    .update({
-        id: "/(auth)/login",
-        path: "/login",
-        getParentRoute: () => rootRoute,
-    } as any)
-    .lazy(() => import("./routes/(auth)/login.lazy").then((d) => d.Route));
+  .update({
+    id: '/(auth)/login',
+    path: '/login',
+    getParentRoute: () => rootRoute,
+  } as any)
+  .lazy(() => import('./routes/(auth)/login.lazy').then((d) => d.Route))
 
 const authForgotPasswordLazyRoute = authForgotPasswordLazyImport
-    .update({
-        id: "/(auth)/forgot-password",
-        path: "/forgot-password",
-        getParentRoute: () => rootRoute,
-    } as any)
-    .lazy(() => import("./routes/(auth)/forgot-password.lazy").then((d) => d.Route));
+  .update({
+    id: '/(auth)/forgot-password',
+    path: '/forgot-password',
+    getParentRoute: () => rootRoute,
+  } as any)
+  .lazy(() =>
+    import('./routes/(auth)/forgot-password.lazy').then((d) => d.Route),
+  )
 
 const DashboardSidebarLayoutRoute = DashboardSidebarLayoutImport.update({
-    id: "/_sidebarLayout",
-    getParentRoute: () => DashboardRoute,
-} as any);
+  id: '/_sidebarLayout',
+  getParentRoute: () => DashboardRoute,
+} as any)
 
-const DashboardSidebarLayoutIndexRoute = DashboardSidebarLayoutIndexImport.update({
-    id: "/",
-    path: "/",
+const DashboardSidebarLayoutIndexRoute =
+  DashboardSidebarLayoutIndexImport.update({
+    id: '/',
+    path: '/',
     getParentRoute: () => DashboardSidebarLayoutRoute,
-} as any);
+  } as any)
 
-const DashboardSidebarLayoutReservationRoute = DashboardSidebarLayoutReservationImport.update({
-    id: "/reservation",
-    path: "/reservation",
+const DashboardSidebarLayoutReservationCateringRoute =
+  DashboardSidebarLayoutReservationCateringImport.update({
+    id: '/reservation-catering',
+    path: '/reservation-catering',
     getParentRoute: () => DashboardSidebarLayoutRoute,
-} as any);
+  } as any)
 
-const DashboardSidebarLayoutPurchaseRoute = DashboardSidebarLayoutPurchaseImport.update({
-    id: "/purchase",
-    path: "/purchase",
+const DashboardSidebarLayoutReservationRoute =
+  DashboardSidebarLayoutReservationImport.update({
+    id: '/reservation',
+    path: '/reservation',
     getParentRoute: () => DashboardSidebarLayoutRoute,
-} as any);
+  } as any)
 
-const DashboardSidebarLayoutInventoryRoute = DashboardSidebarLayoutInventoryImport.update({
-    id: "/inventory",
-    path: "/inventory",
+const DashboardSidebarLayoutPurchaseRoute =
+  DashboardSidebarLayoutPurchaseImport.update({
+    id: '/purchase',
+    path: '/purchase',
     getParentRoute: () => DashboardSidebarLayoutRoute,
-} as any);
+  } as any)
 
-const DashboardSidebarLayoutCateringPackageRoute = DashboardSidebarLayoutCateringPackageImport.update({
-    id: "/catering-package",
-    path: "/catering-package",
+const DashboardSidebarLayoutMyReservationRoute =
+  DashboardSidebarLayoutMyReservationImport.update({
+    id: '/my-reservation',
+    path: '/my-reservation',
     getParentRoute: () => DashboardSidebarLayoutRoute,
-} as any);
+  } as any)
 
-const DashboardSidebarLayoutCategoryRoute = DashboardSidebarLayoutCategoryImport.update({
-    id: "/category",
-    path: "/category",
+const DashboardSidebarLayoutInventoryRoute =
+  DashboardSidebarLayoutInventoryImport.update({
+    id: '/inventory',
+    path: '/inventory',
     getParentRoute: () => DashboardSidebarLayoutRoute,
-} as any);
+  } as any)
 
-const DashboardSidebarLayoutAddonRoute = DashboardSidebarLayoutAddonImport.update({
-    id: "/addon",
-    path: "/addon",
+const DashboardSidebarLayoutCateringPackageRoute =
+  DashboardSidebarLayoutCateringPackageImport.update({
+    id: '/catering-package',
+    path: '/catering-package',
     getParentRoute: () => DashboardSidebarLayoutRoute,
-} as any);
+  } as any)
 
-const DashboardSidebarLayoutProductIndexRoute = DashboardSidebarLayoutProductIndexImport.update({
-    id: "/product/",
-    path: "/product/",
+const DashboardSidebarLayoutCategoryRoute =
+  DashboardSidebarLayoutCategoryImport.update({
+    id: '/category',
+    path: '/category',
     getParentRoute: () => DashboardSidebarLayoutRoute,
-} as any);
+  } as any)
 
-const DashboardSidebarLayoutUserEmployeeRoute = DashboardSidebarLayoutUserEmployeeImport.update({
-    id: "/user/employee",
-    path: "/user/employee",
+const DashboardSidebarLayoutAddonRoute =
+  DashboardSidebarLayoutAddonImport.update({
+    id: '/addon',
+    path: '/addon',
     getParentRoute: () => DashboardSidebarLayoutRoute,
-} as any);
+  } as any)
 
-const DashboardSidebarLayoutUserCustomerRoute = DashboardSidebarLayoutUserCustomerImport.update({
-    id: "/user/customer",
-    path: "/user/customer",
+const DashboardSidebarLayoutProductIndexRoute =
+  DashboardSidebarLayoutProductIndexImport.update({
+    id: '/product/',
+    path: '/product/',
     getParentRoute: () => DashboardSidebarLayoutRoute,
-} as any);
+  } as any)
 
-const DashboardSidebarLayoutUserCreateRoute = DashboardSidebarLayoutUserCreateImport.update({
-    id: "/user/create",
-    path: "/user/create",
+const DashboardSidebarLayoutUserEmployeeRoute =
+  DashboardSidebarLayoutUserEmployeeImport.update({
+    id: '/user/employee',
+    path: '/user/employee',
     getParentRoute: () => DashboardSidebarLayoutRoute,
-} as any);
+  } as any)
 
-const DashboardSidebarLayoutRecipeProductRoute = DashboardSidebarLayoutRecipeProductImport.update({
-    id: "/recipe/product",
-    path: "/recipe/product",
+const DashboardSidebarLayoutUserCustomerRoute =
+  DashboardSidebarLayoutUserCustomerImport.update({
+    id: '/user/customer',
+    path: '/user/customer',
     getParentRoute: () => DashboardSidebarLayoutRoute,
-} as any);
+  } as any)
 
-const DashboardSidebarLayoutRecipeAddonRoute = DashboardSidebarLayoutRecipeAddonImport.update({
-    id: "/recipe/addon",
-    path: "/recipe/addon",
+const DashboardSidebarLayoutUserCreateRoute =
+  DashboardSidebarLayoutUserCreateImport.update({
+    id: '/user/create',
+    path: '/user/create',
     getParentRoute: () => DashboardSidebarLayoutRoute,
-} as any);
+  } as any)
 
-const DashboardSidebarLayoutProductCreateRoute = DashboardSidebarLayoutProductCreateImport.update({
-    id: "/product/create",
-    path: "/product/create",
+const DashboardSidebarLayoutRecipeProductRoute =
+  DashboardSidebarLayoutRecipeProductImport.update({
+    id: '/recipe/product',
+    path: '/recipe/product',
     getParentRoute: () => DashboardSidebarLayoutRoute,
-} as any);
+  } as any)
 
-const DashboardSidebarLayoutUserUpdateUserIdRoute = DashboardSidebarLayoutUserUpdateUserIdImport.update({
-    id: "/user/update/$userId",
-    path: "/user/update/$userId",
+const DashboardSidebarLayoutRecipeAddonRoute =
+  DashboardSidebarLayoutRecipeAddonImport.update({
+    id: '/recipe/addon',
+    path: '/recipe/addon',
     getParentRoute: () => DashboardSidebarLayoutRoute,
-} as any);
+  } as any)
 
-const DashboardSidebarLayoutProductUpdateProductIdRoute = DashboardSidebarLayoutProductUpdateProductIdImport.update({
-    id: "/product/update/$productId",
-    path: "/product/update/$productId",
+const DashboardSidebarLayoutProductCreateRoute =
+  DashboardSidebarLayoutProductCreateImport.update({
+    id: '/product/create',
+    path: '/product/create',
     getParentRoute: () => DashboardSidebarLayoutRoute,
-} as any);
+  } as any)
+
+const DashboardSidebarLayoutUserUpdateUserIdRoute =
+  DashboardSidebarLayoutUserUpdateUserIdImport.update({
+    id: '/user/update/$userId',
+    path: '/user/update/$userId',
+    getParentRoute: () => DashboardSidebarLayoutRoute,
+  } as any)
+
+const DashboardSidebarLayoutProductUpdateProductIdRoute =
+  DashboardSidebarLayoutProductUpdateProductIdImport.update({
+    id: '/product/update/$productId',
+    path: '/product/update/$productId',
+    getParentRoute: () => DashboardSidebarLayoutRoute,
+  } as any)
 
 // Populate the FileRoutesByPath interface
 
-declare module "@tanstack/react-router" {
-    interface FileRoutesByPath {
-        "/": {
-            id: "/";
-            path: "/";
-            fullPath: "/";
-            preLoaderRoute: typeof IndexImport;
-            parentRoute: typeof rootRoute;
-        };
-        "/dashboard": {
-            id: "/dashboard";
-            path: "/dashboard";
-            fullPath: "/dashboard";
-            preLoaderRoute: typeof DashboardImport;
-            parentRoute: typeof rootRoute;
-        };
-        "/dashboard/_sidebarLayout": {
-            id: "/dashboard/_sidebarLayout";
-            path: "/dashboard";
-            fullPath: "/dashboard";
-            preLoaderRoute: typeof DashboardSidebarLayoutImport;
-            parentRoute: typeof DashboardRoute;
-        };
-        "/(auth)/forgot-password": {
-            id: "/(auth)/forgot-password";
-            path: "/forgot-password";
-            fullPath: "/forgot-password";
-            preLoaderRoute: typeof authForgotPasswordLazyImport;
-            parentRoute: typeof rootRoute;
-        };
-        "/(auth)/login": {
-            id: "/(auth)/login";
-            path: "/login";
-            fullPath: "/login";
-            preLoaderRoute: typeof authLoginLazyImport;
-            parentRoute: typeof rootRoute;
-        };
-        "/(auth)/register": {
-            id: "/(auth)/register";
-            path: "/register";
-            fullPath: "/register";
-            preLoaderRoute: typeof authRegisterLazyImport;
-            parentRoute: typeof rootRoute;
-        };
-        "/(auth)/reset-password": {
-            id: "/(auth)/reset-password";
-            path: "/reset-password";
-            fullPath: "/reset-password";
-            preLoaderRoute: typeof authResetPasswordLazyImport;
-            parentRoute: typeof rootRoute;
-        };
-        "/dashboard/_sidebarLayout/addon": {
-            id: "/dashboard/_sidebarLayout/addon";
-            path: "/addon";
-            fullPath: "/dashboard/addon";
-            preLoaderRoute: typeof DashboardSidebarLayoutAddonImport;
-            parentRoute: typeof DashboardSidebarLayoutImport;
-        };
-        "/dashboard/_sidebarLayout/category": {
-            id: "/dashboard/_sidebarLayout/category";
-            path: "/category";
-            fullPath: "/dashboard/category";
-            preLoaderRoute: typeof DashboardSidebarLayoutCategoryImport;
-            parentRoute: typeof DashboardSidebarLayoutImport;
-        };
-        "/dashboard/_sidebarLayout/catering-package": {
-            id: "/dashboard/_sidebarLayout/catering-package";
-            path: "/catering-package";
-            fullPath: "/dashboard/catering-package";
-            preLoaderRoute: typeof DashboardSidebarLayoutCateringPackageImport;
-            parentRoute: typeof DashboardSidebarLayoutImport;
-        };
-        "/dashboard/_sidebarLayout/inventory": {
-            id: "/dashboard/_sidebarLayout/inventory";
-            path: "/inventory";
-            fullPath: "/dashboard/inventory";
-            preLoaderRoute: typeof DashboardSidebarLayoutInventoryImport;
-            parentRoute: typeof DashboardSidebarLayoutImport;
-        };
-        "/dashboard/_sidebarLayout/purchase": {
-            id: "/dashboard/_sidebarLayout/purchase";
-            path: "/purchase";
-            fullPath: "/dashboard/purchase";
-            preLoaderRoute: typeof DashboardSidebarLayoutPurchaseImport;
-            parentRoute: typeof DashboardSidebarLayoutImport;
-        };
-        "/dashboard/_sidebarLayout/reservation": {
-            id: "/dashboard/_sidebarLayout/reservation";
-            path: "/reservation";
-            fullPath: "/dashboard/reservation";
-            preLoaderRoute: typeof DashboardSidebarLayoutReservationImport;
-            parentRoute: typeof DashboardSidebarLayoutImport;
-        };
-        "/dashboard/_sidebarLayout/": {
-            id: "/dashboard/_sidebarLayout/";
-            path: "/";
-            fullPath: "/dashboard/";
-            preLoaderRoute: typeof DashboardSidebarLayoutIndexImport;
-            parentRoute: typeof DashboardSidebarLayoutImport;
-        };
-        "/dashboard/_sidebarLayout/product/create": {
-            id: "/dashboard/_sidebarLayout/product/create";
-            path: "/product/create";
-            fullPath: "/dashboard/product/create";
-            preLoaderRoute: typeof DashboardSidebarLayoutProductCreateImport;
-            parentRoute: typeof DashboardSidebarLayoutImport;
-        };
-        "/dashboard/_sidebarLayout/recipe/addon": {
-            id: "/dashboard/_sidebarLayout/recipe/addon";
-            path: "/recipe/addon";
-            fullPath: "/dashboard/recipe/addon";
-            preLoaderRoute: typeof DashboardSidebarLayoutRecipeAddonImport;
-            parentRoute: typeof DashboardSidebarLayoutImport;
-        };
-        "/dashboard/_sidebarLayout/recipe/product": {
-            id: "/dashboard/_sidebarLayout/recipe/product";
-            path: "/recipe/product";
-            fullPath: "/dashboard/recipe/product";
-            preLoaderRoute: typeof DashboardSidebarLayoutRecipeProductImport;
-            parentRoute: typeof DashboardSidebarLayoutImport;
-        };
-        "/dashboard/_sidebarLayout/user/create": {
-            id: "/dashboard/_sidebarLayout/user/create";
-            path: "/user/create";
-            fullPath: "/dashboard/user/create";
-            preLoaderRoute: typeof DashboardSidebarLayoutUserCreateImport;
-            parentRoute: typeof DashboardSidebarLayoutImport;
-        };
-        "/dashboard/_sidebarLayout/user/customer": {
-            id: "/dashboard/_sidebarLayout/user/customer";
-            path: "/user/customer";
-            fullPath: "/dashboard/user/customer";
-            preLoaderRoute: typeof DashboardSidebarLayoutUserCustomerImport;
-            parentRoute: typeof DashboardSidebarLayoutImport;
-        };
-        "/dashboard/_sidebarLayout/user/employee": {
-            id: "/dashboard/_sidebarLayout/user/employee";
-            path: "/user/employee";
-            fullPath: "/dashboard/user/employee";
-            preLoaderRoute: typeof DashboardSidebarLayoutUserEmployeeImport;
-            parentRoute: typeof DashboardSidebarLayoutImport;
-        };
-        "/dashboard/_sidebarLayout/product/": {
-            id: "/dashboard/_sidebarLayout/product/";
-            path: "/product";
-            fullPath: "/dashboard/product";
-            preLoaderRoute: typeof DashboardSidebarLayoutProductIndexImport;
-            parentRoute: typeof DashboardSidebarLayoutImport;
-        };
-        "/dashboard/_sidebarLayout/product/update/$productId": {
-            id: "/dashboard/_sidebarLayout/product/update/$productId";
-            path: "/product/update/$productId";
-            fullPath: "/dashboard/product/update/$productId";
-            preLoaderRoute: typeof DashboardSidebarLayoutProductUpdateProductIdImport;
-            parentRoute: typeof DashboardSidebarLayoutImport;
-        };
-        "/dashboard/_sidebarLayout/user/update/$userId": {
-            id: "/dashboard/_sidebarLayout/user/update/$userId";
-            path: "/user/update/$userId";
-            fullPath: "/dashboard/user/update/$userId";
-            preLoaderRoute: typeof DashboardSidebarLayoutUserUpdateUserIdImport;
-            parentRoute: typeof DashboardSidebarLayoutImport;
-        };
+declare module '@tanstack/react-router' {
+  interface FileRoutesByPath {
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexImport
+      parentRoute: typeof rootRoute
     }
+    '/dashboard': {
+      id: '/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof DashboardImport
+      parentRoute: typeof rootRoute
+    }
+    '/dashboard/_sidebarLayout': {
+      id: '/dashboard/_sidebarLayout'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof DashboardSidebarLayoutImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/(auth)/forgot-password': {
+      id: '/(auth)/forgot-password'
+      path: '/forgot-password'
+      fullPath: '/forgot-password'
+      preLoaderRoute: typeof authForgotPasswordLazyImport
+      parentRoute: typeof rootRoute
+    }
+    '/(auth)/login': {
+      id: '/(auth)/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof authLoginLazyImport
+      parentRoute: typeof rootRoute
+    }
+    '/(auth)/register': {
+      id: '/(auth)/register'
+      path: '/register'
+      fullPath: '/register'
+      preLoaderRoute: typeof authRegisterLazyImport
+      parentRoute: typeof rootRoute
+    }
+    '/(auth)/reset-password': {
+      id: '/(auth)/reset-password'
+      path: '/reset-password'
+      fullPath: '/reset-password'
+      preLoaderRoute: typeof authResetPasswordLazyImport
+      parentRoute: typeof rootRoute
+    }
+    '/dashboard/_sidebarLayout/addon': {
+      id: '/dashboard/_sidebarLayout/addon'
+      path: '/addon'
+      fullPath: '/dashboard/addon'
+      preLoaderRoute: typeof DashboardSidebarLayoutAddonImport
+      parentRoute: typeof DashboardSidebarLayoutImport
+    }
+    '/dashboard/_sidebarLayout/category': {
+      id: '/dashboard/_sidebarLayout/category'
+      path: '/category'
+      fullPath: '/dashboard/category'
+      preLoaderRoute: typeof DashboardSidebarLayoutCategoryImport
+      parentRoute: typeof DashboardSidebarLayoutImport
+    }
+    '/dashboard/_sidebarLayout/catering-package': {
+      id: '/dashboard/_sidebarLayout/catering-package'
+      path: '/catering-package'
+      fullPath: '/dashboard/catering-package'
+      preLoaderRoute: typeof DashboardSidebarLayoutCateringPackageImport
+      parentRoute: typeof DashboardSidebarLayoutImport
+    }
+    '/dashboard/_sidebarLayout/inventory': {
+      id: '/dashboard/_sidebarLayout/inventory'
+      path: '/inventory'
+      fullPath: '/dashboard/inventory'
+      preLoaderRoute: typeof DashboardSidebarLayoutInventoryImport
+      parentRoute: typeof DashboardSidebarLayoutImport
+    }
+    '/dashboard/_sidebarLayout/my-reservation': {
+      id: '/dashboard/_sidebarLayout/my-reservation'
+      path: '/my-reservation'
+      fullPath: '/dashboard/my-reservation'
+      preLoaderRoute: typeof DashboardSidebarLayoutMyReservationImport
+      parentRoute: typeof DashboardSidebarLayoutImport
+    }
+    '/dashboard/_sidebarLayout/purchase': {
+      id: '/dashboard/_sidebarLayout/purchase'
+      path: '/purchase'
+      fullPath: '/dashboard/purchase'
+      preLoaderRoute: typeof DashboardSidebarLayoutPurchaseImport
+      parentRoute: typeof DashboardSidebarLayoutImport
+    }
+    '/dashboard/_sidebarLayout/reservation': {
+      id: '/dashboard/_sidebarLayout/reservation'
+      path: '/reservation'
+      fullPath: '/dashboard/reservation'
+      preLoaderRoute: typeof DashboardSidebarLayoutReservationImport
+      parentRoute: typeof DashboardSidebarLayoutImport
+    }
+    '/dashboard/_sidebarLayout/reservation-catering': {
+      id: '/dashboard/_sidebarLayout/reservation-catering'
+      path: '/reservation-catering'
+      fullPath: '/dashboard/reservation-catering'
+      preLoaderRoute: typeof DashboardSidebarLayoutReservationCateringImport
+      parentRoute: typeof DashboardSidebarLayoutImport
+    }
+    '/dashboard/_sidebarLayout/': {
+      id: '/dashboard/_sidebarLayout/'
+      path: '/'
+      fullPath: '/dashboard/'
+      preLoaderRoute: typeof DashboardSidebarLayoutIndexImport
+      parentRoute: typeof DashboardSidebarLayoutImport
+    }
+    '/dashboard/_sidebarLayout/product/create': {
+      id: '/dashboard/_sidebarLayout/product/create'
+      path: '/product/create'
+      fullPath: '/dashboard/product/create'
+      preLoaderRoute: typeof DashboardSidebarLayoutProductCreateImport
+      parentRoute: typeof DashboardSidebarLayoutImport
+    }
+    '/dashboard/_sidebarLayout/recipe/addon': {
+      id: '/dashboard/_sidebarLayout/recipe/addon'
+      path: '/recipe/addon'
+      fullPath: '/dashboard/recipe/addon'
+      preLoaderRoute: typeof DashboardSidebarLayoutRecipeAddonImport
+      parentRoute: typeof DashboardSidebarLayoutImport
+    }
+    '/dashboard/_sidebarLayout/recipe/product': {
+      id: '/dashboard/_sidebarLayout/recipe/product'
+      path: '/recipe/product'
+      fullPath: '/dashboard/recipe/product'
+      preLoaderRoute: typeof DashboardSidebarLayoutRecipeProductImport
+      parentRoute: typeof DashboardSidebarLayoutImport
+    }
+    '/dashboard/_sidebarLayout/user/create': {
+      id: '/dashboard/_sidebarLayout/user/create'
+      path: '/user/create'
+      fullPath: '/dashboard/user/create'
+      preLoaderRoute: typeof DashboardSidebarLayoutUserCreateImport
+      parentRoute: typeof DashboardSidebarLayoutImport
+    }
+    '/dashboard/_sidebarLayout/user/customer': {
+      id: '/dashboard/_sidebarLayout/user/customer'
+      path: '/user/customer'
+      fullPath: '/dashboard/user/customer'
+      preLoaderRoute: typeof DashboardSidebarLayoutUserCustomerImport
+      parentRoute: typeof DashboardSidebarLayoutImport
+    }
+    '/dashboard/_sidebarLayout/user/employee': {
+      id: '/dashboard/_sidebarLayout/user/employee'
+      path: '/user/employee'
+      fullPath: '/dashboard/user/employee'
+      preLoaderRoute: typeof DashboardSidebarLayoutUserEmployeeImport
+      parentRoute: typeof DashboardSidebarLayoutImport
+    }
+    '/dashboard/_sidebarLayout/product/': {
+      id: '/dashboard/_sidebarLayout/product/'
+      path: '/product'
+      fullPath: '/dashboard/product'
+      preLoaderRoute: typeof DashboardSidebarLayoutProductIndexImport
+      parentRoute: typeof DashboardSidebarLayoutImport
+    }
+    '/dashboard/_sidebarLayout/product/update/$productId': {
+      id: '/dashboard/_sidebarLayout/product/update/$productId'
+      path: '/product/update/$productId'
+      fullPath: '/dashboard/product/update/$productId'
+      preLoaderRoute: typeof DashboardSidebarLayoutProductUpdateProductIdImport
+      parentRoute: typeof DashboardSidebarLayoutImport
+    }
+    '/dashboard/_sidebarLayout/user/update/$userId': {
+      id: '/dashboard/_sidebarLayout/user/update/$userId'
+      path: '/user/update/$userId'
+      fullPath: '/dashboard/user/update/$userId'
+      preLoaderRoute: typeof DashboardSidebarLayoutUserUpdateUserIdImport
+      parentRoute: typeof DashboardSidebarLayoutImport
+    }
+  }
 }
 
 // Create and export the route tree
 
 interface DashboardSidebarLayoutRouteChildren {
-    DashboardSidebarLayoutAddonRoute: typeof DashboardSidebarLayoutAddonRoute;
-    DashboardSidebarLayoutCategoryRoute: typeof DashboardSidebarLayoutCategoryRoute;
-    DashboardSidebarLayoutCateringPackageRoute: typeof DashboardSidebarLayoutCateringPackageRoute;
-    DashboardSidebarLayoutInventoryRoute: typeof DashboardSidebarLayoutInventoryRoute;
-    DashboardSidebarLayoutPurchaseRoute: typeof DashboardSidebarLayoutPurchaseRoute;
-    DashboardSidebarLayoutReservationRoute: typeof DashboardSidebarLayoutReservationRoute;
-    DashboardSidebarLayoutIndexRoute: typeof DashboardSidebarLayoutIndexRoute;
-    DashboardSidebarLayoutProductCreateRoute: typeof DashboardSidebarLayoutProductCreateRoute;
-    DashboardSidebarLayoutRecipeAddonRoute: typeof DashboardSidebarLayoutRecipeAddonRoute;
-    DashboardSidebarLayoutRecipeProductRoute: typeof DashboardSidebarLayoutRecipeProductRoute;
-    DashboardSidebarLayoutUserCreateRoute: typeof DashboardSidebarLayoutUserCreateRoute;
-    DashboardSidebarLayoutUserCustomerRoute: typeof DashboardSidebarLayoutUserCustomerRoute;
-    DashboardSidebarLayoutUserEmployeeRoute: typeof DashboardSidebarLayoutUserEmployeeRoute;
-    DashboardSidebarLayoutProductIndexRoute: typeof DashboardSidebarLayoutProductIndexRoute;
-    DashboardSidebarLayoutProductUpdateProductIdRoute: typeof DashboardSidebarLayoutProductUpdateProductIdRoute;
-    DashboardSidebarLayoutUserUpdateUserIdRoute: typeof DashboardSidebarLayoutUserUpdateUserIdRoute;
+  DashboardSidebarLayoutAddonRoute: typeof DashboardSidebarLayoutAddonRoute
+  DashboardSidebarLayoutCategoryRoute: typeof DashboardSidebarLayoutCategoryRoute
+  DashboardSidebarLayoutCateringPackageRoute: typeof DashboardSidebarLayoutCateringPackageRoute
+  DashboardSidebarLayoutInventoryRoute: typeof DashboardSidebarLayoutInventoryRoute
+  DashboardSidebarLayoutMyReservationRoute: typeof DashboardSidebarLayoutMyReservationRoute
+  DashboardSidebarLayoutPurchaseRoute: typeof DashboardSidebarLayoutPurchaseRoute
+  DashboardSidebarLayoutReservationRoute: typeof DashboardSidebarLayoutReservationRoute
+  DashboardSidebarLayoutReservationCateringRoute: typeof DashboardSidebarLayoutReservationCateringRoute
+  DashboardSidebarLayoutIndexRoute: typeof DashboardSidebarLayoutIndexRoute
+  DashboardSidebarLayoutProductCreateRoute: typeof DashboardSidebarLayoutProductCreateRoute
+  DashboardSidebarLayoutRecipeAddonRoute: typeof DashboardSidebarLayoutRecipeAddonRoute
+  DashboardSidebarLayoutRecipeProductRoute: typeof DashboardSidebarLayoutRecipeProductRoute
+  DashboardSidebarLayoutUserCreateRoute: typeof DashboardSidebarLayoutUserCreateRoute
+  DashboardSidebarLayoutUserCustomerRoute: typeof DashboardSidebarLayoutUserCustomerRoute
+  DashboardSidebarLayoutUserEmployeeRoute: typeof DashboardSidebarLayoutUserEmployeeRoute
+  DashboardSidebarLayoutProductIndexRoute: typeof DashboardSidebarLayoutProductIndexRoute
+  DashboardSidebarLayoutProductUpdateProductIdRoute: typeof DashboardSidebarLayoutProductUpdateProductIdRoute
+  DashboardSidebarLayoutUserUpdateUserIdRoute: typeof DashboardSidebarLayoutUserUpdateUserIdRoute
 }
 
-const DashboardSidebarLayoutRouteChildren: DashboardSidebarLayoutRouteChildren = {
+const DashboardSidebarLayoutRouteChildren: DashboardSidebarLayoutRouteChildren =
+  {
     DashboardSidebarLayoutAddonRoute: DashboardSidebarLayoutAddonRoute,
     DashboardSidebarLayoutCategoryRoute: DashboardSidebarLayoutCategoryRoute,
-    DashboardSidebarLayoutCateringPackageRoute: DashboardSidebarLayoutCateringPackageRoute,
+    DashboardSidebarLayoutCateringPackageRoute:
+      DashboardSidebarLayoutCateringPackageRoute,
     DashboardSidebarLayoutInventoryRoute: DashboardSidebarLayoutInventoryRoute,
+    DashboardSidebarLayoutMyReservationRoute:
+      DashboardSidebarLayoutMyReservationRoute,
     DashboardSidebarLayoutPurchaseRoute: DashboardSidebarLayoutPurchaseRoute,
-    DashboardSidebarLayoutReservationRoute: DashboardSidebarLayoutReservationRoute,
+    DashboardSidebarLayoutReservationRoute:
+      DashboardSidebarLayoutReservationRoute,
+    DashboardSidebarLayoutReservationCateringRoute:
+      DashboardSidebarLayoutReservationCateringRoute,
     DashboardSidebarLayoutIndexRoute: DashboardSidebarLayoutIndexRoute,
-    DashboardSidebarLayoutProductCreateRoute: DashboardSidebarLayoutProductCreateRoute,
-    DashboardSidebarLayoutRecipeAddonRoute: DashboardSidebarLayoutRecipeAddonRoute,
-    DashboardSidebarLayoutRecipeProductRoute: DashboardSidebarLayoutRecipeProductRoute,
-    DashboardSidebarLayoutUserCreateRoute: DashboardSidebarLayoutUserCreateRoute,
-    DashboardSidebarLayoutUserCustomerRoute: DashboardSidebarLayoutUserCustomerRoute,
-    DashboardSidebarLayoutUserEmployeeRoute: DashboardSidebarLayoutUserEmployeeRoute,
-    DashboardSidebarLayoutProductIndexRoute: DashboardSidebarLayoutProductIndexRoute,
-    DashboardSidebarLayoutProductUpdateProductIdRoute: DashboardSidebarLayoutProductUpdateProductIdRoute,
-    DashboardSidebarLayoutUserUpdateUserIdRoute: DashboardSidebarLayoutUserUpdateUserIdRoute,
-};
+    DashboardSidebarLayoutProductCreateRoute:
+      DashboardSidebarLayoutProductCreateRoute,
+    DashboardSidebarLayoutRecipeAddonRoute:
+      DashboardSidebarLayoutRecipeAddonRoute,
+    DashboardSidebarLayoutRecipeProductRoute:
+      DashboardSidebarLayoutRecipeProductRoute,
+    DashboardSidebarLayoutUserCreateRoute:
+      DashboardSidebarLayoutUserCreateRoute,
+    DashboardSidebarLayoutUserCustomerRoute:
+      DashboardSidebarLayoutUserCustomerRoute,
+    DashboardSidebarLayoutUserEmployeeRoute:
+      DashboardSidebarLayoutUserEmployeeRoute,
+    DashboardSidebarLayoutProductIndexRoute:
+      DashboardSidebarLayoutProductIndexRoute,
+    DashboardSidebarLayoutProductUpdateProductIdRoute:
+      DashboardSidebarLayoutProductUpdateProductIdRoute,
+    DashboardSidebarLayoutUserUpdateUserIdRoute:
+      DashboardSidebarLayoutUserUpdateUserIdRoute,
+  }
 
-const DashboardSidebarLayoutRouteWithChildren = DashboardSidebarLayoutRoute._addFileChildren(
+const DashboardSidebarLayoutRouteWithChildren =
+  DashboardSidebarLayoutRoute._addFileChildren(
     DashboardSidebarLayoutRouteChildren,
-);
+  )
 
 interface DashboardRouteChildren {
-    DashboardSidebarLayoutRoute: typeof DashboardSidebarLayoutRouteWithChildren;
+  DashboardSidebarLayoutRoute: typeof DashboardSidebarLayoutRouteWithChildren
 }
 
 const DashboardRouteChildren: DashboardRouteChildren = {
-    DashboardSidebarLayoutRoute: DashboardSidebarLayoutRouteWithChildren,
-};
+  DashboardSidebarLayoutRoute: DashboardSidebarLayoutRouteWithChildren,
+}
 
-const DashboardRouteWithChildren = DashboardRoute._addFileChildren(DashboardRouteChildren);
+const DashboardRouteWithChildren = DashboardRoute._addFileChildren(
+  DashboardRouteChildren,
+)
 
 export interface FileRoutesByFullPath {
-    "/": typeof IndexRoute;
-    "/dashboard": typeof DashboardSidebarLayoutRouteWithChildren;
-    "/forgot-password": typeof authForgotPasswordLazyRoute;
-    "/login": typeof authLoginLazyRoute;
-    "/register": typeof authRegisterLazyRoute;
-    "/reset-password": typeof authResetPasswordLazyRoute;
-    "/dashboard/addon": typeof DashboardSidebarLayoutAddonRoute;
-    "/dashboard/category": typeof DashboardSidebarLayoutCategoryRoute;
-    "/dashboard/catering-package": typeof DashboardSidebarLayoutCateringPackageRoute;
-    "/dashboard/inventory": typeof DashboardSidebarLayoutInventoryRoute;
-    "/dashboard/purchase": typeof DashboardSidebarLayoutPurchaseRoute;
-    "/dashboard/reservation": typeof DashboardSidebarLayoutReservationRoute;
-    "/dashboard/": typeof DashboardSidebarLayoutIndexRoute;
-    "/dashboard/product/create": typeof DashboardSidebarLayoutProductCreateRoute;
-    "/dashboard/recipe/addon": typeof DashboardSidebarLayoutRecipeAddonRoute;
-    "/dashboard/recipe/product": typeof DashboardSidebarLayoutRecipeProductRoute;
-    "/dashboard/user/create": typeof DashboardSidebarLayoutUserCreateRoute;
-    "/dashboard/user/customer": typeof DashboardSidebarLayoutUserCustomerRoute;
-    "/dashboard/user/employee": typeof DashboardSidebarLayoutUserEmployeeRoute;
-    "/dashboard/product": typeof DashboardSidebarLayoutProductIndexRoute;
-    "/dashboard/product/update/$productId": typeof DashboardSidebarLayoutProductUpdateProductIdRoute;
-    "/dashboard/user/update/$userId": typeof DashboardSidebarLayoutUserUpdateUserIdRoute;
+  '/': typeof IndexRoute
+  '/dashboard': typeof DashboardSidebarLayoutRouteWithChildren
+  '/forgot-password': typeof authForgotPasswordLazyRoute
+  '/login': typeof authLoginLazyRoute
+  '/register': typeof authRegisterLazyRoute
+  '/reset-password': typeof authResetPasswordLazyRoute
+  '/dashboard/addon': typeof DashboardSidebarLayoutAddonRoute
+  '/dashboard/category': typeof DashboardSidebarLayoutCategoryRoute
+  '/dashboard/catering-package': typeof DashboardSidebarLayoutCateringPackageRoute
+  '/dashboard/inventory': typeof DashboardSidebarLayoutInventoryRoute
+  '/dashboard/my-reservation': typeof DashboardSidebarLayoutMyReservationRoute
+  '/dashboard/purchase': typeof DashboardSidebarLayoutPurchaseRoute
+  '/dashboard/reservation': typeof DashboardSidebarLayoutReservationRoute
+  '/dashboard/reservation-catering': typeof DashboardSidebarLayoutReservationCateringRoute
+  '/dashboard/': typeof DashboardSidebarLayoutIndexRoute
+  '/dashboard/product/create': typeof DashboardSidebarLayoutProductCreateRoute
+  '/dashboard/recipe/addon': typeof DashboardSidebarLayoutRecipeAddonRoute
+  '/dashboard/recipe/product': typeof DashboardSidebarLayoutRecipeProductRoute
+  '/dashboard/user/create': typeof DashboardSidebarLayoutUserCreateRoute
+  '/dashboard/user/customer': typeof DashboardSidebarLayoutUserCustomerRoute
+  '/dashboard/user/employee': typeof DashboardSidebarLayoutUserEmployeeRoute
+  '/dashboard/product': typeof DashboardSidebarLayoutProductIndexRoute
+  '/dashboard/product/update/$productId': typeof DashboardSidebarLayoutProductUpdateProductIdRoute
+  '/dashboard/user/update/$userId': typeof DashboardSidebarLayoutUserUpdateUserIdRoute
 }
 
 export interface FileRoutesByTo {
-    "/": typeof IndexRoute;
-    "/dashboard": typeof DashboardSidebarLayoutIndexRoute;
-    "/forgot-password": typeof authForgotPasswordLazyRoute;
-    "/login": typeof authLoginLazyRoute;
-    "/register": typeof authRegisterLazyRoute;
-    "/reset-password": typeof authResetPasswordLazyRoute;
-    "/dashboard/addon": typeof DashboardSidebarLayoutAddonRoute;
-    "/dashboard/category": typeof DashboardSidebarLayoutCategoryRoute;
-    "/dashboard/catering-package": typeof DashboardSidebarLayoutCateringPackageRoute;
-    "/dashboard/inventory": typeof DashboardSidebarLayoutInventoryRoute;
-    "/dashboard/purchase": typeof DashboardSidebarLayoutPurchaseRoute;
-    "/dashboard/reservation": typeof DashboardSidebarLayoutReservationRoute;
-    "/dashboard/product/create": typeof DashboardSidebarLayoutProductCreateRoute;
-    "/dashboard/recipe/addon": typeof DashboardSidebarLayoutRecipeAddonRoute;
-    "/dashboard/recipe/product": typeof DashboardSidebarLayoutRecipeProductRoute;
-    "/dashboard/user/create": typeof DashboardSidebarLayoutUserCreateRoute;
-    "/dashboard/user/customer": typeof DashboardSidebarLayoutUserCustomerRoute;
-    "/dashboard/user/employee": typeof DashboardSidebarLayoutUserEmployeeRoute;
-    "/dashboard/product": typeof DashboardSidebarLayoutProductIndexRoute;
-    "/dashboard/product/update/$productId": typeof DashboardSidebarLayoutProductUpdateProductIdRoute;
-    "/dashboard/user/update/$userId": typeof DashboardSidebarLayoutUserUpdateUserIdRoute;
+  '/': typeof IndexRoute
+  '/dashboard': typeof DashboardSidebarLayoutIndexRoute
+  '/forgot-password': typeof authForgotPasswordLazyRoute
+  '/login': typeof authLoginLazyRoute
+  '/register': typeof authRegisterLazyRoute
+  '/reset-password': typeof authResetPasswordLazyRoute
+  '/dashboard/addon': typeof DashboardSidebarLayoutAddonRoute
+  '/dashboard/category': typeof DashboardSidebarLayoutCategoryRoute
+  '/dashboard/catering-package': typeof DashboardSidebarLayoutCateringPackageRoute
+  '/dashboard/inventory': typeof DashboardSidebarLayoutInventoryRoute
+  '/dashboard/my-reservation': typeof DashboardSidebarLayoutMyReservationRoute
+  '/dashboard/purchase': typeof DashboardSidebarLayoutPurchaseRoute
+  '/dashboard/reservation': typeof DashboardSidebarLayoutReservationRoute
+  '/dashboard/reservation-catering': typeof DashboardSidebarLayoutReservationCateringRoute
+  '/dashboard/product/create': typeof DashboardSidebarLayoutProductCreateRoute
+  '/dashboard/recipe/addon': typeof DashboardSidebarLayoutRecipeAddonRoute
+  '/dashboard/recipe/product': typeof DashboardSidebarLayoutRecipeProductRoute
+  '/dashboard/user/create': typeof DashboardSidebarLayoutUserCreateRoute
+  '/dashboard/user/customer': typeof DashboardSidebarLayoutUserCustomerRoute
+  '/dashboard/user/employee': typeof DashboardSidebarLayoutUserEmployeeRoute
+  '/dashboard/product': typeof DashboardSidebarLayoutProductIndexRoute
+  '/dashboard/product/update/$productId': typeof DashboardSidebarLayoutProductUpdateProductIdRoute
+  '/dashboard/user/update/$userId': typeof DashboardSidebarLayoutUserUpdateUserIdRoute
 }
 
 export interface FileRoutesById {
-    __root__: typeof rootRoute;
-    "/": typeof IndexRoute;
-    "/dashboard": typeof DashboardRouteWithChildren;
-    "/dashboard/_sidebarLayout": typeof DashboardSidebarLayoutRouteWithChildren;
-    "/(auth)/forgot-password": typeof authForgotPasswordLazyRoute;
-    "/(auth)/login": typeof authLoginLazyRoute;
-    "/(auth)/register": typeof authRegisterLazyRoute;
-    "/(auth)/reset-password": typeof authResetPasswordLazyRoute;
-    "/dashboard/_sidebarLayout/addon": typeof DashboardSidebarLayoutAddonRoute;
-    "/dashboard/_sidebarLayout/category": typeof DashboardSidebarLayoutCategoryRoute;
-    "/dashboard/_sidebarLayout/catering-package": typeof DashboardSidebarLayoutCateringPackageRoute;
-    "/dashboard/_sidebarLayout/inventory": typeof DashboardSidebarLayoutInventoryRoute;
-    "/dashboard/_sidebarLayout/purchase": typeof DashboardSidebarLayoutPurchaseRoute;
-    "/dashboard/_sidebarLayout/reservation": typeof DashboardSidebarLayoutReservationRoute;
-    "/dashboard/_sidebarLayout/": typeof DashboardSidebarLayoutIndexRoute;
-    "/dashboard/_sidebarLayout/product/create": typeof DashboardSidebarLayoutProductCreateRoute;
-    "/dashboard/_sidebarLayout/recipe/addon": typeof DashboardSidebarLayoutRecipeAddonRoute;
-    "/dashboard/_sidebarLayout/recipe/product": typeof DashboardSidebarLayoutRecipeProductRoute;
-    "/dashboard/_sidebarLayout/user/create": typeof DashboardSidebarLayoutUserCreateRoute;
-    "/dashboard/_sidebarLayout/user/customer": typeof DashboardSidebarLayoutUserCustomerRoute;
-    "/dashboard/_sidebarLayout/user/employee": typeof DashboardSidebarLayoutUserEmployeeRoute;
-    "/dashboard/_sidebarLayout/product/": typeof DashboardSidebarLayoutProductIndexRoute;
-    "/dashboard/_sidebarLayout/product/update/$productId": typeof DashboardSidebarLayoutProductUpdateProductIdRoute;
-    "/dashboard/_sidebarLayout/user/update/$userId": typeof DashboardSidebarLayoutUserUpdateUserIdRoute;
+  __root__: typeof rootRoute
+  '/': typeof IndexRoute
+  '/dashboard': typeof DashboardRouteWithChildren
+  '/dashboard/_sidebarLayout': typeof DashboardSidebarLayoutRouteWithChildren
+  '/(auth)/forgot-password': typeof authForgotPasswordLazyRoute
+  '/(auth)/login': typeof authLoginLazyRoute
+  '/(auth)/register': typeof authRegisterLazyRoute
+  '/(auth)/reset-password': typeof authResetPasswordLazyRoute
+  '/dashboard/_sidebarLayout/addon': typeof DashboardSidebarLayoutAddonRoute
+  '/dashboard/_sidebarLayout/category': typeof DashboardSidebarLayoutCategoryRoute
+  '/dashboard/_sidebarLayout/catering-package': typeof DashboardSidebarLayoutCateringPackageRoute
+  '/dashboard/_sidebarLayout/inventory': typeof DashboardSidebarLayoutInventoryRoute
+  '/dashboard/_sidebarLayout/my-reservation': typeof DashboardSidebarLayoutMyReservationRoute
+  '/dashboard/_sidebarLayout/purchase': typeof DashboardSidebarLayoutPurchaseRoute
+  '/dashboard/_sidebarLayout/reservation': typeof DashboardSidebarLayoutReservationRoute
+  '/dashboard/_sidebarLayout/reservation-catering': typeof DashboardSidebarLayoutReservationCateringRoute
+  '/dashboard/_sidebarLayout/': typeof DashboardSidebarLayoutIndexRoute
+  '/dashboard/_sidebarLayout/product/create': typeof DashboardSidebarLayoutProductCreateRoute
+  '/dashboard/_sidebarLayout/recipe/addon': typeof DashboardSidebarLayoutRecipeAddonRoute
+  '/dashboard/_sidebarLayout/recipe/product': typeof DashboardSidebarLayoutRecipeProductRoute
+  '/dashboard/_sidebarLayout/user/create': typeof DashboardSidebarLayoutUserCreateRoute
+  '/dashboard/_sidebarLayout/user/customer': typeof DashboardSidebarLayoutUserCustomerRoute
+  '/dashboard/_sidebarLayout/user/employee': typeof DashboardSidebarLayoutUserEmployeeRoute
+  '/dashboard/_sidebarLayout/product/': typeof DashboardSidebarLayoutProductIndexRoute
+  '/dashboard/_sidebarLayout/product/update/$productId': typeof DashboardSidebarLayoutProductUpdateProductIdRoute
+  '/dashboard/_sidebarLayout/user/update/$userId': typeof DashboardSidebarLayoutUserUpdateUserIdRoute
 }
 
 export interface FileRouteTypes {
-    fileRoutesByFullPath: FileRoutesByFullPath;
-    fullPaths:
-        | "/"
-        | "/dashboard"
-        | "/forgot-password"
-        | "/login"
-        | "/register"
-        | "/reset-password"
-        | "/dashboard/addon"
-        | "/dashboard/category"
-        | "/dashboard/catering-package"
-        | "/dashboard/inventory"
-        | "/dashboard/purchase"
-        | "/dashboard/reservation"
-        | "/dashboard/"
-        | "/dashboard/product/create"
-        | "/dashboard/recipe/addon"
-        | "/dashboard/recipe/product"
-        | "/dashboard/user/create"
-        | "/dashboard/user/customer"
-        | "/dashboard/user/employee"
-        | "/dashboard/product"
-        | "/dashboard/product/update/$productId"
-        | "/dashboard/user/update/$userId";
-    fileRoutesByTo: FileRoutesByTo;
-    to:
-        | "/"
-        | "/dashboard"
-        | "/forgot-password"
-        | "/login"
-        | "/register"
-        | "/reset-password"
-        | "/dashboard/addon"
-        | "/dashboard/category"
-        | "/dashboard/catering-package"
-        | "/dashboard/inventory"
-        | "/dashboard/purchase"
-        | "/dashboard/reservation"
-        | "/dashboard/product/create"
-        | "/dashboard/recipe/addon"
-        | "/dashboard/recipe/product"
-        | "/dashboard/user/create"
-        | "/dashboard/user/customer"
-        | "/dashboard/user/employee"
-        | "/dashboard/product"
-        | "/dashboard/product/update/$productId"
-        | "/dashboard/user/update/$userId";
-    id:
-        | "__root__"
-        | "/"
-        | "/dashboard"
-        | "/dashboard/_sidebarLayout"
-        | "/(auth)/forgot-password"
-        | "/(auth)/login"
-        | "/(auth)/register"
-        | "/(auth)/reset-password"
-        | "/dashboard/_sidebarLayout/addon"
-        | "/dashboard/_sidebarLayout/category"
-        | "/dashboard/_sidebarLayout/catering-package"
-        | "/dashboard/_sidebarLayout/inventory"
-        | "/dashboard/_sidebarLayout/purchase"
-        | "/dashboard/_sidebarLayout/reservation"
-        | "/dashboard/_sidebarLayout/"
-        | "/dashboard/_sidebarLayout/product/create"
-        | "/dashboard/_sidebarLayout/recipe/addon"
-        | "/dashboard/_sidebarLayout/recipe/product"
-        | "/dashboard/_sidebarLayout/user/create"
-        | "/dashboard/_sidebarLayout/user/customer"
-        | "/dashboard/_sidebarLayout/user/employee"
-        | "/dashboard/_sidebarLayout/product/"
-        | "/dashboard/_sidebarLayout/product/update/$productId"
-        | "/dashboard/_sidebarLayout/user/update/$userId";
-    fileRoutesById: FileRoutesById;
+  fileRoutesByFullPath: FileRoutesByFullPath
+  fullPaths:
+    | '/'
+    | '/dashboard'
+    | '/forgot-password'
+    | '/login'
+    | '/register'
+    | '/reset-password'
+    | '/dashboard/addon'
+    | '/dashboard/category'
+    | '/dashboard/catering-package'
+    | '/dashboard/inventory'
+    | '/dashboard/my-reservation'
+    | '/dashboard/purchase'
+    | '/dashboard/reservation'
+    | '/dashboard/reservation-catering'
+    | '/dashboard/'
+    | '/dashboard/product/create'
+    | '/dashboard/recipe/addon'
+    | '/dashboard/recipe/product'
+    | '/dashboard/user/create'
+    | '/dashboard/user/customer'
+    | '/dashboard/user/employee'
+    | '/dashboard/product'
+    | '/dashboard/product/update/$productId'
+    | '/dashboard/user/update/$userId'
+  fileRoutesByTo: FileRoutesByTo
+  to:
+    | '/'
+    | '/dashboard'
+    | '/forgot-password'
+    | '/login'
+    | '/register'
+    | '/reset-password'
+    | '/dashboard/addon'
+    | '/dashboard/category'
+    | '/dashboard/catering-package'
+    | '/dashboard/inventory'
+    | '/dashboard/my-reservation'
+    | '/dashboard/purchase'
+    | '/dashboard/reservation'
+    | '/dashboard/reservation-catering'
+    | '/dashboard/product/create'
+    | '/dashboard/recipe/addon'
+    | '/dashboard/recipe/product'
+    | '/dashboard/user/create'
+    | '/dashboard/user/customer'
+    | '/dashboard/user/employee'
+    | '/dashboard/product'
+    | '/dashboard/product/update/$productId'
+    | '/dashboard/user/update/$userId'
+  id:
+    | '__root__'
+    | '/'
+    | '/dashboard'
+    | '/dashboard/_sidebarLayout'
+    | '/(auth)/forgot-password'
+    | '/(auth)/login'
+    | '/(auth)/register'
+    | '/(auth)/reset-password'
+    | '/dashboard/_sidebarLayout/addon'
+    | '/dashboard/_sidebarLayout/category'
+    | '/dashboard/_sidebarLayout/catering-package'
+    | '/dashboard/_sidebarLayout/inventory'
+    | '/dashboard/_sidebarLayout/my-reservation'
+    | '/dashboard/_sidebarLayout/purchase'
+    | '/dashboard/_sidebarLayout/reservation'
+    | '/dashboard/_sidebarLayout/reservation-catering'
+    | '/dashboard/_sidebarLayout/'
+    | '/dashboard/_sidebarLayout/product/create'
+    | '/dashboard/_sidebarLayout/recipe/addon'
+    | '/dashboard/_sidebarLayout/recipe/product'
+    | '/dashboard/_sidebarLayout/user/create'
+    | '/dashboard/_sidebarLayout/user/customer'
+    | '/dashboard/_sidebarLayout/user/employee'
+    | '/dashboard/_sidebarLayout/product/'
+    | '/dashboard/_sidebarLayout/product/update/$productId'
+    | '/dashboard/_sidebarLayout/user/update/$userId'
+  fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
-    IndexRoute: typeof IndexRoute;
-    DashboardRoute: typeof DashboardRouteWithChildren;
-    authForgotPasswordLazyRoute: typeof authForgotPasswordLazyRoute;
-    authLoginLazyRoute: typeof authLoginLazyRoute;
-    authRegisterLazyRoute: typeof authRegisterLazyRoute;
-    authResetPasswordLazyRoute: typeof authResetPasswordLazyRoute;
+  IndexRoute: typeof IndexRoute
+  DashboardRoute: typeof DashboardRouteWithChildren
+  authForgotPasswordLazyRoute: typeof authForgotPasswordLazyRoute
+  authLoginLazyRoute: typeof authLoginLazyRoute
+  authRegisterLazyRoute: typeof authRegisterLazyRoute
+  authResetPasswordLazyRoute: typeof authResetPasswordLazyRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
-    IndexRoute: IndexRoute,
-    DashboardRoute: DashboardRouteWithChildren,
-    authForgotPasswordLazyRoute: authForgotPasswordLazyRoute,
-    authLoginLazyRoute: authLoginLazyRoute,
-    authRegisterLazyRoute: authRegisterLazyRoute,
-    authResetPasswordLazyRoute: authResetPasswordLazyRoute,
-};
+  IndexRoute: IndexRoute,
+  DashboardRoute: DashboardRouteWithChildren,
+  authForgotPasswordLazyRoute: authForgotPasswordLazyRoute,
+  authLoginLazyRoute: authLoginLazyRoute,
+  authRegisterLazyRoute: authRegisterLazyRoute,
+  authResetPasswordLazyRoute: authResetPasswordLazyRoute,
+}
 
-export const routeTree = rootRoute._addFileChildren(rootRouteChildren)._addFileTypes<FileRouteTypes>();
+export const routeTree = rootRoute
+  ._addFileChildren(rootRouteChildren)
+  ._addFileTypes<FileRouteTypes>()
 
 /* ROUTE_MANIFEST_START
 {
@@ -612,8 +699,10 @@ export const routeTree = rootRoute._addFileChildren(rootRouteChildren)._addFileT
         "/dashboard/_sidebarLayout/category",
         "/dashboard/_sidebarLayout/catering-package",
         "/dashboard/_sidebarLayout/inventory",
+        "/dashboard/_sidebarLayout/my-reservation",
         "/dashboard/_sidebarLayout/purchase",
         "/dashboard/_sidebarLayout/reservation",
+        "/dashboard/_sidebarLayout/reservation-catering",
         "/dashboard/_sidebarLayout/",
         "/dashboard/_sidebarLayout/product/create",
         "/dashboard/_sidebarLayout/recipe/addon",
@@ -654,12 +743,20 @@ export const routeTree = rootRoute._addFileChildren(rootRouteChildren)._addFileT
       "filePath": "dashboard/_sidebarLayout/inventory.tsx",
       "parent": "/dashboard/_sidebarLayout"
     },
+    "/dashboard/_sidebarLayout/my-reservation": {
+      "filePath": "dashboard/_sidebarLayout/my-reservation.tsx",
+      "parent": "/dashboard/_sidebarLayout"
+    },
     "/dashboard/_sidebarLayout/purchase": {
       "filePath": "dashboard/_sidebarLayout/purchase.tsx",
       "parent": "/dashboard/_sidebarLayout"
     },
     "/dashboard/_sidebarLayout/reservation": {
       "filePath": "dashboard/_sidebarLayout/reservation.tsx",
+      "parent": "/dashboard/_sidebarLayout"
+    },
+    "/dashboard/_sidebarLayout/reservation-catering": {
+      "filePath": "dashboard/_sidebarLayout/reservation-catering.tsx",
       "parent": "/dashboard/_sidebarLayout"
     },
     "/dashboard/_sidebarLayout/": {

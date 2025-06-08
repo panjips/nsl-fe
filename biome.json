@@ -45,7 +45,8 @@
             "suspicious": {
                 "noExplicitAny": "off",
                 "noGlobalIsNan": "off",
-                "noImplicitAnyLet": "off"
+                "noImplicitAnyLet": "off",
+                "noArrayIndexKey": "off"
             },
             "performance": {
                 "noDelete": "off"

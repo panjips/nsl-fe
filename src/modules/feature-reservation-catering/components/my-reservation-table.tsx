@@ -1,12 +1,19 @@
-import { reservationColumnHelper, setupReservationColumns } from "./reservation-column";
-import { ReservationMutationModal } from "./reservation-mutation-modal";
-import { ReservationDeleteModal } from "./reservation-delete-modal";
-import { ReservationViewModal } from "./reservation-view-modal";
 import { DataTable } from "@/components/data-table";
 import { Button } from "@/components/ui/button";
-import { useReservationStore } from "../stores";
-import { ReservationStatus, type ReservationWithOrderCateringAndPackage } from "../domain";
-import { useListReservation } from "../hooks";
+import {
+    ReservationStatus,
+    type ReservationWithOrderCateringAndPackage,
+    reservationColumnHelper,
+    setupReservationColumns,
+    useUserReservations,
+    statusIcons,
+    statusDisplayNames,
+    ReservationStatusUpdateModal,
+    ReservationMutationModal,
+    ReservationDeleteModal,
+    ReservationViewModal,
+    useReservationStore,
+} from "@/modules/feature-reservation";
 import { useMemo } from "react";
 import {
     DropdownMenu,
@@ -15,13 +22,11 @@ import {
     DropdownMenuTrigger,
     DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
-import { ReservationStatusUpdateModal } from "./reservation-status-update-modal";
-import { statusIcons, statusDisplayNames } from "../utils";
 import { ChevronDown, Filter, FilterX } from "lucide-react";
 import { toast } from "sonner";
 
-export const ReservationTable = () => {
-    const { data, isLoading, setSearchTerm, searchTerm, statusFilter, setStatusFilter } = useListReservation();
+export const MyReservationTable = () => {
+    const { data, isLoading, setSearchTerm, searchTerm, statusFilter, setStatusFilter } = useUserReservations(17);
     const { modal } = useReservationStore();
 
     const handleOpenModalView = (id: string | number) => {
@@ -36,10 +41,6 @@ export const ReservationTable = () => {
         modal.onOpen("edit", data);
     };
 
-    const handleOpenModalCreate = () => {
-        modal.onOpen("create");
-    };
-
     const handleOpenModalDelete = (id: string | number, data: ReservationWithOrderCateringAndPackage) => {
         if (data.status !== ReservationStatus.PENDING || data.status !== ReservationStatus.CANCELLED) {
             toast.error("You can only delete reservations with PENDING or CANCELLED status.");
@@ -48,18 +49,12 @@ export const ReservationTable = () => {
         modal.onOpen("delete", null, id);
     };
 
-    const handleOpenModalStatus = (id: string | number, data: ReservationWithOrderCateringAndPackage) => {
-        modal.onOpen("status", data, id);
-    };
-
     const columns = useMemo(() => {
         return setupReservationColumns({
             columnHelper: reservationColumnHelper,
             onEdit: handleOpenModalEdit,
             onDelete: handleOpenModalDelete,
             onView: handleOpenModalView,
-            onStatusUpdate: handleOpenModalStatus,
-            isAdminView: true,
         });
     }, []);
 
@@ -110,10 +105,6 @@ export const ReservationTable = () => {
                         </DropdownMenuContent>
                     </DropdownMenu>
                 </div>
-
-                <Button variant="default" onClick={handleOpenModalCreate} className="w-fit">
-                    Create Reservation
-                </Button>
             </div>
 
             <DataTable

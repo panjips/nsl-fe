@@ -4,3 +4,4 @@ export * from "./domain";
 export * from "./pages";
 export * from "./stores";
 export * from "./hooks";
+export * from "./utils";

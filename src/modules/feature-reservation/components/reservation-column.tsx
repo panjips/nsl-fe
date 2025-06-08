@@ -10,9 +10,10 @@ export const reservationColumnHelper = createTypedColumnHelper<ReservationWithOr
 export interface SetupReservationColumnsProps {
     columnHelper: ColumnHelper<ReservationWithOrderCateringAndPackage>;
     onEdit?: (data: ReservationWithOrderCateringAndPackage) => void;
-    onDelete?: (id: string | number) => void;
+    onDelete?: (id: string | number, data: ReservationWithOrderCateringAndPackage) => void;
     onView?: (id: string | number) => void;
     onStatusUpdate?: (id: string | number, data: ReservationWithOrderCateringAndPackage) => void;
+    isAdminView?: boolean;
 }
 
 export const setupReservationColumns = ({
@@ -21,6 +22,7 @@ export const setupReservationColumns = ({
     onDelete,
     onView,
     onStatusUpdate,
+    isAdminView = false,
 }: SetupReservationColumnsProps) => {
     return [
         columnHelper.accessor("id", {
@@ -181,19 +183,23 @@ export const setupReservationColumns = ({
                             }}
                             onDelete={(id) => {
                                 if (onDelete) {
-                                    onDelete(id);
+                                    onDelete(id, row.original);
                                 }
                             }}
-                            customActions={[
-                                {
-                                    label: "Update Status",
-                                    onClick: (id) => {
-                                        if (onStatusUpdate) {
-                                            onStatusUpdate(id, row.original);
-                                        }
-                                    },
-                                },
-                            ]}
+                            customActions={
+                                isAdminView
+                                    ? [
+                                          {
+                                              label: "Update Status",
+                                              onClick: (id) => {
+                                                  if (onStatusUpdate) {
+                                                      onStatusUpdate(id, row.original);
+                                                  }
+                                              },
+                                          },
+                                      ]
+                                    : []
+                            }
                         />
                     </div>
                 );
