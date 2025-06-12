@@ -16,6 +16,7 @@ import type { AppSidebarProps } from "./types";
 export const AppSidebar = React.memo(function AppSidebar({
     menuItems,
     user,
+    handleLogout,
     ...props
 }: AppSidebarProps & React.ComponentProps<typeof Sidebar>) {
     return (
@@ -26,7 +27,7 @@ export const AppSidebar = React.memo(function AppSidebar({
                         <SidebarMenuButton asChild className="data-[slot=sidebar-menu-button]:!p-1.5">
                             <a href="#">
                                 <Bot className="!size-5" />
-                                <span className="text-base font-semibold">Acme Inc.</span>
+                                <span className="text-base font-semibold">Needsixletters</span>
                             </a>
                         </SidebarMenuButton>
                     </SidebarMenuItem>
@@ -36,7 +37,7 @@ export const AppSidebar = React.memo(function AppSidebar({
                 <NavMain items={menuItems} />
             </SidebarContent>
             <SidebarFooter>
-                <NavUser user={user} />
+                <NavUser user={user} handleLogout={handleLogout} />
             </SidebarFooter>
         </Sidebar>
     );

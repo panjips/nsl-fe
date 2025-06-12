@@ -19,6 +19,7 @@ import { Route as DashboardSidebarLayoutIndexImport } from './routes/dashboard/_
 import { Route as DashboardSidebarLayoutReservationCateringImport } from './routes/dashboard/_sidebarLayout/reservation-catering'
 import { Route as DashboardSidebarLayoutReservationImport } from './routes/dashboard/_sidebarLayout/reservation'
 import { Route as DashboardSidebarLayoutPurchaseImport } from './routes/dashboard/_sidebarLayout/purchase'
+import { Route as DashboardSidebarLayoutPosImport } from './routes/dashboard/_sidebarLayout/pos'
 import { Route as DashboardSidebarLayoutMyReservationImport } from './routes/dashboard/_sidebarLayout/my-reservation'
 import { Route as DashboardSidebarLayoutInventoryImport } from './routes/dashboard/_sidebarLayout/inventory'
 import { Route as DashboardSidebarLayoutCateringPackageImport } from './routes/dashboard/_sidebarLayout/catering-package'
@@ -126,6 +127,12 @@ const DashboardSidebarLayoutPurchaseRoute =
     path: '/purchase',
     getParentRoute: () => DashboardSidebarLayoutRoute,
   } as any)
+
+const DashboardSidebarLayoutPosRoute = DashboardSidebarLayoutPosImport.update({
+  id: '/pos',
+  path: '/pos',
+  getParentRoute: () => DashboardSidebarLayoutRoute,
+} as any)
 
 const DashboardSidebarLayoutMyReservationRoute =
   DashboardSidebarLayoutMyReservationImport.update({
@@ -313,6 +320,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardSidebarLayoutMyReservationImport
       parentRoute: typeof DashboardSidebarLayoutImport
     }
+    '/dashboard/_sidebarLayout/pos': {
+      id: '/dashboard/_sidebarLayout/pos'
+      path: '/pos'
+      fullPath: '/dashboard/pos'
+      preLoaderRoute: typeof DashboardSidebarLayoutPosImport
+      parentRoute: typeof DashboardSidebarLayoutImport
+    }
     '/dashboard/_sidebarLayout/purchase': {
       id: '/dashboard/_sidebarLayout/purchase'
       path: '/purchase'
@@ -415,6 +429,7 @@ interface DashboardSidebarLayoutRouteChildren {
   DashboardSidebarLayoutCateringPackageRoute: typeof DashboardSidebarLayoutCateringPackageRoute
   DashboardSidebarLayoutInventoryRoute: typeof DashboardSidebarLayoutInventoryRoute
   DashboardSidebarLayoutMyReservationRoute: typeof DashboardSidebarLayoutMyReservationRoute
+  DashboardSidebarLayoutPosRoute: typeof DashboardSidebarLayoutPosRoute
   DashboardSidebarLayoutPurchaseRoute: typeof DashboardSidebarLayoutPurchaseRoute
   DashboardSidebarLayoutReservationRoute: typeof DashboardSidebarLayoutReservationRoute
   DashboardSidebarLayoutReservationCateringRoute: typeof DashboardSidebarLayoutReservationCateringRoute
@@ -439,6 +454,7 @@ const DashboardSidebarLayoutRouteChildren: DashboardSidebarLayoutRouteChildren =
     DashboardSidebarLayoutInventoryRoute: DashboardSidebarLayoutInventoryRoute,
     DashboardSidebarLayoutMyReservationRoute:
       DashboardSidebarLayoutMyReservationRoute,
+    DashboardSidebarLayoutPosRoute: DashboardSidebarLayoutPosRoute,
     DashboardSidebarLayoutPurchaseRoute: DashboardSidebarLayoutPurchaseRoute,
     DashboardSidebarLayoutReservationRoute:
       DashboardSidebarLayoutReservationRoute,
@@ -494,6 +510,7 @@ export interface FileRoutesByFullPath {
   '/dashboard/catering-package': typeof DashboardSidebarLayoutCateringPackageRoute
   '/dashboard/inventory': typeof DashboardSidebarLayoutInventoryRoute
   '/dashboard/my-reservation': typeof DashboardSidebarLayoutMyReservationRoute
+  '/dashboard/pos': typeof DashboardSidebarLayoutPosRoute
   '/dashboard/purchase': typeof DashboardSidebarLayoutPurchaseRoute
   '/dashboard/reservation': typeof DashboardSidebarLayoutReservationRoute
   '/dashboard/reservation-catering': typeof DashboardSidebarLayoutReservationCateringRoute
@@ -521,6 +538,7 @@ export interface FileRoutesByTo {
   '/dashboard/catering-package': typeof DashboardSidebarLayoutCateringPackageRoute
   '/dashboard/inventory': typeof DashboardSidebarLayoutInventoryRoute
   '/dashboard/my-reservation': typeof DashboardSidebarLayoutMyReservationRoute
+  '/dashboard/pos': typeof DashboardSidebarLayoutPosRoute
   '/dashboard/purchase': typeof DashboardSidebarLayoutPurchaseRoute
   '/dashboard/reservation': typeof DashboardSidebarLayoutReservationRoute
   '/dashboard/reservation-catering': typeof DashboardSidebarLayoutReservationCateringRoute
@@ -549,6 +567,7 @@ export interface FileRoutesById {
   '/dashboard/_sidebarLayout/catering-package': typeof DashboardSidebarLayoutCateringPackageRoute
   '/dashboard/_sidebarLayout/inventory': typeof DashboardSidebarLayoutInventoryRoute
   '/dashboard/_sidebarLayout/my-reservation': typeof DashboardSidebarLayoutMyReservationRoute
+  '/dashboard/_sidebarLayout/pos': typeof DashboardSidebarLayoutPosRoute
   '/dashboard/_sidebarLayout/purchase': typeof DashboardSidebarLayoutPurchaseRoute
   '/dashboard/_sidebarLayout/reservation': typeof DashboardSidebarLayoutReservationRoute
   '/dashboard/_sidebarLayout/reservation-catering': typeof DashboardSidebarLayoutReservationCateringRoute
@@ -578,6 +597,7 @@ export interface FileRouteTypes {
     | '/dashboard/catering-package'
     | '/dashboard/inventory'
     | '/dashboard/my-reservation'
+    | '/dashboard/pos'
     | '/dashboard/purchase'
     | '/dashboard/reservation'
     | '/dashboard/reservation-catering'
@@ -604,6 +624,7 @@ export interface FileRouteTypes {
     | '/dashboard/catering-package'
     | '/dashboard/inventory'
     | '/dashboard/my-reservation'
+    | '/dashboard/pos'
     | '/dashboard/purchase'
     | '/dashboard/reservation'
     | '/dashboard/reservation-catering'
@@ -630,6 +651,7 @@ export interface FileRouteTypes {
     | '/dashboard/_sidebarLayout/catering-package'
     | '/dashboard/_sidebarLayout/inventory'
     | '/dashboard/_sidebarLayout/my-reservation'
+    | '/dashboard/_sidebarLayout/pos'
     | '/dashboard/_sidebarLayout/purchase'
     | '/dashboard/_sidebarLayout/reservation'
     | '/dashboard/_sidebarLayout/reservation-catering'
@@ -700,6 +722,7 @@ export const routeTree = rootRoute
         "/dashboard/_sidebarLayout/catering-package",
         "/dashboard/_sidebarLayout/inventory",
         "/dashboard/_sidebarLayout/my-reservation",
+        "/dashboard/_sidebarLayout/pos",
         "/dashboard/_sidebarLayout/purchase",
         "/dashboard/_sidebarLayout/reservation",
         "/dashboard/_sidebarLayout/reservation-catering",
@@ -745,6 +768,10 @@ export const routeTree = rootRoute
     },
     "/dashboard/_sidebarLayout/my-reservation": {
       "filePath": "dashboard/_sidebarLayout/my-reservation.tsx",
+      "parent": "/dashboard/_sidebarLayout"
+    },
+    "/dashboard/_sidebarLayout/pos": {
+      "filePath": "dashboard/_sidebarLayout/pos.tsx",
       "parent": "/dashboard/_sidebarLayout"
     },
     "/dashboard/_sidebarLayout/purchase": {

@@ -6,10 +6,12 @@ import { LoginReqDTO as LoginSchema, type LoginReqDTOType as LoginSchemaType } f
 import { useAuthStore } from "../stores/store";
 import { toast } from "sonner";
 import { capitalizeFirstLetter } from "@/lib/utils";
+import { useGlobalAuthStore } from "@/stores";
 
 export const useLogin = () => {
     const navigate = useNavigate();
     const { login, loginState, resetLoginState } = useAuthStore();
+    const { login: setGlobalUser , setAuthLoading } = useGlobalAuthStore();
     const form = useForm<LoginSchemaType>({
         resolver: zodResolver(LoginSchema),
         defaultValues: {
@@ -19,11 +21,13 @@ export const useLogin = () => {
     });
 
     const onSubmit = async (data: LoginSchemaType) => {
+        setAuthLoading(true);
         await login(data);
     };
 
     useEffect(() => {
-        if (loginState.state === "success") {
+        if (loginState.state === "success" && loginState.data.data?.user) {
+            setGlobalUser(loginState.data.data.user, loginState.data.data?.token);
             navigate({ to: "/" });
             toast.success(capitalizeFirstLetter(loginState.data.message));
             resetLoginState();

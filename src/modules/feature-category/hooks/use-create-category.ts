@@ -21,14 +21,12 @@ export const useCreateCategory = () => {
     useEffect(() => {
         if (createCategory.state.state === "success") {
             toast.success("Category created successfully");
+            resetCreateCategoryState();
         }
         if (createCategory.state.state === "error") {
             toast.error(createCategory.state.error || "Failed to create category");
-        }
-
-        return () => {
             resetCreateCategoryState();
-        };
+        }
     }, [createCategory.state.state, resetCreateCategoryState]);
 
     return {

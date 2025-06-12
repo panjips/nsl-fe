@@ -40,7 +40,6 @@ export const useFormUser = () => {
     }, [id, getUser.state, form]);
 
     const handleSubmit = async (data: CreateUserDTOType) => {
-        console.log("test");
         if (id) {
             await handleUpdateUser(id, data);
         } else {

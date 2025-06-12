@@ -1,5 +1,3 @@
-"use client";
-
 import { Modal } from "@/components/modal";
 import { useViewReservation } from "../hooks";
 import { format } from "date-fns";

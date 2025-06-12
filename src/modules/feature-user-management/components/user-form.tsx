@@ -116,8 +116,6 @@ export const UserForm = ({ type }: { type: string }) => {
                                 control={form.control}
                                 name="role"
                                 render={({ field }) => {
-                                    console.log(field);
-                                    console.log(form.getValues("role"));
 
                                     return (
                                         <FormItem>

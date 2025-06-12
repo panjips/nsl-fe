@@ -50,4 +50,14 @@ export const authApi = {
             }
         }
     },
+    logout : async () => {
+        try {
+            const response = await axiosInstance.post<ApiResponse<null>>(ENDPOINTS.LOGOUT);
+            return response.data;
+        } catch (error) {
+            if (isAxiosError(error)) {
+                throw new Error(error.response?.data.message);
+            }
+        }
+    }
 };

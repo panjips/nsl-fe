@@ -83,7 +83,6 @@ export const useFormProduct = () => {
                 formData.append("image", imageFile);
             }
 
-            console.log("Form Data:", Object.fromEntries(formData));
             if (id) {
                 await handleUpdateProduct(id, formData);
             } else {

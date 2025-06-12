@@ -37,7 +37,6 @@ export const useAuthStore = create<AuthState>((set) => ({
         set({ registerState: loadingState() });
         try {
             const user = await authApi.register(data);
-            console.log(user);
             set({
                 registerState: successState(user),
             });

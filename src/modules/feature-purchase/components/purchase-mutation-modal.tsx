@@ -58,8 +58,6 @@ export const PurchaseMutationModal = ({
         }
     }, [data, isEdit, forms, isOpenCreate]);
 
-    console.log(forms.getValues("purchase_date"));
-
     return (
         <Modal
             open={isOpenEdit || isOpenCreate}

@@ -17,10 +17,10 @@ export interface NavMainProps {
 export interface NavUserProps {
     name: string;
     email: string;
-    avatar: string;
 }
 
 export interface AppSidebarProps {
     menuItems: NavMainProps[];
     user: NavUserProps;
+    handleLogout?: () => void;
 }

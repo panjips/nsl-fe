@@ -9,6 +9,8 @@ import {
     NotepadText,
     ReceiptText,
     ShoppingBasket,
+    Calculator,
+    TicketPercent,
 } from "lucide-react";
 
 export const menuItems: NavMainProps[] = [
@@ -104,7 +106,22 @@ export const menuItems: NavMainProps[] = [
                 title: "My Reservation",
                 url: "/dashboard/my-reservation",
                 icon: ShoppingBasket,
-            }
+            },
+        ],
+    },
+    {
+        group: "Sale",
+        items: [
+            {
+                title: "Point of Sale",
+                url: "/dashboard/pos",
+                icon: Calculator,
+            },
+            {
+                title: "Discount",
+                url: "/dashboard/discount",
+                icon: TicketPercent,
+            },
         ],
     },
 ];
