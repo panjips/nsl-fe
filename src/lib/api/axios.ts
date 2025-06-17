@@ -10,6 +10,14 @@ const axiosInstance = axios.create({
     withCredentials: true,
 });
 
+const axiosMultipartInstance = axios.create({
+    baseURL: API_URL,
+    headers: {
+        "Content-Type": "multipart/form-data",
+    },
+    withCredentials: true,
+});
+
 axiosInstance.interceptors.request.use(
     (config: InternalAxiosRequestConfig): InternalAxiosRequestConfig => {
         const token = Cookies.get("token");
@@ -18,6 +26,19 @@ axiosInstance.interceptors.request.use(
             config.headers.Authorization = `Bearer ${token}`;
         }
 
+        return config;
+    },
+    (error: AxiosError) => {
+        return Promise.reject(error);
+    },
+);
+
+axiosMultipartInstance.interceptors.request.use(
+    (config: InternalAxiosRequestConfig): InternalAxiosRequestConfig => {
+        const token = Cookies.get("token");
+        if (token) {
+            config.headers.Authorization = `Bearer ${token}`;
+        }
         return config;
     },
     (error: AxiosError) => {
@@ -53,4 +74,5 @@ axiosInstance.interceptors.request.use(
 //   }
 // );
 
+export { axiosMultipartInstance };
 export default axiosInstance;

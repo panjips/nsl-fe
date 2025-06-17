@@ -29,7 +29,8 @@
                 "useTemplate": "off",
                 "noUselessElse": "off",
                 "useImportType": "off",
-                "useConst": "off"
+                "useConst": "off",
+                "useNumberNamespace": "off"
             },
             "correctness": {
                 "noInvalidUseBeforeDeclaration": "off",

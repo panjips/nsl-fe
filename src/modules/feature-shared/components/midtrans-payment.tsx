@@ -62,19 +62,15 @@ export function MidtransPayment({
         if (window.snap) {
             window.snap.pay(token, {
                 onSuccess: () => {
-                    console.log("Payment success");
                     onSuccess?.();
                 },
                 onPending: () => {
-                    console.log("Payment pending");
                     onPending?.();
                 },
                 onError: (error: any) => {
-                    console.error("Payment error:", error);
                     onError?.(error);
                 },
                 onClose: () => {
-                    console.log("Customer closed the payment dialog");
                     onClose?.();
                 },
             });

@@ -11,6 +11,8 @@ import {
     ShoppingBasket,
     Calculator,
     TicketPercent,
+    Book,
+    ListOrdered,
 } from "lucide-react";
 
 export const menuItems: NavMainProps[] = [
@@ -118,9 +120,49 @@ export const menuItems: NavMainProps[] = [
                 icon: Calculator,
             },
             {
-                title: "Discount",
-                url: "/dashboard/discount",
+                title: "Online Order",
+                url: "/dashboard/online-order",
+                icon: ListOrdered,
+            },
+        ],
+    },
+    {
+        group: "History",
+        items: [
+            {
+                title: "Transaction History",
+                url: "/dashboard/history/transaction",
                 icon: TicketPercent,
+            },
+            {
+                title: "Catering Package History",
+                url: "/dashboard/history/catering-package",
+                icon: TicketPercent,
+            },
+            {
+                title: "My Transaction",
+                url: "/dashboard/history/my-transaction",
+                icon: TicketPercent,
+            },
+        ],
+    },
+    {
+        group: "Reports",
+        items: [
+            {
+                title: "Sales Report",
+                url: "/dashboard/report/sales",
+                icon: Book,
+            },
+            {
+                title: "Inventory Report",
+                url: "/dashboard/report/inventory",
+                icon: Book,
+            },
+            {
+                title: "Purchase Report",
+                url: "/dashboard/report/purchase",
+                icon: Book,
             },
         ],
     },

@@ -29,7 +29,7 @@ if (rootElement && !rootElement.innerHTML) {
     root.render(
         <StrictMode>
             <RouterProvider router={router} />
-            <Toaster richColors />
+            <Toaster richColors theme="light" />
         </StrictMode>,
     );
 }

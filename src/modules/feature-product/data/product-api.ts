@@ -1,5 +1,5 @@
 import { ENDPOINTS, type ApiResponse } from "@/lib/api";
-import axiosInstance from "@/lib/api/axios";
+import axiosInstance, { axiosMultipartInstance } from "@/lib/api/axios";
 import { isAxiosError } from "axios";
 import type { TableProduct } from "../domain";
 
@@ -26,7 +26,8 @@ export const productApi = {
     },
     createProduct: async (data: FormData) => {
         try {
-            const response = await axiosInstance.post<ApiResponse<null>>(ENDPOINTS.PRODUCT, data);
+            console.log(data.getAll("image"));
+            const response = await axiosMultipartInstance.post<ApiResponse<null>>(ENDPOINTS.PRODUCT, data);
             return response.data;
         } catch (error) {
             if (isAxiosError(error)) {
@@ -36,7 +37,7 @@ export const productApi = {
     },
     editProduct: async (id: string | number, data: FormData) => {
         try {
-            const response = await axiosInstance.put<ApiResponse<null>>(`${ENDPOINTS.PRODUCT}/${id}`, data);
+            const response = await axiosMultipartInstance.put<ApiResponse<null>>(`${ENDPOINTS.PRODUCT}/${id}`, data);
             return response.data;
         } catch (error) {
             if (isAxiosError(error)) {

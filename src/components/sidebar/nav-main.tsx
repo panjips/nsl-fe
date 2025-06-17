@@ -14,11 +14,37 @@ import {
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import type { NavMainProps } from "./types";
 import { cn } from "@/lib/utils";
+import { Badge } from "../ui/badge";
+import { useNotificationStore } from "@/stores";
+import { useEffect } from "react";
 
 export function NavMain({ items }: { items: NavMainProps[] }) {
     const location = useLocation();
     const currentPath = location.pathname;
 
+    const onlineOrderCount = useNotificationStore((state) => state.onlineOrderCount);
+
+    useEffect(() => {
+        // Connect socket if not already connected
+        useNotificationStore.getState().connectSocket();
+
+        // Optionally: Initialize from localStorage if needed
+        if (onlineOrderCount === 0) {
+            try {
+                const persistedString = localStorage.getItem("notification-storage");
+                if (persistedString) {
+                    const persisted = JSON.parse(persistedString);
+                    if (persisted.state?.onlineOrderCount) {
+                        useNotificationStore.setState({
+                            onlineOrderCount: persisted.state.onlineOrderCount,
+                        });
+                    }
+                }
+            } catch (error) {
+                console.error("Failed to parse persisted notification count:", error);
+            }
+        }
+    }, []);
     const isMenuActive = (url: string | undefined) => {
         if (!url) return false;
 
@@ -116,6 +142,16 @@ export function NavMain({ items }: { items: NavMainProps[] }) {
                                         <a href={item.url}>
                                             {item.icon && <item.icon />}
                                             <span>{item.title}</span>
+                                            {item.title === "Online Order" && (
+                                                <Badge
+                                                    className={cn(
+                                                        "bg-primary text-primary-foreground ml-auto",
+                                                        isMenuActive(item.url) && "bg-primary-foreground text-primary",
+                                                    )}
+                                                >
+                                                    {onlineOrderCount}
+                                                </Badge>
+                                            )}
                                         </a>
                                     </SidebarMenuButton>
                                 </SidebarMenuItem>

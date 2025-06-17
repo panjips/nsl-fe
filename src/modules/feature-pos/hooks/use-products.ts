@@ -6,8 +6,6 @@ import { type Product as POSProduct } from "../domain";
 export const useProducts = () => {
     const [searchTerm, setSearchTerm] = useState("");
     const [selectedCategory, setSelectedCategory] = useState("all");
-    const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 8;
 
     const { data: productsData, isLoading: isLoadingProducts } = useListProduct();
 
@@ -43,13 +41,11 @@ export const useProducts = () => {
         });
     }, [products, searchTerm, selectedCategory]);
 
-    const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
-    const paginatedProducts = filteredProducts.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
-
     const isLoading = isLoadingProducts || isLoadingCategories;
 
+    console.log(filteredProducts);
     return {
-        products: paginatedProducts,
+        products: filteredProducts,
         allProducts: products,
         categories,
         isLoading,
@@ -57,8 +53,5 @@ export const useProducts = () => {
         setSearchTerm,
         selectedCategory,
         setSelectedCategory,
-        currentPage,
-        setCurrentPage,
-        totalPages,
     };
 };

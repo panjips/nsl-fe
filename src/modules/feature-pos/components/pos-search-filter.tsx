@@ -11,7 +11,6 @@ interface SearchAndFiltersProps {
     selectedCategory: string;
     setSelectedCategory: (category: string) => void;
     categories: Category[];
-    setCurrentPage: (page: number) => void;
 }
 
 export function SearchAndFilters({
@@ -20,7 +19,6 @@ export function SearchAndFilters({
     selectedCategory,
     setSelectedCategory,
     categories,
-    setCurrentPage,
 }: SearchAndFiltersProps) {
     return (
         <div className="bg-white p-4 rounded-lg border shadow-xs space-y-3">
@@ -48,7 +46,6 @@ export function SearchAndFilters({
                             )}
                             onClick={() => {
                                 setSelectedCategory(category.id.toString());
-                                setCurrentPage(1);
                             }}
                         >
                             {category.name}

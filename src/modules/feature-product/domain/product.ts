@@ -9,6 +9,7 @@ export interface Product {
     cost: number;
     price: number;
     is_active: boolean;
+    possible_qty?: number;
 }
 
 export interface TableProduct extends Product {

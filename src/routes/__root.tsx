@@ -1,6 +1,7 @@
-import { useGlobalAuthStore } from "@/stores";
+import { useGlobalAuthStore, useNotificationStore } from "@/stores";
 import { Outlet, createRootRoute, redirect, type BeforeLoadContextOptions } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
+import { useEffect } from "react";
 
 export const withAuthGuard = ({
     location,
@@ -18,22 +19,31 @@ export const withAuthGuard = ({
         return redirect({ to: "/" });
     }
 
-    if (!isAuthenticated && !isAuthRoute && location.pathname !== "/") {
-        return redirect({
-            to: "/login",
-            search: { redirect: location.pathname },
-        });
-    }
+    // if (!isAuthenticated && !isAuthRoute && location.pathname !== "/") {
+    //     return redirect({
+    //         to: "/login",
+    //         search: { redirect: location.pathname },
+    //     });
+    // }
 
     return;
 };
 
 export const Route = createRootRoute({
-    component: () => (
-        <>
-            <Outlet />
-            <TanStackRouterDevtools />
-        </>
-    ),
+    component: () => {
+        const connectSocket = useNotificationStore((s) => s.connectSocket);
+
+        useEffect(() => {
+            connectSocket();
+            return () => {};
+        }, [connectSocket]);
+
+        return (
+            <>
+                <Outlet />
+                <TanStackRouterDevtools />
+            </>
+        );
+    },
     beforeLoad: withAuthGuard,
 });

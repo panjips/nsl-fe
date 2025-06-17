@@ -1,17 +1,18 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Loader2 } from "lucide-react";
+import { Loader2, ArrowRight } from "lucide-react";
 import type { CartItem } from "../domain";
 import { formatCurrency } from "@/lib/utils";
 import { useCreateOrder } from "../hooks";
 import { useOrderStore } from "../stores";
 import { MidtransPayment } from "@/modules/feature-shared";
 import { toast } from "sonner";
+import { Input } from "@/components/ui/input";
 
 interface OrderModalProps {
     cart: CartItem[];
@@ -23,18 +24,41 @@ const clientKey = import.meta.env.VITE_MIDTRANS_CLIENT_KEY;
 export function OrderModal({ cart, cartTotal }: OrderModalProps) {
     const [notes, setNotes] = useState("");
     const [paymentMethod, setPaymentMethod] = useState("CASH");
+    const [cashReceived, setCashReceived] = useState("");
+    const [showChangeModal, setShowChangeModal] = useState(false);
+    const [changeAmount, setChangeAmount] = useState(0);
+
     const { isSubmitting, createOrder, createOrderState, setShowMidtransPayment, showMidtransPayment } =
         useCreateOrder();
-    const paymentMethods = ["QRIS", "CASH", "GOPAY", "SHOPEEPAY"];
+    const paymentMethods = ["CASH", "QRIS MIDTRANS", "QRIS OFFLINE"];
     const { modal, resetModal } = useOrderStore();
 
     const transactionToken = createOrderState.state === "success" && createOrderState.data?.data?.token;
 
+    useEffect(() => {
+        if (paymentMethod !== "CASH") {
+            setCashReceived("");
+        }
+    }, [paymentMethod]);
+
     const handleSubmit = async () => {
+        if (paymentMethod === "CASH") {
+            const receivedAmount = Number.parseFloat(cashReceived.replace(/[^0-9.-]+/g, ""));
+            if (isNaN(receivedAmount) || receivedAmount < cartTotal) {
+                toast.error("Uang yang diterima harus lebih besar atau sama dengan total belanja");
+                return;
+            }
+            const change = receivedAmount - cartTotal;
+            setChangeAmount(change);
+            setShowChangeModal(true);
+            return;
+        }
+
         await createOrder(paymentMethod, notes);
     };
 
     const handlePaymentSuccess = () => {
+        toast.dismiss();
         toast.success("Payment completed successfully!");
         handleClose();
     };
@@ -50,9 +74,19 @@ export function OrderModal({ cart, cartTotal }: OrderModalProps) {
 
     const handleClose = () => {
         setShowMidtransPayment(false);
+        setShowChangeModal(false);
         resetModal();
         setNotes("");
-        setPaymentMethod("MIDTRANS");
+        setPaymentMethod("CASH");
+        setCashReceived("");
+    };
+
+    function formatNumberWithSeparator(value: string): string {
+        return value.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    }
+
+    const handleCreateOrder = () => {
+        createOrder(paymentMethod, notes);
     };
 
     return (
@@ -104,6 +138,34 @@ export function OrderModal({ cart, cartTotal }: OrderModalProps) {
                             </div>
                         </div>
 
+                        {paymentMethod === "CASH" && (
+                            <div className="flex flex-col space-y-2">
+                                <Label htmlFor="cashReceived">Uang Diterima</Label>
+                                <Input
+                                    id="cashReceived"
+                                    type="text"
+                                    value={cashReceived ? formatNumberWithSeparator(cashReceived) : ""}
+                                    prefix="Rp "
+                                    onChange={(e) => {
+                                        const rawValue = e.target.value.replace(/[^0-9]/g, "");
+                                        setCashReceived(rawValue);
+                                    }}
+                                />
+                                {cashReceived &&
+                                    Number.parseFloat(cashReceived.replace(/[^0-9.-]+/g, "")) >= cartTotal && (
+                                        <div className="flex justify-between items-center text-sm p-2 bg-muted/50 rounded-md">
+                                            <span>Kembalian:</span>
+                                            <span className="font-medium text-green-600">
+                                                {formatCurrency(
+                                                    Number.parseFloat(cashReceived.replace(/[^0-9.-]+/g, "")) -
+                                                        cartTotal,
+                                                )}
+                                            </span>
+                                        </div>
+                                    )}
+                            </div>
+                        )}
+
                         <div className="flex flex-col space-y-2">
                             <Label htmlFor="notes">Notes</Label>
                             <Textarea
@@ -152,6 +214,53 @@ export function OrderModal({ cart, cartTotal }: OrderModalProps) {
                     onClose={handlePaymentClose}
                 />
             )}
+
+            <Dialog open={showChangeModal} onOpenChange={setShowChangeModal}>
+                <DialogContent className="sm:max-w-md">
+                    <DialogHeader>
+                        <DialogTitle>Konfirmasi Pembayaran Tunai</DialogTitle>
+                    </DialogHeader>
+
+                    <div className="space-y-6 py-4">
+                        <div className="flex flex-col items-center space-y-4">
+                            <div className="flex flex-col items-center text-center">
+                                <span className="text-muted-foreground mb-2">Total Belanja</span>
+                                <span className="text-2xl font-bold">{formatCurrency(cartTotal)}</span>
+                            </div>
+
+                            <ArrowRight className="h-8 w-8 text-muted-foreground" />
+
+                            <div className="grid grid-cols-2 gap-8">
+                                <div className="flex flex-col items-center text-center">
+                                    <span className="text-muted-foreground mb-2">Diterima</span>
+                                    <span className="text-xl font-bold">{formatCurrency(cashReceived)}</span>
+                                </div>
+
+                                <div className="flex flex-col items-center text-center">
+                                    <span className="text-muted-foreground mb-2">Kembalian</span>
+                                    <span className="text-xl font-bold text-green-600">
+                                        {formatCurrency(changeAmount)}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <DialogFooter>
+                        <Button variant="outline" onClick={() => setShowChangeModal(false)}>
+                            Batal
+                        </Button>
+                        <Button
+                            onClick={async () => {
+                                setShowChangeModal(false);
+                                handleCreateOrder();
+                            }}
+                        >
+                            Konfirmasi Pembayaran
+                        </Button>
+                    </DialogFooter>
+                </DialogContent>
+            </Dialog>
         </>
     );
 }

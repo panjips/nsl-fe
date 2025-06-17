@@ -1,5 +1,5 @@
 import React from "react";
-import { Bot } from "lucide-react";
+import { Coffee } from "lucide-react";
 import { NavMain } from "@/components/sidebar/nav-main";
 import { NavUser } from "@/components/sidebar/nav-user";
 import {
@@ -12,6 +12,7 @@ import {
     SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import type { AppSidebarProps } from "./types";
+import { Link } from "@tanstack/react-router";
 
 export const AppSidebar = React.memo(function AppSidebar({
     menuItems,
@@ -25,10 +26,10 @@ export const AppSidebar = React.memo(function AppSidebar({
                 <SidebarMenu>
                     <SidebarMenuItem>
                         <SidebarMenuButton asChild className="data-[slot=sidebar-menu-button]:!p-1.5">
-                            <a href="#">
-                                <Bot className="!size-5" />
+                            <Link to="/">
+                                <Coffee className="!size-5" />
                                 <span className="text-base font-semibold">Needsixletters</span>
-                            </a>
+                            </Link>
                         </SidebarMenuButton>
                     </SidebarMenuItem>
                 </SidebarMenu>

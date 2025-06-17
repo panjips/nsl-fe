@@ -5,7 +5,8 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { X } from "lucide-react";
 import type { AddOn, CartItem, Product } from "../domain";
-import { formatCurrency } from "@/lib/utils";
+import { formatCurrency, getInitials } from "@/lib/utils";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 
 interface ProductCustomizationModalProps {
     isOpen: boolean;
@@ -23,6 +24,7 @@ export function ProductCustomizationModal({
     onAddToCart,
 }: ProductCustomizationModalProps) {
     const [selectedAddOns, setSelectedAddOns] = useState<AddOn[]>([]);
+    const [imageError, setImageError] = useState(false);
 
     const availableAddOns = addOns.filter((addOn) => !selectedAddOns.some((selected) => selected.id === addOn.id));
 
@@ -35,6 +37,10 @@ export function ProductCustomizationModal({
 
     const handleAddOnRemove = (addOnId: string) => {
         setSelectedAddOns((prev) => prev.filter((item) => item.id !== Number.parseInt(addOnId)));
+    };
+
+    const handleImageError = () => {
+        setImageError(true);
     };
 
     const handleAddToCart = () => {
@@ -66,6 +72,8 @@ export function ProductCustomizationModal({
         Number.parseFloat(product.price.toString()) +
         selectedAddOns.reduce((sum, addOn) => sum + Number.parseFloat(addOn.price.toString()), 0);
 
+    const initialName = getInitials(product.name);
+
     return (
         <Dialog open={isOpen} onOpenChange={handleClose}>
             <DialogContent className="sm:max-w-md">
@@ -75,11 +83,22 @@ export function ProductCustomizationModal({
 
                 <div className="space-y-4 pt-4">
                     <div className="text-center">
-                        <img
-                            src={product.image_url || "/placeholder.svg"}
-                            alt={product.name}
-                            className="w-32 h-32 object-cover rounded-md mx-auto mb-2"
-                        />
+                        {!imageError ? (
+                            <img
+                                src={product.image_url || "/placeholder.svg"}
+                                alt={product.name}
+                                className="w-32 h-32 object-cover rounded-md mx-auto mb-2"
+                                onError={handleImageError}
+                            />
+                        ) : (
+                            <div className="w-32 h-32 mx-auto mb-2 flex items-center justify-center">
+                                <Avatar className="h-20 w-20">
+                                    <AvatarFallback className="text-2xl bg-primary text-primary-foreground">
+                                        {initialName}
+                                    </AvatarFallback>
+                                </Avatar>
+                            </div>
+                        )}
                         <p className="text-lg font-semibold">{formatCurrency(product.price)}</p>
                     </div>
 

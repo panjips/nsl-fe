@@ -1,10 +1,12 @@
-import { useState } from "react";
-import { ProductCustomizationModal, Pagination, ProductGrid, SearchAndFilters, POSHeader, Cart } from "../components";
+import { useEffect, useRef, useState } from "react";
+import { ProductCustomizationModal, ProductGrid, SearchAndFilters, POSHeader, Cart } from "../components";
 import type { Product } from "../domain";
 import { useProducts, useAddons } from "../hooks";
 import { useCartStore } from "../stores";
 import { Skeleton } from "@/components/ui/skeleton";
 import { OrderModal } from "../components/order-modal";
+import { useNotificationStore } from "@/stores";
+import { toast } from "sonner";
 
 export const POSPage = () => {
     const {
@@ -15,12 +17,38 @@ export const POSPage = () => {
         setSearchTerm,
         selectedCategory,
         setSelectedCategory,
-        currentPage,
-        setCurrentPage,
-        totalPages,
     } = useProducts();
 
     const { addons, isLoading: isLoadingAddons } = useAddons();
+
+    const socket = useNotificationStore((s) => s.socket);
+    const toastShownRef = useRef(false);
+
+    useEffect(() => {
+        console.log(socket);
+        if (!socket || toastShownRef.current) return;
+
+        const handleNewOrder = (order: any) => {
+            toastShownRef.current = true;
+            toast(`🛒 New order received, ${order.items.length} item(s)`, {
+                duration: Infinity,
+                action: {
+                    label: "Dismiss",
+                    onClick: () => {
+                        toast.dismiss();
+                        toastShownRef.current = false;
+                    },
+                },
+            });
+        };
+
+        socket.on("new_online_order", handleNewOrder);
+
+        return () => {
+            socket.off("new_order", handleNewOrder);
+            toastShownRef.current = false;
+        };
+    }, [socket]);
 
     const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
     const [isCartOpen, setIsCartOpen] = useState(false);
@@ -59,8 +87,8 @@ export const POSPage = () => {
                 cartContent={cartContent}
             />
 
-            <div>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="h-fit">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 calc(100vh - rem)">
                     <div className="md:col-span-2 space-y-6">
                         <SearchAndFilters
                             searchTerm={searchTerm}
@@ -68,7 +96,6 @@ export const POSPage = () => {
                             selectedCategory={selectedCategory}
                             setSelectedCategory={setSelectedCategory}
                             categories={categories}
-                            setCurrentPage={setCurrentPage}
                         />
 
                         {isLoadingProducts ? (
@@ -80,21 +107,23 @@ export const POSPage = () => {
                                     ))}
                             </div>
                         ) : (
-                            <ProductGrid products={products} onProductClick={handleProductClick} />
+                            <div className="h-[calc(100vh-18.5rem)] overflow-y-auto">
+                                <ProductGrid products={products} onProductClick={handleProductClick} />
+                            </div>
                         )}
-
-                        <Pagination currentPage={currentPage} totalPages={totalPages} setCurrentPage={setCurrentPage} />
                     </div>
 
                     <div className="hidden md:block">
-                        <Cart
-                            cart={cart}
-                            updateCartItemQuantity={updateQuantity}
-                            removeCartItem={removeItem}
-                            cartTotal={cartTotal()}
-                            cartItemCount={cartItemCount()}
-                            showHeader={true}
-                        />
+                        <div className="h-[calc(100vh-10rem)] ">
+                            <Cart
+                                cart={cart}
+                                updateCartItemQuantity={updateQuantity}
+                                removeCartItem={removeItem}
+                                cartTotal={cartTotal()}
+                                cartItemCount={cartItemCount()}
+                                showHeader={true}
+                            />
+                        </div>
                     </div>
                 </div>
             </div>
