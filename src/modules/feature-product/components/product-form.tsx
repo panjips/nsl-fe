@@ -95,7 +95,9 @@ export const ProductForm = () => {
                                                     placeholder="0.00"
                                                     {...field}
                                                     className="pl-10"
-                                                    onChange={(e) => field.onChange(Number.parseFloat(e.target.value) || 0)}
+                                                    onChange={(e) =>
+                                                        field.onChange(Number.parseFloat(e.target.value) || 0)
+                                                    }
                                                 />
                                             </FormControl>
                                             <FormMessage />
@@ -116,7 +118,9 @@ export const ProductForm = () => {
                                                     placeholder="0.00"
                                                     {...field}
                                                     className="pl-10"
-                                                    onChange={(e) => field.onChange(Number.parseFloat(e.target.value) || 0)}
+                                                    onChange={(e) =>
+                                                        field.onChange(Number.parseFloat(e.target.value) || 0)
+                                                    }
                                                 />
                                             </FormControl>
                                             <FormMessage />

@@ -116,7 +116,6 @@ export const UserForm = ({ type }: { type: string }) => {
                                 control={form.control}
                                 name="role"
                                 render={({ field }) => {
-
                                     return (
                                         <FormItem>
                                             <FormLabel>Role</FormLabel>

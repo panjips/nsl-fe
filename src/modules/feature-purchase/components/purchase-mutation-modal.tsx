@@ -186,7 +186,6 @@ export const PurchaseMutationModal = ({
                                             mode="single"
                                             selected={field.value ? new Date(field.value) : undefined}
                                             onSelect={(date) => {
-
                                                 if (date) {
                                                     field.onChange(new Date(date));
                                                 }

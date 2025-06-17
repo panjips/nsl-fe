@@ -50,7 +50,7 @@ export const authApi = {
             }
         }
     },
-    logout : async () => {
+    logout: async () => {
         try {
             const response = await axiosInstance.post<ApiResponse<null>>(ENDPOINTS.LOGOUT);
             return response.data;
@@ -59,5 +59,5 @@ export const authApi = {
                 throw new Error(error.response?.data.message);
             }
         }
-    }
+    },
 };

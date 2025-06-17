@@ -1,5 +1,5 @@
 import { CheckCircle, Clock, DollarSign, AlertTriangle, Ban, ThumbsUp, AlertCircle } from "lucide-react";
-import { ReservationStatus} from "../domain";
+import { ReservationStatus } from "../domain";
 
 const statusIcons = {
     [ReservationStatus.PENDING]: <Clock className="h-4 w-4 text-yellow-500" />,
@@ -57,9 +57,4 @@ const allowedTransitions: Record<string, string[]> = {
     [ReservationStatus.CANCELLED]: [ReservationStatus.CANCELLED],
 };
 
-export {
-    statusIcons,
-    statusBadgeVariants,
-    statusDisplayNames,
-    allowedTransitions,
-}
+export { statusIcons, statusBadgeVariants, statusDisplayNames, allowedTransitions };

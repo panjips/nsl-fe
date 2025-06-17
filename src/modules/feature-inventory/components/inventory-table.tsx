@@ -35,7 +35,7 @@ export const InventoryTable = () => {
     return (
         <>
             <div className="flex items-center justify-between">
-                <div className="flex-1"/>
+                <div className="flex-1" />
                 <Button variant="default" onClick={handleOpenModalCreate} className="w-fit">
                     Create Inventory
                 </Button>

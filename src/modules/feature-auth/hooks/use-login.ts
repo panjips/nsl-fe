@@ -11,7 +11,7 @@ import { useGlobalAuthStore } from "@/stores";
 export const useLogin = () => {
     const navigate = useNavigate();
     const { login, loginState, resetLoginState } = useAuthStore();
-    const { login: setGlobalUser , setAuthLoading } = useGlobalAuthStore();
+    const { login: setGlobalUser, setAuthLoading } = useGlobalAuthStore();
     const form = useForm<LoginSchemaType>({
         resolver: zodResolver(LoginSchema),
         defaultValues: {
