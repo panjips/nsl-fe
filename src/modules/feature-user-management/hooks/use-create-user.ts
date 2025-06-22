@@ -17,7 +17,7 @@ export const useCreateUser = () => {
     useEffect(() => {
         if (createUser.state.state === "success") {
             toast.error(createUser.state.data.message || "Create user successfully");
-            navigate({ to: "/dashboard/product" });
+            navigate({ to: "/dashboard/user/employee" });
         }
 
         if (createUser.state.state === "error") {

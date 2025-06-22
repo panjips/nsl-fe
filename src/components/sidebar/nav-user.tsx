@@ -1,4 +1,4 @@
-import { LogOut, Bell, MoreVertical } from "lucide-react";
+import { LogOut, User, MoreVertical } from "lucide-react";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import {
     DropdownMenu,
@@ -10,10 +10,16 @@ import {
 import { SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from "@/components/ui/sidebar";
 import type { NavUserProps } from "./types";
 import { getInitials } from "@/lib/utils";
+import { useNavigate } from "@tanstack/react-router";
 
 export function NavUser({ user, handleLogout }: { user: NavUserProps; handleLogout?: () => void }) {
     const { isMobile } = useSidebar();
+    const navigate = useNavigate();
     const initialName = getInitials(user.name || "Guest User");
+
+    const navigateToProfile = () => {
+        navigate({ to: "/dashboard/profile" });
+    };
 
     return (
         <SidebarMenu>
@@ -41,9 +47,9 @@ export function NavUser({ user, handleLogout }: { user: NavUserProps; handleLogo
                         sideOffset={4}
                     >
                         <DropdownMenuGroup>
-                            <DropdownMenuItem>
-                                <Bell />
-                                Notifications
+                            <DropdownMenuItem onClick={navigateToProfile}>
+                                <User />
+                                Profile
                             </DropdownMenuItem>
                             <DropdownMenuItem onClick={handleLogout}>
                                 <LogOut />

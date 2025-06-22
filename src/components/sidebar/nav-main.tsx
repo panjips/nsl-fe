@@ -12,23 +12,68 @@ import {
     SidebarMenuSubItem,
 } from "@/components/ui/sidebar";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
-import type { NavMainProps } from "./types";
+import type { NavMainProps, Role } from "./types";
 import { cn } from "@/lib/utils";
 import { Badge } from "../ui/badge";
-import { useNotificationStore } from "@/stores";
-import { useEffect } from "react";
+import { useGlobalAuthStore, useNotificationStore } from "@/stores";
+import { useEffect, useMemo } from "react";
 
 export function NavMain({ items }: { items: NavMainProps[] }) {
     const location = useLocation();
     const currentPath = location.pathname;
+    const { user } = useGlobalAuthStore();
+
+    const filteredItemsByRole = useMemo(() => {
+        if (!user?.role) return [];
+
+        return items
+            .filter((group) => {
+                if (!group.roles) return true;
+
+                return group.roles.includes(user.role as Role);
+            })
+            .map((group) => {
+                const filteredItems = group.items
+                    .filter((item) => {
+                        if (!item.roles) return true;
+
+                        return item.roles.includes(user.role as Role);
+                    })
+                    .map((item) => {
+                        if (item.items && item.items.length > 0) {
+                            const filteredSubItems = item.items.filter((subItem) => {
+                                if (!subItem.roles) return true;
+
+                                return subItem.roles.includes(user.role as Role);
+                            });
+
+                            return {
+                                ...item,
+                                items: filteredSubItems.length > 0 ? filteredSubItems : undefined,
+                            };
+                        }
+
+                        return item;
+                    })
+                    .filter((item) => {
+                        if (item.items && item.items.length === 0) {
+                            return false;
+                        }
+                        return true;
+                    });
+
+                return {
+                    ...group,
+                    items: filteredItems,
+                };
+            })
+            .filter((group) => group.items.length > 0);
+    }, [items, user?.role]);
 
     const onlineOrderCount = useNotificationStore((state) => state.onlineOrderCount);
 
     useEffect(() => {
-        // Connect socket if not already connected
         useNotificationStore.getState().connectSocket();
-
-        // Optionally: Initialize from localStorage if needed
         if (onlineOrderCount === 0) {
             try {
                 const persistedString = localStorage.getItem("notification-storage");
@@ -45,6 +90,7 @@ export function NavMain({ items }: { items: NavMainProps[] }) {
             }
         }
     }, []);
+
     const isMenuActive = (url: string | undefined) => {
         if (!url) return false;
 
@@ -72,7 +118,7 @@ export function NavMain({ items }: { items: NavMainProps[] }) {
 
     return (
         <>
-            {items.map((group) => (
+            {filteredItemsByRole.map((group) => (
                 <SidebarGroup key={group.group}>
                     <SidebarGroupLabel>{group.group}</SidebarGroupLabel>
                     <SidebarMenu>

@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import type { UserState } from "./state";
 import { errorState, initialState, loadingState, successState } from "@/stores/core";
-import { userApi } from "../data";
+import { userApi, type UpdateUserDTOType } from "../data";
 import type { UserWithRole } from "../domain";
 import type { CreateCategoryDTOType } from "@/modules/feature-category";
 
@@ -98,7 +98,7 @@ export const useUserStore = create<UserState>((set) => ({
     },
     updateUser: {
         state: initialState(),
-        updateUser: async (id: string | number, data: CreateCategoryDTOType) => {
+        updateUser: async (id: string | number, data: UpdateUserDTOType) => {
             set((state) => ({
                 updateUser: {
                     ...state.updateUser,
@@ -157,6 +157,37 @@ export const useUserStore = create<UserState>((set) => ({
         },
     },
 
+    resetPasswordProfile: {
+        state: initialState(),
+        resetPasswordProfile: async (data: { newPassword: string; newPasswordConfirm: string }) => {
+            set((state) => ({
+                resetPasswordProfile: {
+                    ...state.resetPasswordProfile,
+                    state: loadingState(),
+                },
+            }));
+            try {
+                const response = await userApi.resetPasswordProfile(data);
+                if (!response) {
+                    throw new Error("Reset password response data is missing");
+                }
+                set((state) => ({
+                    resetPasswordProfile: {
+                        ...state.resetPasswordProfile,
+                        state: successState(response),
+                    },
+                }));
+            } catch (error) {
+                set((state) => ({
+                    resetPasswordProfile: {
+                        ...state.resetPasswordProfile,
+                        state: errorState(error instanceof Error ? error.message : "Failed to reset password"),
+                    },
+                }));
+            }
+        },
+    },
+
     resetUsers: () => {
         set((state) => ({
             users: {
@@ -193,6 +224,14 @@ export const useUserStore = create<UserState>((set) => ({
         set((state) => ({
             deleteUser: {
                 ...state.deleteUser,
+                state: initialState(),
+            },
+        }));
+    },
+    resetResetPasswordProfile: () => {
+        set((state) => ({
+            resetPasswordProfile: {
+                ...state.resetPasswordProfile,
                 state: initialState(),
             },
         }));

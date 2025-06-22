@@ -13,3 +13,4 @@ export const paymentStatusIcons = {
     FAILURE: <XCircle className="h-3 w-3 fill-red-500" />,
     EXPIRE: <AlertTriangle className="h-3 w-3 fill-orange-500" />,
 };
+

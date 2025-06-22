@@ -1,1 +1,1 @@
-// export * from "./example-page";
+export * from "./product-sales-report-page";

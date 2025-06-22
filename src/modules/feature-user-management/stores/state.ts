@@ -2,6 +2,7 @@ import type { ViewState } from "@/stores";
 import type { UserWithRole } from "../domain";
 import type { ApiResponse } from "@/lib/api";
 import type { CreateCategoryDTOType } from "@/modules/feature-category";
+import type { UpdateUserDTOType } from "../data";
 
 export interface UserState {
     users: {
@@ -18,11 +19,15 @@ export interface UserState {
     };
     updateUser: {
         state: ViewState<ApiResponse<any>, string>;
-        updateUser: (id: string | number, data: CreateCategoryDTOType) => Promise<void>;
+        updateUser: (id: string | number, data: UpdateUserDTOType) => Promise<void>;
     };
     deleteUser: {
         state: ViewState<ApiResponse<null>, string>;
         deleteUser: (id: string | number) => Promise<void>;
+    };
+    resetPasswordProfile: {
+        state: ViewState<ApiResponse<any>, string>;
+        resetPasswordProfile: (data: { newPassword: string; newPasswordConfirm: string }) => Promise<void>;
     };
 
     resetUsers: () => void;
@@ -30,4 +35,5 @@ export interface UserState {
     resetGetUser: () => void;
     resetUpdateUser: () => void;
     resetDeleteUser: () => void;
+    resetResetPasswordProfile: () => void;
 }

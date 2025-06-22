@@ -10,9 +10,9 @@ import {
     ReceiptText,
     ShoppingBasket,
     Calculator,
-    TicketPercent,
-    Book,
+    FileText,
     ListOrdered,
+    History,
 } from "lucide-react";
 
 export const menuItems: NavMainProps[] = [
@@ -28,20 +28,24 @@ export const menuItems: NavMainProps[] = [
     },
     {
         group: "Data Master",
+        roles: ["Staf", "Kasir", "Pemilik"],
         items: [
             {
                 title: "Category",
                 url: "/dashboard/category",
                 icon: Tags,
+                roles: ["Staf", "Pemilik"],
             },
             {
                 title: "Product",
+                roles: ["Staf", "Pemilik", "Kasir"],
                 url: "/dashboard/product",
                 icon: Box,
             },
             {
                 title: "User",
                 url: "/dashboard/user",
+                roles: ["Staf", "Pemilik"],
                 icon: User,
                 items: [
                     {
@@ -57,21 +61,25 @@ export const menuItems: NavMainProps[] = [
             {
                 title: "Inventory",
                 url: "/dashboard/inventory",
+                roles: ["Staf", "Pemilik"],
                 icon: Package,
             },
             {
                 title: "Purchase",
+                roles: ["Staf", "Pemilik"],
                 url: "/dashboard/purchase",
                 icon: BadgeDollarSign,
             },
             {
                 title: "Addon",
+                roles: ["Staf", "Pemilik", "Kasir"],
                 url: "/dashboard/addon",
                 icon: NotepadText,
             },
             {
                 title: "Recipe",
                 url: "/dashboard/recipe",
+                roles: ["Staf", "Pemilik"],
                 icon: ReceiptText,
                 items: [
                     {
@@ -87,25 +95,30 @@ export const menuItems: NavMainProps[] = [
             {
                 title: "Catering Package",
                 url: "/dashboard/catering-package",
+                roles: ["Staf", "Pemilik"],
                 icon: ShoppingBasket,
             },
         ],
     },
     {
         group: "Reservation",
+        roles: ["Staf", "Pemilik", "Kasir", "Pelanggan"],
         items: [
             {
                 title: "Reservation",
+                roles: ["Staf", "Pemilik", "Kasir"],
                 url: "/dashboard/reservation",
                 icon: NotepadText,
             },
             {
                 title: "Reservation Catering",
+                roles: ["Pelanggan"],
                 url: "/dashboard/reservation-catering",
                 icon: ShoppingBasket,
             },
             {
                 title: "My Reservation",
+                roles: ["Pelanggan"],
                 url: "/dashboard/my-reservation",
                 icon: ShoppingBasket,
             },
@@ -113,14 +126,17 @@ export const menuItems: NavMainProps[] = [
     },
     {
         group: "Sale",
+        roles: ["Pemilik", "Kasir"],
         items: [
             {
                 title: "Point of Sale",
+                roles: ["Pemilik", "Kasir"],
                 url: "/dashboard/pos",
                 icon: Calculator,
             },
             {
                 title: "Online Order",
+                roles: ["Pemilik", "Kasir"],
                 url: "/dashboard/online-order",
                 icon: ListOrdered,
             },
@@ -128,41 +144,67 @@ export const menuItems: NavMainProps[] = [
     },
     {
         group: "History",
+        roles: ["Staf", "Pemilik", "Kasir", "Pelanggan"],
         items: [
             {
-                title: "Transaction History",
-                url: "/dashboard/history/transaction",
-                icon: TicketPercent,
-            },
-            {
-                title: "Catering Package History",
-                url: "/dashboard/history/catering-package",
-                icon: TicketPercent,
-            },
-            {
                 title: "My Transaction",
+                roles: ["Pelanggan"],
                 url: "/dashboard/history/my-transaction",
-                icon: TicketPercent,
+                icon: History,
+            },
+            {
+                title: "Catering",
+                roles: ["Staf", "Pemilik", "Kasir"],
+                url: "/dashboard/history/catering",
+                icon: History,
+            },
+            {
+                title: "Transaction",
+                roles: ["Pemilik", "Kasir"],
+                url: "/dashboard/history/transaction",
+                icon: History,
+            },
+            {
+                title: "Inventory Usage",
+                roles: ["Staf", "Pemilik"],
+                url: "/dashboard/history/inventory-usage",
+                icon: History,
             },
         ],
     },
     {
         group: "Reports",
+        roles: ["Staf", "Pemilik"],
         items: [
             {
-                title: "Sales Report",
-                url: "/dashboard/report/sales",
-                icon: Book,
+                title: "Product Sales ",
+                roles: ["Pemilik"],
+                url: "/dashboard/reports/product-sales",
+                icon: FileText,
             },
             {
-                title: "Inventory Report",
-                url: "/dashboard/report/inventory",
-                icon: Book,
+                title: "Inventory ",
+                roles: ["Staf", "Pemilik"],
+                url: "/dashboard/reports/inventory",
+                icon: FileText,
             },
             {
-                title: "Purchase Report",
-                url: "/dashboard/report/purchase",
-                icon: Book,
+                title: "Purchase ",
+                roles: ["Staf", "Pemilik"],
+                url: "/dashboard/reports/purchase",
+                icon: FileText,
+            },
+            {
+                title: "Reservation ",
+                roles: ["Pemilik"],
+                url: "/dashboard/reports/reservation",
+                icon: FileText,
+            },
+            {
+                title: "Revenue ",
+                roles: ["Pemilik"],
+                url: "/dashboard/reports/revenue",
+                icon: FileText,
             },
         ],
     },

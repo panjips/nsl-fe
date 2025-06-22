@@ -64,7 +64,7 @@ export function ShopHeader({
     };
 
     const handleProfileClick = () => {
-        // navigate({ to: "/profile" });
+        navigate({ to: "/dashboard/profile" });
     };
 
     return (

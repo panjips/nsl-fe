@@ -17,6 +17,7 @@ import { Route as DashboardSidebarLayoutIndexRouteImport } from './routes/dashbo
 import { Route as DashboardSidebarLayoutReservationCateringRouteImport } from './routes/dashboard/_sidebarLayout/reservation-catering'
 import { Route as DashboardSidebarLayoutReservationRouteImport } from './routes/dashboard/_sidebarLayout/reservation'
 import { Route as DashboardSidebarLayoutPurchaseRouteImport } from './routes/dashboard/_sidebarLayout/purchase'
+import { Route as DashboardSidebarLayoutProfileRouteImport } from './routes/dashboard/_sidebarLayout/profile'
 import { Route as DashboardSidebarLayoutPosRouteImport } from './routes/dashboard/_sidebarLayout/pos'
 import { Route as DashboardSidebarLayoutOnlineOrderRouteImport } from './routes/dashboard/_sidebarLayout/online-order'
 import { Route as DashboardSidebarLayoutMyReservationRouteImport } from './routes/dashboard/_sidebarLayout/my-reservation'
@@ -28,14 +29,18 @@ import { Route as DashboardSidebarLayoutProductIndexRouteImport } from './routes
 import { Route as DashboardSidebarLayoutUserEmployeeRouteImport } from './routes/dashboard/_sidebarLayout/user/employee'
 import { Route as DashboardSidebarLayoutUserCustomerRouteImport } from './routes/dashboard/_sidebarLayout/user/customer'
 import { Route as DashboardSidebarLayoutUserCreateRouteImport } from './routes/dashboard/_sidebarLayout/user/create'
-import { Route as DashboardSidebarLayoutReportsSalesRouteImport } from './routes/dashboard/_sidebarLayout/reports/sales'
+import { Route as DashboardSidebarLayoutReportsRevenueRouteImport } from './routes/dashboard/_sidebarLayout/reports/revenue'
+import { Route as DashboardSidebarLayoutReportsReservationRouteImport } from './routes/dashboard/_sidebarLayout/reports/reservation'
 import { Route as DashboardSidebarLayoutReportsPurchaseRouteImport } from './routes/dashboard/_sidebarLayout/reports/purchase'
+import { Route as DashboardSidebarLayoutReportsProductSalesRouteImport } from './routes/dashboard/_sidebarLayout/reports/product-sales'
 import { Route as DashboardSidebarLayoutReportsInventoryRouteImport } from './routes/dashboard/_sidebarLayout/reports/inventory'
 import { Route as DashboardSidebarLayoutRecipeProductRouteImport } from './routes/dashboard/_sidebarLayout/recipe/product'
 import { Route as DashboardSidebarLayoutRecipeAddonRouteImport } from './routes/dashboard/_sidebarLayout/recipe/addon'
 import { Route as DashboardSidebarLayoutProductCreateRouteImport } from './routes/dashboard/_sidebarLayout/product/create'
 import { Route as DashboardSidebarLayoutHistoryTransactionRouteImport } from './routes/dashboard/_sidebarLayout/history/transaction'
 import { Route as DashboardSidebarLayoutHistoryMyTransactionRouteImport } from './routes/dashboard/_sidebarLayout/history/my-transaction'
+import { Route as DashboardSidebarLayoutHistoryInventoryUsageRouteImport } from './routes/dashboard/_sidebarLayout/history/inventory-usage'
+import { Route as DashboardSidebarLayoutHistoryCateringRouteImport } from './routes/dashboard/_sidebarLayout/history/catering'
 import { Route as DashboardSidebarLayoutUserUpdateUserIdRouteImport } from './routes/dashboard/_sidebarLayout/user/update.$userId'
 import { Route as DashboardSidebarLayoutProductUpdateProductIdRouteImport } from './routes/dashboard/_sidebarLayout/product/update.$productId'
 
@@ -119,6 +124,12 @@ const DashboardSidebarLayoutPurchaseRoute =
     path: '/purchase',
     getParentRoute: () => DashboardSidebarLayoutRoute,
   } as any)
+const DashboardSidebarLayoutProfileRoute =
+  DashboardSidebarLayoutProfileRouteImport.update({
+    id: '/profile',
+    path: '/profile',
+    getParentRoute: () => DashboardSidebarLayoutRoute,
+  } as any)
 const DashboardSidebarLayoutPosRoute =
   DashboardSidebarLayoutPosRouteImport.update({
     id: '/pos',
@@ -185,16 +196,28 @@ const DashboardSidebarLayoutUserCreateRoute =
     path: '/user/create',
     getParentRoute: () => DashboardSidebarLayoutRoute,
   } as any)
-const DashboardSidebarLayoutReportsSalesRoute =
-  DashboardSidebarLayoutReportsSalesRouteImport.update({
-    id: '/reports/sales',
-    path: '/reports/sales',
+const DashboardSidebarLayoutReportsRevenueRoute =
+  DashboardSidebarLayoutReportsRevenueRouteImport.update({
+    id: '/reports/revenue',
+    path: '/reports/revenue',
+    getParentRoute: () => DashboardSidebarLayoutRoute,
+  } as any)
+const DashboardSidebarLayoutReportsReservationRoute =
+  DashboardSidebarLayoutReportsReservationRouteImport.update({
+    id: '/reports/reservation',
+    path: '/reports/reservation',
     getParentRoute: () => DashboardSidebarLayoutRoute,
   } as any)
 const DashboardSidebarLayoutReportsPurchaseRoute =
   DashboardSidebarLayoutReportsPurchaseRouteImport.update({
     id: '/reports/purchase',
     path: '/reports/purchase',
+    getParentRoute: () => DashboardSidebarLayoutRoute,
+  } as any)
+const DashboardSidebarLayoutReportsProductSalesRoute =
+  DashboardSidebarLayoutReportsProductSalesRouteImport.update({
+    id: '/reports/product-sales',
+    path: '/reports/product-sales',
     getParentRoute: () => DashboardSidebarLayoutRoute,
   } as any)
 const DashboardSidebarLayoutReportsInventoryRoute =
@@ -233,6 +256,18 @@ const DashboardSidebarLayoutHistoryMyTransactionRoute =
     path: '/history/my-transaction',
     getParentRoute: () => DashboardSidebarLayoutRoute,
   } as any)
+const DashboardSidebarLayoutHistoryInventoryUsageRoute =
+  DashboardSidebarLayoutHistoryInventoryUsageRouteImport.update({
+    id: '/history/inventory-usage',
+    path: '/history/inventory-usage',
+    getParentRoute: () => DashboardSidebarLayoutRoute,
+  } as any)
+const DashboardSidebarLayoutHistoryCateringRoute =
+  DashboardSidebarLayoutHistoryCateringRouteImport.update({
+    id: '/history/catering',
+    path: '/history/catering',
+    getParentRoute: () => DashboardSidebarLayoutRoute,
+  } as any)
 const DashboardSidebarLayoutUserUpdateUserIdRoute =
   DashboardSidebarLayoutUserUpdateUserIdRouteImport.update({
     id: '/user/update/$userId',
@@ -260,18 +295,23 @@ export interface FileRoutesByFullPath {
   '/dashboard/my-reservation': typeof DashboardSidebarLayoutMyReservationRoute
   '/dashboard/online-order': typeof DashboardSidebarLayoutOnlineOrderRoute
   '/dashboard/pos': typeof DashboardSidebarLayoutPosRoute
+  '/dashboard/profile': typeof DashboardSidebarLayoutProfileRoute
   '/dashboard/purchase': typeof DashboardSidebarLayoutPurchaseRoute
   '/dashboard/reservation': typeof DashboardSidebarLayoutReservationRoute
   '/dashboard/reservation-catering': typeof DashboardSidebarLayoutReservationCateringRoute
   '/dashboard/': typeof DashboardSidebarLayoutIndexRoute
+  '/dashboard/history/catering': typeof DashboardSidebarLayoutHistoryCateringRoute
+  '/dashboard/history/inventory-usage': typeof DashboardSidebarLayoutHistoryInventoryUsageRoute
   '/dashboard/history/my-transaction': typeof DashboardSidebarLayoutHistoryMyTransactionRoute
   '/dashboard/history/transaction': typeof DashboardSidebarLayoutHistoryTransactionRoute
   '/dashboard/product/create': typeof DashboardSidebarLayoutProductCreateRoute
   '/dashboard/recipe/addon': typeof DashboardSidebarLayoutRecipeAddonRoute
   '/dashboard/recipe/product': typeof DashboardSidebarLayoutRecipeProductRoute
   '/dashboard/reports/inventory': typeof DashboardSidebarLayoutReportsInventoryRoute
+  '/dashboard/reports/product-sales': typeof DashboardSidebarLayoutReportsProductSalesRoute
   '/dashboard/reports/purchase': typeof DashboardSidebarLayoutReportsPurchaseRoute
-  '/dashboard/reports/sales': typeof DashboardSidebarLayoutReportsSalesRoute
+  '/dashboard/reports/reservation': typeof DashboardSidebarLayoutReportsReservationRoute
+  '/dashboard/reports/revenue': typeof DashboardSidebarLayoutReportsRevenueRoute
   '/dashboard/user/create': typeof DashboardSidebarLayoutUserCreateRoute
   '/dashboard/user/customer': typeof DashboardSidebarLayoutUserCustomerRoute
   '/dashboard/user/employee': typeof DashboardSidebarLayoutUserEmployeeRoute
@@ -293,17 +333,22 @@ export interface FileRoutesByTo {
   '/dashboard/my-reservation': typeof DashboardSidebarLayoutMyReservationRoute
   '/dashboard/online-order': typeof DashboardSidebarLayoutOnlineOrderRoute
   '/dashboard/pos': typeof DashboardSidebarLayoutPosRoute
+  '/dashboard/profile': typeof DashboardSidebarLayoutProfileRoute
   '/dashboard/purchase': typeof DashboardSidebarLayoutPurchaseRoute
   '/dashboard/reservation': typeof DashboardSidebarLayoutReservationRoute
   '/dashboard/reservation-catering': typeof DashboardSidebarLayoutReservationCateringRoute
+  '/dashboard/history/catering': typeof DashboardSidebarLayoutHistoryCateringRoute
+  '/dashboard/history/inventory-usage': typeof DashboardSidebarLayoutHistoryInventoryUsageRoute
   '/dashboard/history/my-transaction': typeof DashboardSidebarLayoutHistoryMyTransactionRoute
   '/dashboard/history/transaction': typeof DashboardSidebarLayoutHistoryTransactionRoute
   '/dashboard/product/create': typeof DashboardSidebarLayoutProductCreateRoute
   '/dashboard/recipe/addon': typeof DashboardSidebarLayoutRecipeAddonRoute
   '/dashboard/recipe/product': typeof DashboardSidebarLayoutRecipeProductRoute
   '/dashboard/reports/inventory': typeof DashboardSidebarLayoutReportsInventoryRoute
+  '/dashboard/reports/product-sales': typeof DashboardSidebarLayoutReportsProductSalesRoute
   '/dashboard/reports/purchase': typeof DashboardSidebarLayoutReportsPurchaseRoute
-  '/dashboard/reports/sales': typeof DashboardSidebarLayoutReportsSalesRoute
+  '/dashboard/reports/reservation': typeof DashboardSidebarLayoutReportsReservationRoute
+  '/dashboard/reports/revenue': typeof DashboardSidebarLayoutReportsRevenueRoute
   '/dashboard/user/create': typeof DashboardSidebarLayoutUserCreateRoute
   '/dashboard/user/customer': typeof DashboardSidebarLayoutUserCustomerRoute
   '/dashboard/user/employee': typeof DashboardSidebarLayoutUserEmployeeRoute
@@ -327,18 +372,23 @@ export interface FileRoutesById {
   '/dashboard/_sidebarLayout/my-reservation': typeof DashboardSidebarLayoutMyReservationRoute
   '/dashboard/_sidebarLayout/online-order': typeof DashboardSidebarLayoutOnlineOrderRoute
   '/dashboard/_sidebarLayout/pos': typeof DashboardSidebarLayoutPosRoute
+  '/dashboard/_sidebarLayout/profile': typeof DashboardSidebarLayoutProfileRoute
   '/dashboard/_sidebarLayout/purchase': typeof DashboardSidebarLayoutPurchaseRoute
   '/dashboard/_sidebarLayout/reservation': typeof DashboardSidebarLayoutReservationRoute
   '/dashboard/_sidebarLayout/reservation-catering': typeof DashboardSidebarLayoutReservationCateringRoute
   '/dashboard/_sidebarLayout/': typeof DashboardSidebarLayoutIndexRoute
+  '/dashboard/_sidebarLayout/history/catering': typeof DashboardSidebarLayoutHistoryCateringRoute
+  '/dashboard/_sidebarLayout/history/inventory-usage': typeof DashboardSidebarLayoutHistoryInventoryUsageRoute
   '/dashboard/_sidebarLayout/history/my-transaction': typeof DashboardSidebarLayoutHistoryMyTransactionRoute
   '/dashboard/_sidebarLayout/history/transaction': typeof DashboardSidebarLayoutHistoryTransactionRoute
   '/dashboard/_sidebarLayout/product/create': typeof DashboardSidebarLayoutProductCreateRoute
   '/dashboard/_sidebarLayout/recipe/addon': typeof DashboardSidebarLayoutRecipeAddonRoute
   '/dashboard/_sidebarLayout/recipe/product': typeof DashboardSidebarLayoutRecipeProductRoute
   '/dashboard/_sidebarLayout/reports/inventory': typeof DashboardSidebarLayoutReportsInventoryRoute
+  '/dashboard/_sidebarLayout/reports/product-sales': typeof DashboardSidebarLayoutReportsProductSalesRoute
   '/dashboard/_sidebarLayout/reports/purchase': typeof DashboardSidebarLayoutReportsPurchaseRoute
-  '/dashboard/_sidebarLayout/reports/sales': typeof DashboardSidebarLayoutReportsSalesRoute
+  '/dashboard/_sidebarLayout/reports/reservation': typeof DashboardSidebarLayoutReportsReservationRoute
+  '/dashboard/_sidebarLayout/reports/revenue': typeof DashboardSidebarLayoutReportsRevenueRoute
   '/dashboard/_sidebarLayout/user/create': typeof DashboardSidebarLayoutUserCreateRoute
   '/dashboard/_sidebarLayout/user/customer': typeof DashboardSidebarLayoutUserCustomerRoute
   '/dashboard/_sidebarLayout/user/employee': typeof DashboardSidebarLayoutUserEmployeeRoute
@@ -362,18 +412,23 @@ export interface FileRouteTypes {
     | '/dashboard/my-reservation'
     | '/dashboard/online-order'
     | '/dashboard/pos'
+    | '/dashboard/profile'
     | '/dashboard/purchase'
     | '/dashboard/reservation'
     | '/dashboard/reservation-catering'
     | '/dashboard/'
+    | '/dashboard/history/catering'
+    | '/dashboard/history/inventory-usage'
     | '/dashboard/history/my-transaction'
     | '/dashboard/history/transaction'
     | '/dashboard/product/create'
     | '/dashboard/recipe/addon'
     | '/dashboard/recipe/product'
     | '/dashboard/reports/inventory'
+    | '/dashboard/reports/product-sales'
     | '/dashboard/reports/purchase'
-    | '/dashboard/reports/sales'
+    | '/dashboard/reports/reservation'
+    | '/dashboard/reports/revenue'
     | '/dashboard/user/create'
     | '/dashboard/user/customer'
     | '/dashboard/user/employee'
@@ -395,17 +450,22 @@ export interface FileRouteTypes {
     | '/dashboard/my-reservation'
     | '/dashboard/online-order'
     | '/dashboard/pos'
+    | '/dashboard/profile'
     | '/dashboard/purchase'
     | '/dashboard/reservation'
     | '/dashboard/reservation-catering'
+    | '/dashboard/history/catering'
+    | '/dashboard/history/inventory-usage'
     | '/dashboard/history/my-transaction'
     | '/dashboard/history/transaction'
     | '/dashboard/product/create'
     | '/dashboard/recipe/addon'
     | '/dashboard/recipe/product'
     | '/dashboard/reports/inventory'
+    | '/dashboard/reports/product-sales'
     | '/dashboard/reports/purchase'
-    | '/dashboard/reports/sales'
+    | '/dashboard/reports/reservation'
+    | '/dashboard/reports/revenue'
     | '/dashboard/user/create'
     | '/dashboard/user/customer'
     | '/dashboard/user/employee'
@@ -428,18 +488,23 @@ export interface FileRouteTypes {
     | '/dashboard/_sidebarLayout/my-reservation'
     | '/dashboard/_sidebarLayout/online-order'
     | '/dashboard/_sidebarLayout/pos'
+    | '/dashboard/_sidebarLayout/profile'
     | '/dashboard/_sidebarLayout/purchase'
     | '/dashboard/_sidebarLayout/reservation'
     | '/dashboard/_sidebarLayout/reservation-catering'
     | '/dashboard/_sidebarLayout/'
+    | '/dashboard/_sidebarLayout/history/catering'
+    | '/dashboard/_sidebarLayout/history/inventory-usage'
     | '/dashboard/_sidebarLayout/history/my-transaction'
     | '/dashboard/_sidebarLayout/history/transaction'
     | '/dashboard/_sidebarLayout/product/create'
     | '/dashboard/_sidebarLayout/recipe/addon'
     | '/dashboard/_sidebarLayout/recipe/product'
     | '/dashboard/_sidebarLayout/reports/inventory'
+    | '/dashboard/_sidebarLayout/reports/product-sales'
     | '/dashboard/_sidebarLayout/reports/purchase'
-    | '/dashboard/_sidebarLayout/reports/sales'
+    | '/dashboard/_sidebarLayout/reports/reservation'
+    | '/dashboard/_sidebarLayout/reports/revenue'
     | '/dashboard/_sidebarLayout/user/create'
     | '/dashboard/_sidebarLayout/user/customer'
     | '/dashboard/_sidebarLayout/user/employee'
@@ -536,6 +601,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardSidebarLayoutPurchaseRouteImport
       parentRoute: typeof DashboardSidebarLayoutRoute
     }
+    '/dashboard/_sidebarLayout/profile': {
+      id: '/dashboard/_sidebarLayout/profile'
+      path: '/profile'
+      fullPath: '/dashboard/profile'
+      preLoaderRoute: typeof DashboardSidebarLayoutProfileRouteImport
+      parentRoute: typeof DashboardSidebarLayoutRoute
+    }
     '/dashboard/_sidebarLayout/pos': {
       id: '/dashboard/_sidebarLayout/pos'
       path: '/pos'
@@ -613,11 +685,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardSidebarLayoutUserCreateRouteImport
       parentRoute: typeof DashboardSidebarLayoutRoute
     }
-    '/dashboard/_sidebarLayout/reports/sales': {
-      id: '/dashboard/_sidebarLayout/reports/sales'
-      path: '/reports/sales'
-      fullPath: '/dashboard/reports/sales'
-      preLoaderRoute: typeof DashboardSidebarLayoutReportsSalesRouteImport
+    '/dashboard/_sidebarLayout/reports/revenue': {
+      id: '/dashboard/_sidebarLayout/reports/revenue'
+      path: '/reports/revenue'
+      fullPath: '/dashboard/reports/revenue'
+      preLoaderRoute: typeof DashboardSidebarLayoutReportsRevenueRouteImport
+      parentRoute: typeof DashboardSidebarLayoutRoute
+    }
+    '/dashboard/_sidebarLayout/reports/reservation': {
+      id: '/dashboard/_sidebarLayout/reports/reservation'
+      path: '/reports/reservation'
+      fullPath: '/dashboard/reports/reservation'
+      preLoaderRoute: typeof DashboardSidebarLayoutReportsReservationRouteImport
       parentRoute: typeof DashboardSidebarLayoutRoute
     }
     '/dashboard/_sidebarLayout/reports/purchase': {
@@ -625,6 +704,13 @@ declare module '@tanstack/react-router' {
       path: '/reports/purchase'
       fullPath: '/dashboard/reports/purchase'
       preLoaderRoute: typeof DashboardSidebarLayoutReportsPurchaseRouteImport
+      parentRoute: typeof DashboardSidebarLayoutRoute
+    }
+    '/dashboard/_sidebarLayout/reports/product-sales': {
+      id: '/dashboard/_sidebarLayout/reports/product-sales'
+      path: '/reports/product-sales'
+      fullPath: '/dashboard/reports/product-sales'
+      preLoaderRoute: typeof DashboardSidebarLayoutReportsProductSalesRouteImport
       parentRoute: typeof DashboardSidebarLayoutRoute
     }
     '/dashboard/_sidebarLayout/reports/inventory': {
@@ -669,6 +755,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardSidebarLayoutHistoryMyTransactionRouteImport
       parentRoute: typeof DashboardSidebarLayoutRoute
     }
+    '/dashboard/_sidebarLayout/history/inventory-usage': {
+      id: '/dashboard/_sidebarLayout/history/inventory-usage'
+      path: '/history/inventory-usage'
+      fullPath: '/dashboard/history/inventory-usage'
+      preLoaderRoute: typeof DashboardSidebarLayoutHistoryInventoryUsageRouteImport
+      parentRoute: typeof DashboardSidebarLayoutRoute
+    }
+    '/dashboard/_sidebarLayout/history/catering': {
+      id: '/dashboard/_sidebarLayout/history/catering'
+      path: '/history/catering'
+      fullPath: '/dashboard/history/catering'
+      preLoaderRoute: typeof DashboardSidebarLayoutHistoryCateringRouteImport
+      parentRoute: typeof DashboardSidebarLayoutRoute
+    }
     '/dashboard/_sidebarLayout/user/update/$userId': {
       id: '/dashboard/_sidebarLayout/user/update/$userId'
       path: '/user/update/$userId'
@@ -694,18 +794,23 @@ interface DashboardSidebarLayoutRouteChildren {
   DashboardSidebarLayoutMyReservationRoute: typeof DashboardSidebarLayoutMyReservationRoute
   DashboardSidebarLayoutOnlineOrderRoute: typeof DashboardSidebarLayoutOnlineOrderRoute
   DashboardSidebarLayoutPosRoute: typeof DashboardSidebarLayoutPosRoute
+  DashboardSidebarLayoutProfileRoute: typeof DashboardSidebarLayoutProfileRoute
   DashboardSidebarLayoutPurchaseRoute: typeof DashboardSidebarLayoutPurchaseRoute
   DashboardSidebarLayoutReservationRoute: typeof DashboardSidebarLayoutReservationRoute
   DashboardSidebarLayoutReservationCateringRoute: typeof DashboardSidebarLayoutReservationCateringRoute
   DashboardSidebarLayoutIndexRoute: typeof DashboardSidebarLayoutIndexRoute
+  DashboardSidebarLayoutHistoryCateringRoute: typeof DashboardSidebarLayoutHistoryCateringRoute
+  DashboardSidebarLayoutHistoryInventoryUsageRoute: typeof DashboardSidebarLayoutHistoryInventoryUsageRoute
   DashboardSidebarLayoutHistoryMyTransactionRoute: typeof DashboardSidebarLayoutHistoryMyTransactionRoute
   DashboardSidebarLayoutHistoryTransactionRoute: typeof DashboardSidebarLayoutHistoryTransactionRoute
   DashboardSidebarLayoutProductCreateRoute: typeof DashboardSidebarLayoutProductCreateRoute
   DashboardSidebarLayoutRecipeAddonRoute: typeof DashboardSidebarLayoutRecipeAddonRoute
   DashboardSidebarLayoutRecipeProductRoute: typeof DashboardSidebarLayoutRecipeProductRoute
   DashboardSidebarLayoutReportsInventoryRoute: typeof DashboardSidebarLayoutReportsInventoryRoute
+  DashboardSidebarLayoutReportsProductSalesRoute: typeof DashboardSidebarLayoutReportsProductSalesRoute
   DashboardSidebarLayoutReportsPurchaseRoute: typeof DashboardSidebarLayoutReportsPurchaseRoute
-  DashboardSidebarLayoutReportsSalesRoute: typeof DashboardSidebarLayoutReportsSalesRoute
+  DashboardSidebarLayoutReportsReservationRoute: typeof DashboardSidebarLayoutReportsReservationRoute
+  DashboardSidebarLayoutReportsRevenueRoute: typeof DashboardSidebarLayoutReportsRevenueRoute
   DashboardSidebarLayoutUserCreateRoute: typeof DashboardSidebarLayoutUserCreateRoute
   DashboardSidebarLayoutUserCustomerRoute: typeof DashboardSidebarLayoutUserCustomerRoute
   DashboardSidebarLayoutUserEmployeeRoute: typeof DashboardSidebarLayoutUserEmployeeRoute
@@ -726,12 +831,17 @@ const DashboardSidebarLayoutRouteChildren: DashboardSidebarLayoutRouteChildren =
     DashboardSidebarLayoutOnlineOrderRoute:
       DashboardSidebarLayoutOnlineOrderRoute,
     DashboardSidebarLayoutPosRoute: DashboardSidebarLayoutPosRoute,
+    DashboardSidebarLayoutProfileRoute: DashboardSidebarLayoutProfileRoute,
     DashboardSidebarLayoutPurchaseRoute: DashboardSidebarLayoutPurchaseRoute,
     DashboardSidebarLayoutReservationRoute:
       DashboardSidebarLayoutReservationRoute,
     DashboardSidebarLayoutReservationCateringRoute:
       DashboardSidebarLayoutReservationCateringRoute,
     DashboardSidebarLayoutIndexRoute: DashboardSidebarLayoutIndexRoute,
+    DashboardSidebarLayoutHistoryCateringRoute:
+      DashboardSidebarLayoutHistoryCateringRoute,
+    DashboardSidebarLayoutHistoryInventoryUsageRoute:
+      DashboardSidebarLayoutHistoryInventoryUsageRoute,
     DashboardSidebarLayoutHistoryMyTransactionRoute:
       DashboardSidebarLayoutHistoryMyTransactionRoute,
     DashboardSidebarLayoutHistoryTransactionRoute:
@@ -744,10 +854,14 @@ const DashboardSidebarLayoutRouteChildren: DashboardSidebarLayoutRouteChildren =
       DashboardSidebarLayoutRecipeProductRoute,
     DashboardSidebarLayoutReportsInventoryRoute:
       DashboardSidebarLayoutReportsInventoryRoute,
+    DashboardSidebarLayoutReportsProductSalesRoute:
+      DashboardSidebarLayoutReportsProductSalesRoute,
     DashboardSidebarLayoutReportsPurchaseRoute:
       DashboardSidebarLayoutReportsPurchaseRoute,
-    DashboardSidebarLayoutReportsSalesRoute:
-      DashboardSidebarLayoutReportsSalesRoute,
+    DashboardSidebarLayoutReportsReservationRoute:
+      DashboardSidebarLayoutReportsReservationRoute,
+    DashboardSidebarLayoutReportsRevenueRoute:
+      DashboardSidebarLayoutReportsRevenueRoute,
     DashboardSidebarLayoutUserCreateRoute:
       DashboardSidebarLayoutUserCreateRoute,
     DashboardSidebarLayoutUserCustomerRoute:

@@ -19,7 +19,7 @@ export const ListUserPage = () => {
             <div className="flex items-center justify-between">
                 <div className="flex-1" />
                 <Button variant="default" onClick={handleCreateUser} className="w-fit">
-                    Create Product
+                    Create User
                 </Button>
             </div>
             <UserTable type={currentLocation} />

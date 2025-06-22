@@ -1,5 +1,5 @@
 import { DataTable } from "@/components/data-table/data-table";
-import { useDashboard } from "../hooks/use-dashboard";
+import { useDashboard } from "../hooks";
 import type { TableDashboardSchemaType } from "../data";
 
 interface DashboardTableProps {

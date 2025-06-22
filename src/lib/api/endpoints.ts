@@ -8,6 +8,7 @@ export enum ENDPOINTS {
     RESET_PASSWORD = "/auth/reset-password",
     REFRESH_TOKEN = "/auth/refresh-token",
     LOGOUT = "/auth/logout",
+    RESET_PASSWORD_PROFILE = "/auth/reset-password-profile",
     CATEGORY = "/category",
     PRODUCT = "/product",
     USER = "/user",
@@ -19,4 +20,6 @@ export enum ENDPOINTS {
     CATERING_PACKAGE = "/catering-package",
     RESERVATION = "/reservation",
     ORDER = "/order",
+    REPORT = "/report",
+    DASHBOARD = "/dashboard",
 }

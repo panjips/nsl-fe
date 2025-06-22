@@ -24,9 +24,13 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { ChevronDown, Filter, FilterX } from "lucide-react";
 import { toast } from "sonner";
+import { useGlobalAuthStore } from "@/stores";
 
 export const MyReservationTable = () => {
-    const { data, isLoading, setSearchTerm, searchTerm, statusFilter, setStatusFilter } = useUserReservations(17);
+    const { user } = useGlobalAuthStore();
+    const { data, isLoading, setSearchTerm, searchTerm, statusFilter, setStatusFilter } = useUserReservations(
+        user?.id || 1,
+    );
     const { modal } = useReservationStore();
 
     const handleOpenModalView = (id: string | number) => {

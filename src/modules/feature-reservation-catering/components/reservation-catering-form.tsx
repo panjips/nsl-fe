@@ -115,7 +115,6 @@ export const ReservationForm = () => {
             <CardContent>
                 <Form {...form}>
                     <form onSubmit={form.handleSubmit(prepareSubmission)} className="space-y-6">
-                        {/* All existing form fields remain unchanged */}
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <FormField
                                 control={form.control}
@@ -210,83 +209,86 @@ export const ReservationForm = () => {
                             </div>
 
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                {/* Package fields remain unchanged */}
-                                {fields.map((field, index) => (
-                                    <Card key={field.id} className="border-2 border-dashed">
-                                        <CardContent>
-                                            <div className="flex items-start gap-4">
-                                                <div className="flex-1">
-                                                    <FormField
-                                                        control={form.control}
-                                                        name={`packages.${index}.id`}
-                                                        render={({ field }) => (
-                                                            <FormItem>
-                                                                <FormControl>
-                                                                    <Select
-                                                                        onValueChange={(value) =>
-                                                                            field.onChange(Number(value))
-                                                                        }
-                                                                        value={
-                                                                            field.value ? field.value.toString() : ""
-                                                                        }
-                                                                    >
-                                                                        <SelectTrigger className="w-full">
-                                                                            <SelectValue placeholder="Select catering package" />
-                                                                        </SelectTrigger>
-                                                                        <SelectContent>
-                                                                            {dataPackage?.map((pkg) => (
-                                                                                <SelectItem
-                                                                                    key={pkg.id}
-                                                                                    value={pkg.id.toString()}
-                                                                                >
-                                                                                    {pkg.name} -{" "}
-                                                                                    {formatCurrency(pkg.price)}
-                                                                                </SelectItem>
-                                                                            ))}
-                                                                        </SelectContent>
-                                                                    </Select>
-                                                                </FormControl>
-                                                                <FormMessage />
-                                                            </FormItem>
+                                {fields.map((field, index) => {
+                                    const selectedPackageId = form.watch(`packages.${index}.id`);
+                                    const selectedPackageInfo = getPackageInfo(selectedPackageId);
+
+                                    return (
+                                        <Card key={field.id} className="border-2 border-dashed">
+                                            <CardContent>
+                                                <div className="flex items-start gap-4">
+                                                    <div className="flex-1">
+                                                        <FormField
+                                                            control={form.control}
+                                                            name={`packages.${index}.id`}
+                                                            render={({ field }) => (
+                                                                <FormItem>
+                                                                    <FormControl>
+                                                                        <Select
+                                                                            onValueChange={(value) =>
+                                                                                field.onChange(Number(value))
+                                                                            }
+                                                                            value={
+                                                                                field.value
+                                                                                    ? field.value.toString()
+                                                                                    : ""
+                                                                            }
+                                                                        >
+                                                                            <SelectTrigger className="w-full">
+                                                                                <SelectValue placeholder="Select catering package" />
+                                                                            </SelectTrigger>
+                                                                            <SelectContent className="hidden">
+                                                                                {dataPackage?.map((pkg) => (
+                                                                                    <SelectItem
+                                                                                        key={pkg.id}
+                                                                                        value={pkg.id.toString()}
+                                                                                    >
+                                                                                        {pkg.name} -{" "}
+                                                                                        {formatCurrency(pkg.price)}
+                                                                                    </SelectItem>
+                                                                                ))}
+                                                                            </SelectContent>
+                                                                        </Select>
+                                                                    </FormControl>
+                                                                    <FormMessage />
+                                                                </FormItem>
+                                                            )}
+                                                        />
+                                                        {selectedPackageInfo && (
+                                                            <div className="mt-2">
+                                                                <Badge variant="secondary" className="mb-1">
+                                                                    {selectedPackageInfo.name}
+                                                                </Badge>
+                                                                <p className="text-sm text-gray-600">
+                                                                    {selectedPackageInfo.quantity_cup +
+                                                                        " cups + " +
+                                                                        selectedPackageInfo.free_cup +
+                                                                        " cups free"}
+                                                                </p>
+                                                                <p className="text-sm text-gray-600">
+                                                                    {selectedPackageInfo.description}
+                                                                </p>
+                                                                <p className="text-sm font-medium mt-1">
+                                                                    {formatCurrency(selectedPackageInfo.price || 0)}
+                                                                </p>
+                                                            </div>
                                                         )}
-                                                    />
-                                                    {getPackageInfo(form.watch(`packages.${index}.id`)) && (
-                                                        <div className="mt-2">
-                                                            <Badge variant="secondary" className="mb-1">
-                                                                {
-                                                                    getPackageInfo(form.watch(`packages.${index}.id`))
-                                                                        ?.name
-                                                                }
-                                                            </Badge>
-                                                            <p className="text-sm text-gray-600">
-                                                                {
-                                                                    getPackageInfo(form.watch(`packages.${index}.id`))
-                                                                        ?.description
-                                                                }
-                                                            </p>
-                                                            <p className="text-sm font-medium mt-1">
-                                                                {formatCurrency(
-                                                                    getPackageInfo(form.watch(`packages.${index}.id`))
-                                                                        ?.price || 0,
-                                                                )}
-                                                            </p>
-                                                        </div>
+                                                    </div>
+                                                    {fields.length > 1 && (
+                                                        <Button
+                                                            type="button"
+                                                            variant="destructive"
+                                                            size="icon"
+                                                            onClick={() => removePackage(index)}
+                                                        >
+                                                            <TrashIcon className="h-4 w-4" />
+                                                        </Button>
                                                     )}
                                                 </div>
-                                                {fields.length > 1 && (
-                                                    <Button
-                                                        type="button"
-                                                        variant="destructive"
-                                                        size="icon"
-                                                        onClick={() => removePackage(index)}
-                                                    >
-                                                        <TrashIcon className="h-4 w-4" />
-                                                    </Button>
-                                                )}
-                                            </div>
-                                        </CardContent>
-                                    </Card>
-                                ))}
+                                            </CardContent>
+                                        </Card>
+                                    );
+                                })}
                             </div>
                             {form.formState.errors.packages?.message && (
                                 <p className="text-sm text-destructive">{form.formState.errors.packages.message}</p>
@@ -375,10 +377,8 @@ export const ReservationForm = () => {
                     </form>
                 </Form>
 
-                {/* TNC Modal */}
                 <ReservationOrderModal isOpen={modalTnc} onOpenChange={setModalTnc} onAction={handleActionTnc} />
 
-                {/* Confirmation Modal */}
                 <ReservationCreateModal
                     isOpen={confirmationModal}
                     onOpenChange={setConfirmationModal}

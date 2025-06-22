@@ -2,6 +2,8 @@ import { ENDPOINTS, type ApiResponse } from "@/lib/api";
 import axiosInstance from "@/lib/api/axios";
 import { isAxiosError } from "axios";
 import type { OnlineOrder as Order } from "@/modules/feature-online-order";
+import type { OrderInventoryUsage } from "../domain";
+import type { ReservationWithOrderCateringAndPackage } from "@/modules/feature-reservation";
 
 export const historyApi = {
     getMyTransactions: async () => {
@@ -22,6 +24,34 @@ export const historyApi = {
             if (isAxiosError(error)) {
                 throw new Error(error.response?.data.message);
             }
+        }
+    },
+    getInventoryUsageHistory: async () => {
+        try {
+            const response = await axiosInstance.get<ApiResponse<OrderInventoryUsage[]>>(
+                `${ENDPOINTS.INVENTORY}/usage`,
+            );
+            return response.data;
+        } catch (error) {
+            if (isAxiosError(error)) {
+                throw new Error(error.response?.data.message);
+            }
+        }
+    },
+    getReservations: async (params: any) => {
+        try {
+            const response = await axiosInstance.get<ApiResponse<ReservationWithOrderCateringAndPackage[]>>(
+                ENDPOINTS.RESERVATION,
+                {
+                    params: params,
+                },
+            );
+            return response.data;
+        } catch (error) {
+            if (isAxiosError(error)) {
+                throw new Error(error.response?.data.message);
+            }
+            throw error;
         }
     },
 };

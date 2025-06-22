@@ -65,6 +65,70 @@ export const useHistoryStore = create<HistoryState>((set) => ({
         },
     },
 
+    inventoryUsageHistory: {
+        state: initialState(),
+        getInventoryUsageHistory: async () => {
+            set((state) => ({
+                inventoryUsageHistory: {
+                    ...state.inventoryUsageHistory,
+                    state: loadingState(),
+                },
+            }));
+            try {
+                const usageHistory = await historyApi.getInventoryUsageHistory();
+                if (!usageHistory?.data) {
+                    throw new Error("Inventory usage history response data is missing");
+                }
+                set((state) => ({
+                    inventoryUsageHistory: {
+                        ...state.inventoryUsageHistory,
+                        state: successState(usageHistory?.data || []),
+                    },
+                }));
+            } catch (error) {
+                set((state) => ({
+                    inventoryUsageHistory: {
+                        ...state.inventoryUsageHistory,
+                        state: errorState(
+                            error instanceof Error ? error.message : "Failed to fetch inventory usage history",
+                        ),
+                    },
+                }));
+            }
+        },
+    },
+
+    reservations: {
+        state: initialState(),
+        getReservations: async (params?: any) => {
+            set((state) => ({
+                reservations: {
+                    ...state.reservations,
+                    state: loadingState(),
+                },
+            }));
+            try {
+                const reservations = await historyApi.getReservations(params);
+                if (!reservations?.data) {
+                    throw new Error("Reservations response data is missing");
+                }
+                set((state) => ({
+                    reservations: {
+                        ...state.reservations,
+                        state: successState(reservations?.data || []),
+                    },
+                }));
+            } catch (error) {
+                set((state) => ({
+                    reservations: {
+                        ...state.reservations,
+                        state: errorState(error instanceof Error ? error.message : "Failed to fetch reservations"),
+                    },
+                }));
+            }
+        },
+    },
+
     modal: {
         isOpen: false,
         mode: null,
@@ -118,6 +182,23 @@ export const useHistoryStore = create<HistoryState>((set) => ({
         set((state) => ({
             myTransactions: {
                 ...state.myTransactions,
+                state: initialState(),
+            },
+        }));
+    },
+    resetInventoryUsageHistoryState: () => {
+        set((state) => ({
+            inventoryUsageHistory: {
+                ...state.inventoryUsageHistory,
+                state: initialState(),
+            },
+        }));
+    },
+
+    resetReservationsState: () => {
+        set((state) => ({
+            reservations: {
+                ...state.reservations,
                 state: initialState(),
             },
         }));

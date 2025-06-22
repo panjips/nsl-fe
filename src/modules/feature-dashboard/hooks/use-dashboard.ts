@@ -1,7 +1,39 @@
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { dashboardColumnHelper, setupDashboardColumns } from "../components/dashboard-column";
+import { useDashboardStore } from "../stores";
 
-export function useDashboard() {
+export const useDashboard = () => {
+    const { statistics, topProducts, resetStatisticsState, resetTopProductsState } = useDashboardStore();
+
+    const statisticsData = useMemo(() => {
+        if (statistics.state.state === "success") {
+            return statistics.state.data;
+        }
+        return [];
+    }, [statistics.state]);
+
+    const topProductsData = useMemo(() => {
+        if (topProducts.state.state === "success") {
+            return topProducts.state.data;
+        }
+        return [];
+    }, [topProducts.state]);
+
+    useEffect(() => {
+        if (statistics.state.state === "init" || statistics.state.state === "error") {
+            statistics.getStatistics();
+        }
+
+        if (topProducts.state.state === "init" || topProducts.state.state === "error") {
+            topProducts.getTopProducts();
+        }
+
+        return () => {
+            resetStatisticsState();
+            resetTopProductsState();
+        };
+    }, []);
+
     const handleEdit = (id: number) => {
         console.log("Edit item with ID:", id);
     };
@@ -24,6 +56,8 @@ export function useDashboard() {
     }, [dashboardColumnHelper]);
 
     return {
+        statisticsData,
+        topProductsData,
         columns,
     };
-}
+};
