@@ -13,6 +13,7 @@ import {
     FileText,
     ListOrdered,
     History,
+    Clock,
 } from "lucide-react";
 
 export const menuItems: NavMainProps[] = [
@@ -23,6 +24,12 @@ export const menuItems: NavMainProps[] = [
                 title: "Dashboard",
                 url: "/dashboard",
                 icon: LayoutDashboard,
+            },
+            {
+                title: "Store Operation",
+                url: "/dashboard/operation",
+                icon: Clock,
+                roles: ["Staf", "Pemilik", "Kasir"],
             },
         ],
     },
@@ -49,10 +56,12 @@ export const menuItems: NavMainProps[] = [
                 icon: User,
                 items: [
                     {
+                        roles: ["Staf", "Pemilik"],
                         title: "Employee",
                         url: "/dashboard/user/employee",
                     },
                     {
+                        roles: ["Staf", "Pemilik"],
                         title: "Customer",
                         url: "/dashboard/user/customer",
                     },
@@ -83,10 +92,12 @@ export const menuItems: NavMainProps[] = [
                 icon: ReceiptText,
                 items: [
                     {
+                        roles: ["Staf", "Pemilik"],
                         title: "Product",
                         url: "/dashboard/recipe/product",
                     },
                     {
+                        roles: ["Staf", "Pemilik"],
                         title: "Addon",
                         url: "/dashboard/recipe/addon",
                     },
@@ -209,3 +220,22 @@ export const menuItems: NavMainProps[] = [
         ],
     },
 ];
+
+export const findMenuItem = (pathname: string) => {
+    for (const group of menuItems) {
+        for (const item of group.items) {
+            if (item.url === pathname) {
+                return item;
+            }
+
+            if (item.items) {
+                for (const nestedItem of item.items) {
+                    if (nestedItem.url === pathname) {
+                        return nestedItem;
+                    }
+                }
+            }
+        }
+    }
+    return null;
+};

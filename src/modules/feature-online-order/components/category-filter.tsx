@@ -20,14 +20,10 @@ export function CategoryFilter({ categories, selectedCategory, setSelectedCatego
             <div className="flex flex-wrap gap-2">
                 {categories.map((category) => (
                     <Button
-                        key={category.id || category.name}
-                        variant={
-                            selectedCategory === category.id || selectedCategory === category.name
-                                ? "default"
-                                : "outline"
-                        }
+                        key={category.name}
+                        variant={selectedCategory === category.name ? "default" : "outline"}
                         size="sm"
-                        onClick={() => setSelectedCategory(category.id || category.name)}
+                        onClick={() => setSelectedCategory(category.name)}
                         className="flex items-center space-x-2"
                     >
                         {category.icon && <category.icon className="h-4 w-4" />}

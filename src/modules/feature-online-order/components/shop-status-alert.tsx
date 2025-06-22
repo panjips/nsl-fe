@@ -11,7 +11,7 @@ export function ShopStatusAlert({ isShopOpen }: ShopStatusAlertProps) {
         <Alert className="mb-6 border-amber-200 bg-amber-50">
             <Clock className="h-4 w-4" />
             <AlertDescription className="text-amber-800">
-                <strong>Coffee shop is currently closed.</strong> We're open daily from 9:00 AM to 9:00 PM. You can
+                <strong>Coffee shop is currently closed.</strong> We're open daily from 15:30 PM to 19:00 PM. You can
                 browse our menu, but ordering is temporarily disabled.
             </AlertDescription>
         </Alert>

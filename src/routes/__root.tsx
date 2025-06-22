@@ -1,3 +1,6 @@
+import type { Role } from "@/components/sidebar/types";
+import { findMenuItem } from "@/lib/menuItems";
+import { NotFound } from "@/modules/feature-shared";
 import { useGlobalAuthStore, useNotificationStore } from "@/stores";
 import { Outlet, createRootRoute, redirect, type BeforeLoadContextOptions } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
@@ -5,26 +8,39 @@ import { useEffect } from "react";
 
 export const withAuthGuard = ({
     location,
-    // prevLocation,
 }: BeforeLoadContextOptions<any, any, any, any, any>): ReturnType<typeof redirect> | undefined => {
     const isAuthenticated = useGlobalAuthStore.getState().isAuthenticated;
+    const currentUserRole = useGlobalAuthStore.getState().user?.role;
 
     const isAuthRoute =
-        // location.pathname === "/login" ||
+        location.pathname === "/login" ||
         location.pathname === "/register" ||
         location.pathname === "/forgot-password" ||
         location.pathname === "/reset-password";
 
-    if (isAuthenticated && isAuthRoute) {
+    if (!isAuthenticated && !isAuthRoute && location.pathname !== "/") {
+        return redirect({
+            to: "/login",
+        });
+    }
+
+    if (isAuthRoute && isAuthenticated) {
         return redirect({ to: "/" });
     }
 
-    // if (!isAuthenticated && !isAuthRoute && location.pathname !== "/") {
-    //     return redirect({
-    //         to: "/login",
-    //         search: { redirect: location.pathname },
-    //     });
-    // }
+    if (isAuthenticated) {
+        const targetMenuItem = findMenuItem(location.pathname);
+
+        if (targetMenuItem) {
+            if (targetMenuItem.roles && targetMenuItem.roles.length > 0) {
+                if (currentUserRole && !targetMenuItem.roles.includes(currentUserRole as Role)) {
+                    return redirect({
+                        to: "/access-denied",
+                    });
+                }
+            }
+        }
+    }
 
     return;
 };
@@ -46,4 +62,5 @@ export const Route = createRootRoute({
         );
     },
     beforeLoad: withAuthGuard,
+    notFoundComponent: () => <NotFound />,
 });

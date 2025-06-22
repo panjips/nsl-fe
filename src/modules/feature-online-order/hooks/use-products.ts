@@ -9,7 +9,7 @@ export interface OnlineOrderProduct extends TableProduct {
 
 export const useProducts = () => {
     const [searchTerm, setSearchTerm] = useState("");
-    const [selectedCategory, setSelectedCategory] = useState("all");
+    const [selectedCategory, setSelectedCategory] = useState("All");
 
     const { data: productsData, isLoading: isLoadingProducts } = useListProduct();
     const { data: categoriesData, isLoading: isLoadingCategories } = useListCategory();
@@ -32,8 +32,8 @@ export const useProducts = () => {
         return products.filter((product) => {
             const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase());
             const matchesCategory =
-                selectedCategory === "all" ||
-                (product.category_id && product.category_id.toString() === selectedCategory);
+                selectedCategory.toLowerCase() === "all" ||
+                (product.category_id && product.category.name.toLowerCase() === selectedCategory.toLowerCase());
             return matchesSearch && matchesCategory;
         });
     }, [products, searchTerm, selectedCategory]);

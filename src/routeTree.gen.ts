@@ -11,6 +11,7 @@
 import { createFileRoute } from '@tanstack/react-router'
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as AccessDeniedRouteImport } from './routes/access-denied'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as DashboardSidebarLayoutRouteImport } from './routes/dashboard/_sidebarLayout'
 import { Route as DashboardSidebarLayoutIndexRouteImport } from './routes/dashboard/_sidebarLayout/index'
@@ -19,6 +20,7 @@ import { Route as DashboardSidebarLayoutReservationRouteImport } from './routes/
 import { Route as DashboardSidebarLayoutPurchaseRouteImport } from './routes/dashboard/_sidebarLayout/purchase'
 import { Route as DashboardSidebarLayoutProfileRouteImport } from './routes/dashboard/_sidebarLayout/profile'
 import { Route as DashboardSidebarLayoutPosRouteImport } from './routes/dashboard/_sidebarLayout/pos'
+import { Route as DashboardSidebarLayoutOperationRouteImport } from './routes/dashboard/_sidebarLayout/operation'
 import { Route as DashboardSidebarLayoutOnlineOrderRouteImport } from './routes/dashboard/_sidebarLayout/online-order'
 import { Route as DashboardSidebarLayoutMyReservationRouteImport } from './routes/dashboard/_sidebarLayout/my-reservation'
 import { Route as DashboardSidebarLayoutInventoryRouteImport } from './routes/dashboard/_sidebarLayout/inventory'
@@ -57,6 +59,11 @@ const authForgotPasswordLazyRouteImport = createFileRoute(
 const DashboardRoute = DashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AccessDeniedRoute = AccessDeniedRouteImport.update({
+  id: '/access-denied',
+  path: '/access-denied',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -134,6 +141,12 @@ const DashboardSidebarLayoutPosRoute =
   DashboardSidebarLayoutPosRouteImport.update({
     id: '/pos',
     path: '/pos',
+    getParentRoute: () => DashboardSidebarLayoutRoute,
+  } as any)
+const DashboardSidebarLayoutOperationRoute =
+  DashboardSidebarLayoutOperationRouteImport.update({
+    id: '/operation',
+    path: '/operation',
     getParentRoute: () => DashboardSidebarLayoutRoute,
   } as any)
 const DashboardSidebarLayoutOnlineOrderRoute =
@@ -283,6 +296,7 @@ const DashboardSidebarLayoutProductUpdateProductIdRoute =
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/access-denied': typeof AccessDeniedRoute
   '/dashboard': typeof DashboardSidebarLayoutRouteWithChildren
   '/forgot-password': typeof authForgotPasswordLazyRoute
   '/login': typeof authLoginLazyRoute
@@ -294,6 +308,7 @@ export interface FileRoutesByFullPath {
   '/dashboard/inventory': typeof DashboardSidebarLayoutInventoryRoute
   '/dashboard/my-reservation': typeof DashboardSidebarLayoutMyReservationRoute
   '/dashboard/online-order': typeof DashboardSidebarLayoutOnlineOrderRoute
+  '/dashboard/operation': typeof DashboardSidebarLayoutOperationRoute
   '/dashboard/pos': typeof DashboardSidebarLayoutPosRoute
   '/dashboard/profile': typeof DashboardSidebarLayoutProfileRoute
   '/dashboard/purchase': typeof DashboardSidebarLayoutPurchaseRoute
@@ -321,6 +336,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/access-denied': typeof AccessDeniedRoute
   '/dashboard': typeof DashboardSidebarLayoutIndexRoute
   '/forgot-password': typeof authForgotPasswordLazyRoute
   '/login': typeof authLoginLazyRoute
@@ -332,6 +348,7 @@ export interface FileRoutesByTo {
   '/dashboard/inventory': typeof DashboardSidebarLayoutInventoryRoute
   '/dashboard/my-reservation': typeof DashboardSidebarLayoutMyReservationRoute
   '/dashboard/online-order': typeof DashboardSidebarLayoutOnlineOrderRoute
+  '/dashboard/operation': typeof DashboardSidebarLayoutOperationRoute
   '/dashboard/pos': typeof DashboardSidebarLayoutPosRoute
   '/dashboard/profile': typeof DashboardSidebarLayoutProfileRoute
   '/dashboard/purchase': typeof DashboardSidebarLayoutPurchaseRoute
@@ -359,6 +376,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/access-denied': typeof AccessDeniedRoute
   '/dashboard': typeof DashboardRouteWithChildren
   '/dashboard/_sidebarLayout': typeof DashboardSidebarLayoutRouteWithChildren
   '/(auth)/forgot-password': typeof authForgotPasswordLazyRoute
@@ -371,6 +389,7 @@ export interface FileRoutesById {
   '/dashboard/_sidebarLayout/inventory': typeof DashboardSidebarLayoutInventoryRoute
   '/dashboard/_sidebarLayout/my-reservation': typeof DashboardSidebarLayoutMyReservationRoute
   '/dashboard/_sidebarLayout/online-order': typeof DashboardSidebarLayoutOnlineOrderRoute
+  '/dashboard/_sidebarLayout/operation': typeof DashboardSidebarLayoutOperationRoute
   '/dashboard/_sidebarLayout/pos': typeof DashboardSidebarLayoutPosRoute
   '/dashboard/_sidebarLayout/profile': typeof DashboardSidebarLayoutProfileRoute
   '/dashboard/_sidebarLayout/purchase': typeof DashboardSidebarLayoutPurchaseRoute
@@ -400,6 +419,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/access-denied'
     | '/dashboard'
     | '/forgot-password'
     | '/login'
@@ -411,6 +431,7 @@ export interface FileRouteTypes {
     | '/dashboard/inventory'
     | '/dashboard/my-reservation'
     | '/dashboard/online-order'
+    | '/dashboard/operation'
     | '/dashboard/pos'
     | '/dashboard/profile'
     | '/dashboard/purchase'
@@ -438,6 +459,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/access-denied'
     | '/dashboard'
     | '/forgot-password'
     | '/login'
@@ -449,6 +471,7 @@ export interface FileRouteTypes {
     | '/dashboard/inventory'
     | '/dashboard/my-reservation'
     | '/dashboard/online-order'
+    | '/dashboard/operation'
     | '/dashboard/pos'
     | '/dashboard/profile'
     | '/dashboard/purchase'
@@ -475,6 +498,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/access-denied'
     | '/dashboard'
     | '/dashboard/_sidebarLayout'
     | '/(auth)/forgot-password'
@@ -487,6 +511,7 @@ export interface FileRouteTypes {
     | '/dashboard/_sidebarLayout/inventory'
     | '/dashboard/_sidebarLayout/my-reservation'
     | '/dashboard/_sidebarLayout/online-order'
+    | '/dashboard/_sidebarLayout/operation'
     | '/dashboard/_sidebarLayout/pos'
     | '/dashboard/_sidebarLayout/profile'
     | '/dashboard/_sidebarLayout/purchase'
@@ -515,6 +540,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AccessDeniedRoute: typeof AccessDeniedRoute
   DashboardRoute: typeof DashboardRouteWithChildren
   authForgotPasswordLazyRoute: typeof authForgotPasswordLazyRoute
   authLoginLazyRoute: typeof authLoginLazyRoute
@@ -529,6 +555,13 @@ declare module '@tanstack/react-router' {
       path: '/dashboard'
       fullPath: '/dashboard'
       preLoaderRoute: typeof DashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/access-denied': {
+      id: '/access-denied'
+      path: '/access-denied'
+      fullPath: '/access-denied'
+      preLoaderRoute: typeof AccessDeniedRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -613,6 +646,13 @@ declare module '@tanstack/react-router' {
       path: '/pos'
       fullPath: '/dashboard/pos'
       preLoaderRoute: typeof DashboardSidebarLayoutPosRouteImport
+      parentRoute: typeof DashboardSidebarLayoutRoute
+    }
+    '/dashboard/_sidebarLayout/operation': {
+      id: '/dashboard/_sidebarLayout/operation'
+      path: '/operation'
+      fullPath: '/dashboard/operation'
+      preLoaderRoute: typeof DashboardSidebarLayoutOperationRouteImport
       parentRoute: typeof DashboardSidebarLayoutRoute
     }
     '/dashboard/_sidebarLayout/online-order': {
@@ -793,6 +833,7 @@ interface DashboardSidebarLayoutRouteChildren {
   DashboardSidebarLayoutInventoryRoute: typeof DashboardSidebarLayoutInventoryRoute
   DashboardSidebarLayoutMyReservationRoute: typeof DashboardSidebarLayoutMyReservationRoute
   DashboardSidebarLayoutOnlineOrderRoute: typeof DashboardSidebarLayoutOnlineOrderRoute
+  DashboardSidebarLayoutOperationRoute: typeof DashboardSidebarLayoutOperationRoute
   DashboardSidebarLayoutPosRoute: typeof DashboardSidebarLayoutPosRoute
   DashboardSidebarLayoutProfileRoute: typeof DashboardSidebarLayoutProfileRoute
   DashboardSidebarLayoutPurchaseRoute: typeof DashboardSidebarLayoutPurchaseRoute
@@ -830,6 +871,7 @@ const DashboardSidebarLayoutRouteChildren: DashboardSidebarLayoutRouteChildren =
       DashboardSidebarLayoutMyReservationRoute,
     DashboardSidebarLayoutOnlineOrderRoute:
       DashboardSidebarLayoutOnlineOrderRoute,
+    DashboardSidebarLayoutOperationRoute: DashboardSidebarLayoutOperationRoute,
     DashboardSidebarLayoutPosRoute: DashboardSidebarLayoutPosRoute,
     DashboardSidebarLayoutProfileRoute: DashboardSidebarLayoutProfileRoute,
     DashboardSidebarLayoutPurchaseRoute: DashboardSidebarLayoutPurchaseRoute,
@@ -895,6 +937,7 @@ const DashboardRouteWithChildren = DashboardRoute._addFileChildren(
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AccessDeniedRoute: AccessDeniedRoute,
   DashboardRoute: DashboardRouteWithChildren,
   authForgotPasswordLazyRoute: authForgotPasswordLazyRoute,
   authLoginLazyRoute: authLoginLazyRoute,
