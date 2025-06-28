@@ -2,6 +2,7 @@ import { create } from "zustand";
 import type { CartState, OrderState } from "./state";
 import { errorState, initialState, loadingState, successState } from "@/stores";
 import { orderApi } from "../data/order-api";
+import { toast } from "sonner";
 
 export const useCartStore = create<CartState>((set, get) => ({
     items: [],
@@ -18,9 +19,55 @@ export const useCartStore = create<CartState>((set, get) => ({
             return;
         }
 
-        set((state) => ({
-            items: state.items.map((item) => (item.id === id ? { ...item, quantity } : item)),
-        }));
+        set((state) => {
+            const targetItem = state.items.find((item) => item.id === id);
+
+            if (!targetItem) return state;
+
+            let newQuantity = quantity;
+            let quantityLimited = false;
+
+            if (targetItem.possibleQty !== undefined && newQuantity > targetItem.possibleQty) {
+                newQuantity = targetItem.possibleQty;
+                quantityLimited = true;
+                toast.warning(`Maximum available quantity for ${targetItem.name} is ${targetItem.possibleQty}`);
+            }
+
+            const updatedItems = state.items.map((item) => {
+                if (item.id === id) {
+                    const updatedAddOns =
+                        item.addOns?.map((addon) => {
+                            let addonQuantity = newQuantity;
+
+                            if (addon.possible_qty !== undefined && addonQuantity > addon.possible_qty) {
+                                addonQuantity = addon.possible_qty;
+
+                                if (addonQuantity < newQuantity) {
+                                    newQuantity = addonQuantity;
+                                    quantityLimited = true;
+                                    toast.warning(
+                                        `Maximum available quantity for addon ${addon.name} is ${addon.possible_qty}`,
+                                    );
+                                }
+                            }
+
+                            return {
+                                ...addon,
+                                quantity: addonQuantity,
+                            };
+                        }) || [];
+
+                    return {
+                        ...item,
+                        quantity: newQuantity,
+                        addOns: updatedAddOns,
+                    };
+                }
+                return item;
+            });
+
+            return { items: updatedItems };
+        });
     },
 
     removeItem: (id) => {
@@ -114,6 +161,42 @@ export const useOrderStore = create<OrderState>((set) => ({
                 },
             }));
         },
+    },
+
+    modalInvoice: {
+        isOpen: false,
+        mode: "view",
+        data: undefined,
+        onOpen: (data) => {
+            set((state) => ({
+                modalInvoice: {
+                    ...state.modalInvoice,
+                    isOpen: true,
+                    mode: "view",
+                    data: data ?? undefined,
+                },
+            }));
+        },
+        onClose: () => {
+            set((state) => ({
+                modalInvoice: {
+                    ...state.modalInvoice,
+                    isOpen: false,
+                    mode: undefined,
+                    data: undefined,
+                },
+            }));
+        },
+    },
+    resetModalInvoice: () => {
+        set((state) => ({
+            modalInvoice: {
+                ...state.modalInvoice,
+                isOpen: false,
+                mode: undefined,
+                data: undefined,
+            },
+        }));
     },
     resetModal: () => {
         set((state) => ({

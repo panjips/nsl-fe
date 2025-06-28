@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useForm, useFieldArray } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
@@ -22,6 +22,10 @@ import { ReservationOrderModal } from "./reservation-tnc-modal";
 import { ReservationCreateModal } from "./reservation-create-modal";
 
 export const ReservationForm = () => {
+    const firstCardRef = useRef<HTMLDivElement>(null);
+
+    const [firstCardWidth, setFirstCardWidth] = useState(0);
+
     const [datePickerOpen, setDatePickerOpen] = useState(false);
     const [isTncChecked, setIsTncChecked] = useState(false);
     const [modalTnc, setModalTnc] = useState(false);
@@ -100,6 +104,13 @@ export const ReservationForm = () => {
         setIsTncChecked(!isTncChecked);
         setModalTnc(!modalTnc);
     };
+
+    useEffect(() => {
+        if (firstCardRef.current) {
+            const width = firstCardRef.current.getBoundingClientRect().width;
+            setFirstCardWidth(width);
+        }
+    }, [fields.length]);
 
     return (
         <Card>
@@ -214,7 +225,11 @@ export const ReservationForm = () => {
                                     const selectedPackageInfo = getPackageInfo(selectedPackageId);
 
                                     return (
-                                        <Card key={field.id} className="border-2 border-dashed">
+                                        <Card
+                                            ref={index === 0 ? firstCardRef : null}
+                                            key={field.id}
+                                            className="border-2 border-dashed"
+                                        >
                                             <CardContent>
                                                 <div className="flex items-start gap-4">
                                                     <div className="flex-1">
@@ -234,10 +249,22 @@ export const ReservationForm = () => {
                                                                                     : ""
                                                                             }
                                                                         >
-                                                                            <SelectTrigger className="w-full">
+                                                                            <SelectTrigger
+                                                                                style={{
+                                                                                    width:
+                                                                                        fields.length > 1
+                                                                                            ? `calc(${firstCardWidth}px - 104px)`
+                                                                                            : `calc(${firstCardWidth}px - 52px)`,
+                                                                                }}
+                                                                            >
                                                                                 <SelectValue placeholder="Select catering package" />
                                                                             </SelectTrigger>
-                                                                            <SelectContent className="hidden">
+                                                                            <SelectContent
+                                                                                style={{
+                                                                                    width: `calc(${firstCardWidth}px - 52px)`,
+                                                                                }}
+                                                                                className="hidden"
+                                                                            >
                                                                                 {dataPackage?.map((pkg) => (
                                                                                     <SelectItem
                                                                                         key={pkg.id}

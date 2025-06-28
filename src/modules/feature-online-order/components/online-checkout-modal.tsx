@@ -25,6 +25,8 @@ export function CheckoutModal({ isOpen, onClose, cart, cartTotal, clearCart }: C
     const [notes, setNotes] = useState("");
     const { showMidtransPayment, setShowMidtransPayment, isSubmitting, createOrder, createOrderState } = useCheckout();
 
+    console.log(cart);
+
     const transactionToken = createOrderState.state === "success" ? createOrderState.data?.data?.token : null;
 
     useEffect(() => {

@@ -3,7 +3,9 @@ import type { TableProduct } from "@/modules/feature-product";
 
 export interface Product extends TableProduct {}
 
-export interface AddOn extends Addon {}
+export interface AddOn extends Addon {
+    quantity?: number;
+}
 
 export interface CartItem {
     id: string;
@@ -11,6 +13,8 @@ export interface CartItem {
     name: string;
     price: number;
     quantity: number;
+    possibleQty?: number;
+    sugar_type?: string;
     addOns: AddOn[];
 }
 

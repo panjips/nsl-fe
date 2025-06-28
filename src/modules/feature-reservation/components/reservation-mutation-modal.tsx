@@ -7,7 +7,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
@@ -23,6 +23,9 @@ export const ReservationMutationModal = ({
 }: {
     id: number | string | undefined;
 }) => {
+    const formItemRef = useRef<HTMLDivElement>(null);
+    const [formItemWidth, setFormItemWidth] = useState(0);
+
     const isEdit = !!id;
     const [datePickerOpen, setDatePickerOpen] = useState(false);
     const form = useForm<CreateReservationDTOType>({
@@ -93,6 +96,17 @@ export const ReservationMutationModal = ({
         append({ id: 0 });
     };
 
+    useEffect(() => {
+        if (isOpen) {
+            setTimeout(() => {
+                if (formItemRef.current) {
+                    const width = formItemRef.current.getBoundingClientRect().width;
+                    setFormItemWidth(width);
+                }
+            }, 0);
+        }
+    }, [isOpen]);
+
     return (
         <Modal
             open={isOpen}
@@ -101,7 +115,7 @@ export const ReservationMutationModal = ({
             size="xl"
             isFooter={true}
             footerContent={
-                <div className="flex justify-end gap-2">
+                <div ref={formItemRef} className="flex justify-end gap-2">
                     <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>
                         Cancel
                     </Button>
@@ -242,46 +256,107 @@ export const ReservationMutationModal = ({
                             </div>
                         ) : (
                             <div className="space-y-3">
-                                {fields.map((field, index) => (
-                                    <div key={field.id} className="flex items-start gap-3">
-                                        <div className="flex-1">
-                                            <FormField
-                                                control={form.control}
-                                                name={`packages.${index}.id`}
-                                                render={({ field }) => (
-                                                    <FormItem>
-                                                        <Select
-                                                            onValueChange={(value) => field.onChange(Number(value))}
-                                                            value={field.value ? field.value.toString() : ""}
-                                                        >
-                                                            <FormControl>
-                                                                <SelectTrigger className="w-full">
-                                                                    <SelectValue placeholder="Select catering package" />
-                                                                </SelectTrigger>
-                                                            </FormControl>
-                                                            <SelectContent>
-                                                                {dataPackage?.map((pkg) => (
-                                                                    <SelectItem key={pkg.id} value={pkg.id.toString()}>
-                                                                        {pkg.name} - {formatCurrency(pkg.price)}
-                                                                    </SelectItem>
-                                                                ))}
-                                                            </SelectContent>
-                                                        </Select>
-                                                        <FormMessage />
-                                                    </FormItem>
-                                                )}
-                                            />
+                                {fields.map((field, index) => {
+                                    const selectedPackageId = form.watch(`packages.${index}.id`);
+                                    const selectedPackage = dataPackage?.find((pkg) => pkg.id === selectedPackageId);
+
+                                    return (
+                                        <div key={field.id} className="flex flex-col gap-3">
+                                            <div className="flex items-start gap-3">
+                                                <div className="flex-1">
+                                                    <FormField
+                                                        control={form.control}
+                                                        name={`packages.${index}.id`}
+                                                        render={({ field }) => (
+                                                            <FormItem>
+                                                                <Select
+                                                                    onValueChange={(value) =>
+                                                                        field.onChange(Number(value))
+                                                                    }
+                                                                    value={field.value ? field.value.toString() : ""}
+                                                                >
+                                                                    <FormControl>
+                                                                        <SelectTrigger
+                                                                            style={{
+                                                                                width: `calc(${formItemWidth}px - 72px)`,
+                                                                            }}
+                                                                        >
+                                                                            <SelectValue placeholder="Select catering package" />
+                                                                        </SelectTrigger>
+                                                                    </FormControl>
+                                                                    <SelectContent
+                                                                        style={{
+                                                                            width: `calc(${formItemWidth}px - 72px)`,
+                                                                        }}
+                                                                    >
+                                                                        {dataPackage?.map((pkg) => (
+                                                                            <SelectItem
+                                                                                key={pkg.id}
+                                                                                value={pkg.id.toString()}
+                                                                            >
+                                                                                {pkg.name} - {formatCurrency(pkg.price)}
+                                                                            </SelectItem>
+                                                                        ))}
+                                                                    </SelectContent>
+                                                                </Select>
+                                                                <FormMessage />
+                                                            </FormItem>
+                                                        )}
+                                                    />
+                                                </div>
+                                                <Button
+                                                    type="button"
+                                                    variant="destructive"
+                                                    size="icon"
+                                                    onClick={() => remove(index)}
+                                                >
+                                                    <X size={16} />
+                                                </Button>
+                                            </div>
+
+                                            {selectedPackage && (
+                                                <div className="ml-2 p-3 rounded-md bg-muted/50">
+                                                    <div className="flex justify-between items-center">
+                                                        <span className="text-sm font-medium">
+                                                            {selectedPackage.name}
+                                                        </span>
+                                                        <span className="text-sm font-semibold">
+                                                            {formatCurrency(selectedPackage.price)}
+                                                        </span>
+                                                    </div>
+                                                    <div className="flex justify-between items-center mt-1 text-xs text-muted-foreground">
+                                                        <span>
+                                                            {selectedPackage.quantity_cup} cups +{" "}
+                                                            {selectedPackage.free_cup || 0} free cups
+                                                        </span>
+                                                        <span>{selectedPackage.description}</span>
+                                                    </div>
+                                                </div>
+                                            )}
                                         </div>
-                                        <Button
-                                            type="button"
-                                            variant="destructive"
-                                            size="icon"
-                                            onClick={() => remove(index)}
-                                        >
-                                            <X size={16} />
-                                        </Button>
+                                    );
+                                })}
+
+                                {fields.length > 0 && (
+                                    <div className="mt-4 p-4 border rounded-md bg-muted/30">
+                                        <div className="flex justify-between items-center">
+                                            <span className="text-sm font-medium">Packages Total</span>
+                                            <span className="text-lg font-bold">
+                                                {formatCurrency(
+                                                    fields.reduce((sum, _, index) => {
+                                                        const packageId = form.watch(`packages.${index}.id`);
+                                                        const packageItem = dataPackage?.find(
+                                                            (p) => p.id === packageId,
+                                                        );
+                                                        return (
+                                                            sum + (packageItem?.price ? Number(packageItem.price) : 0)
+                                                        );
+                                                    }, 0) + (form.watch("is_use_cart") ? 500000 : 0),
+                                                )}
+                                            </span>
+                                        </div>
                                     </div>
-                                ))}
+                                )}
                             </div>
                         )}
                     </div>

@@ -11,7 +11,7 @@ interface ProductGridProps {
     products: any[];
     isLoggedIn: boolean;
     isShopOpen: boolean;
-    addToCart: (product: any, quantity: number, addons: CartAddon[]) => void;
+    addToCart: (product: any, quantity: number, addons: CartAddon[], sugar_type?: string) => void;
 }
 
 export function ProductGrid({ products, isLoggedIn, isShopOpen, addToCart }: ProductGridProps) {
@@ -39,8 +39,13 @@ export function ProductGrid({ products, isLoggedIn, isShopOpen, addToCart }: Pro
         setSelectedProduct(null);
     };
 
-    const handleAddToCartWithAddons = (product: any, quantity: number, selectedAddons: CartAddon[]) => {
-        addToCart(product, quantity, selectedAddons);
+    const handleAddToCartWithAddons = (
+        product: any,
+        quantity: number,
+        selectedAddons: CartAddon[],
+        sugarType?: string,
+    ) => {
+        addToCart(product, quantity, selectedAddons, sugarType);
     };
 
     return (

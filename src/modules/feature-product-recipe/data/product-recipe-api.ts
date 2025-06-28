@@ -1,7 +1,7 @@
 import { ENDPOINTS, type ApiResponse } from "@/lib/api";
 import axiosInstance from "@/lib/api/axios";
 import { isAxiosError } from "axios";
-import type { ProductRecipe } from "../domain";
+import type { ProductRecipe, SugarType } from "../domain";
 import type { BulkCreateProductRecipeDTOType } from "@/modules/feature-product-recipe/data";
 
 export const productRecipeApi = {
@@ -17,10 +17,16 @@ export const productRecipeApi = {
         }
     },
 
-    getProductRecipeByProductId: async (productId: string | number) => {
+    getProductRecipeByProductId: async (
+        productId: string | number,
+        params?: {
+            type?: SugarType;
+        },
+    ) => {
         try {
             const response = await axiosInstance.get<ApiResponse<ProductRecipe>>(
                 `${ENDPOINTS.PRODUCT_RECIPE}/${productId}`,
+                params ? { params } : {},
             );
             return response.data;
         } catch (error) {

@@ -2,7 +2,7 @@ import { create } from "zustand";
 import type { ProductRecipeState } from "./state";
 import { errorState, initialState, loadingState, successState } from "@/stores/core";
 import { productRecipeApi, type BulkCreateProductRecipeDTOType } from "../data";
-import type { ProductRecipe } from "../domain";
+import type { ProductRecipe, SugarType } from "../domain";
 
 export const useProductRecipeStore = create<ProductRecipeState>((set) => ({
     productRecipes: {
@@ -38,7 +38,12 @@ export const useProductRecipeStore = create<ProductRecipeState>((set) => ({
 
     productRecipe: {
         state: initialState(),
-        getProductRecipeByProductId: async (productId: string | number) => {
+        getProductRecipeByProductId: async (
+            productId: string | number,
+            params?: {
+                type?: SugarType;
+            },
+        ) => {
             set((state) => ({
                 productRecipe: {
                     ...state.productRecipe,
@@ -46,7 +51,7 @@ export const useProductRecipeStore = create<ProductRecipeState>((set) => ({
                 },
             }));
             try {
-                const productRecipe = await productRecipeApi.getProductRecipeByProductId(productId);
+                const productRecipe = await productRecipeApi.getProductRecipeByProductId(productId, params);
                 if (!productRecipe?.data) {
                     throw new Error("Addon recipe response data is missing");
                 }
@@ -140,7 +145,7 @@ export const useProductRecipeStore = create<ProductRecipeState>((set) => ({
             }));
             try {
                 const response = await productRecipeApi.updateProductRecipe(id, data);
-                if (!response?.data) {
+                if (!response) {
                     throw new Error("Update product recipe response data is missing");
                 }
                 set((state) => ({

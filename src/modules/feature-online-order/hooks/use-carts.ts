@@ -11,6 +11,7 @@ export interface CartAddon {
 export interface CartProduct {
     product_id: string | number;
     quantity: number;
+    sugar_type?: string;
     name?: string;
     price?: number;
     addons: CartAddon[];
@@ -47,17 +48,19 @@ export const useCart = () => {
     const cartItemsCount = cart.reduce((total, item) => total + item.quantity, 0);
     const cartTotal = cart.reduce((total, item) => {
         let itemTotal = (item.price || 0) * item.quantity;
+        let addonsTotal = 0;
 
         if (item.addons && item.addons.length > 0) {
-            itemTotal +=
-                item.addons.reduce((addonTotal, addon) => addonTotal + (addon.price || 0) * addon.quantity, 0) *
-                item.quantity;
+            addonsTotal = item.addons.reduce(
+                (addonTotal, addon) => addonTotal + (addon.price || 0) * addon.quantity,
+                0,
+            );
         }
 
-        return total + itemTotal;
+        return total + itemTotal + addonsTotal;
     }, 0);
 
-    const addToCart = (product: any, quantity: number = 1, addons: CartAddon[] = []) => {
+    const addToCart = (product: any, quantity: number = 1, addons: CartAddon[] = [], sugarType?: string) => {
         if (!product || !product.id) {
             console.error("Invalid product provided to addToCart:", product);
             return;
@@ -65,7 +68,7 @@ export const useCart = () => {
 
         setCart((prevCart) => {
             const existingItemIndex = prevCart.findIndex((item) => {
-                const productMatches = item.product_id === product.id;
+                const productMatches = item.product_id === product.id && item.sugar_type === sugarType;
 
                 if ((!item.addons || item.addons.length === 0) && addons.length === 0) {
                     return productMatches;
@@ -100,6 +103,7 @@ export const useCart = () => {
                     name: product.name,
                     price: product.price,
                     quantity: quantity,
+                    sugar_type: sugarType,
                     addons: addons.map((addon) => ({
                         addon_id: addon.addon_id,
                         name: addon.name,

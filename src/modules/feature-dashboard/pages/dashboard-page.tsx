@@ -3,17 +3,21 @@ import { DashboardCard } from "../components/dashboard-card";
 import { InteractiveChart } from "../components/interactive-chart";
 import { useDashboard } from "../hooks";
 import { TopProducts } from "../components/top-products";
+import type { DateFilterPeriod } from "../domain";
 
 export const DashboardPage = () => {
     const { statisticsData, topProductsData } = useDashboard();
-    const [selectedPeriod, setSelectedPeriod] = useState<"7days" | "30days">("7days");
+    const [selectedPeriod, setSelectedPeriod] = useState<DateFilterPeriod>("7days");
 
-    const handlePeriodChange = (period: "7days" | "30days") => {
+    const handlePeriodChange = (period: DateFilterPeriod) => {
         setSelectedPeriod(period);
     };
 
+    
     const getFilteredData = () => {
-        if (selectedPeriod === "7days") {
+        if (selectedPeriod === "custom") {
+            return statisticsData;
+        } else if (selectedPeriod === "7days") {
             return statisticsData.slice(-7);
         }
         return statisticsData;

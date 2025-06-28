@@ -41,7 +41,7 @@ export const ReservationTable = () => {
     };
 
     const handleOpenModalDelete = (id: string | number, data: ReservationWithOrderCateringAndPackage) => {
-        if (data.status !== ReservationStatus.PENDING || data.status !== ReservationStatus.CANCELLED) {
+        if (data.status !== ReservationStatus.PENDING && data.status !== ReservationStatus.CANCELLED) {
             toast.error("You can only delete reservations with PENDING or CANCELLED status.");
             return;
         }

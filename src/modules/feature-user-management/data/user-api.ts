@@ -50,6 +50,16 @@ export const userApi = {
             }
         }
     },
+    selfUpdate: async (data: UpdateUserDTOType) => {
+        try {
+            const response = await axiosInstance.put<ApiResponse<UserWithRole>>(`${ENDPOINTS.USER}/self`, data);
+            return response.data;
+        } catch (error) {
+            if (isAxiosError(error)) {
+                throw new Error(error.response?.data.message);
+            }
+        }
+    },
     deleteUser: async (id: string | number) => {
         try {
             const response = await axiosInstance.delete<ApiResponse<null>>(`${ENDPOINTS.USER}/${id}`);

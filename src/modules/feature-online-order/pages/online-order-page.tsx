@@ -18,6 +18,8 @@ export const OnlineOrderPage = () => {
 
     const { cart, cartItemsCount, cartTotal, addToCart, clearCart, removeFromCart } = useCart();
 
+    console.log(cart);
+
     useEffect(() => {}, [cart]);
 
     const isShopOpen = useMemo(() => {
@@ -49,9 +51,9 @@ export const OnlineOrderPage = () => {
         navigate({ to: "/login" });
     };
 
-    const handleAddToCart = (product: any, quantity: number, addons: CartAddon[] = []) => {
+    const handleAddToCart = (product: any, quantity: number, addons: CartAddon[] = [], sugarType?: string) => {
         if (!isShopOpen || !isAuthenticated) return;
-        addToCart(product, quantity, addons);
+        addToCart(product, quantity, addons, sugarType);
     };
 
     return (

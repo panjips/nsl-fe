@@ -58,6 +58,7 @@ export const ProductRecipeMutationModal = ({
         resolver: zodResolver(BulkCreateProductRecipeDTO),
         defaultValues: {
             product_id: productId ? Number(productId) : 0,
+            sugar_type: "NORMAL",
             recipes: [
                 {
                     inventory_id: 0,
@@ -93,6 +94,7 @@ export const ProductRecipeMutationModal = ({
     useEffect(() => {
         if (isEdit && data) {
             form.setValue("product_id", Number(data.id));
+            form.setValue("sugar_type", data.sugar_type || "NORMAL");
 
             if (data.recipes && data.recipes.length > 0) {
                 form.setValue(
@@ -219,6 +221,35 @@ export const ProductRecipeMutationModal = ({
                                 </FormItem>
                             )}
                         />
+
+                        <div>
+                            <FormField
+                                control={form.control}
+                                name="sugar_type"
+                                render={({ field }) => (
+                                    <FormItem className="w-full">
+                                        <FormLabel>Sugar Type</FormLabel>
+                                        <Select
+                                            onValueChange={field.onChange}
+                                            value={field.value ?? "NORMAL"}
+                                            defaultValue={field.value ?? "NORMAL"}
+                                        >
+                                            <FormControl>
+                                                <SelectTrigger className="w-full">
+                                                    <SelectValue placeholder="Select sugar type" />
+                                                </SelectTrigger>
+                                            </FormControl>
+                                            <SelectContent>
+                                                <SelectItem value="NORMAL">Normal Sugar</SelectItem>
+                                                <SelectItem value="LESS_SUGAR">Less Sugar</SelectItem>
+                                                <SelectItem value="NO_SUGAR">No Sugar</SelectItem>
+                                            </SelectContent>
+                                        </Select>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                        </div>
 
                         <Separator />
 

@@ -19,7 +19,7 @@ export const useEditProductRecipe = () => {
     // Get recipes for a product when editing
     useEffect(() => {
         if (modal.productId && modal.mode === "edit") {
-            productRecipe.getProductRecipeByProductId(modal.productId);
+            productRecipe.getProductRecipeByProductId(modal.productId, { type: modal.data?.recipes[0]?.sugar_type });
         }
     }, [modal.productId, modal.mode]);
 

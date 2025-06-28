@@ -5,7 +5,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { X } from "lucide-react";
 import type { AddOn, CartItem, Product } from "../domain";
-import { formatCurrency, getInitials } from "@/lib/utils";
+import { convertToTitleCase, formatCurrency, getInitials } from "@/lib/utils";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 
 interface ProductCustomizationModalProps {
@@ -24,6 +24,7 @@ export function ProductCustomizationModal({
     onAddToCart,
 }: ProductCustomizationModalProps) {
     const [selectedAddOns, setSelectedAddOns] = useState<AddOn[]>([]);
+    const [sugarType, setSugarType] = useState<string | undefined>(undefined);
     const [imageError, setImageError] = useState(false);
 
     const availableAddOns = addOns.filter((addOn) => !selectedAddOns.some((selected) => selected.id === addOn.id));
@@ -33,6 +34,10 @@ export function ProductCustomizationModal({
         if (addOn) {
             setSelectedAddOns((prev) => [...prev, addOn]);
         }
+    };
+
+    const handleSugarTypeChange = (value: string) => {
+        setSugarType(value);
     };
 
     const handleAddOnRemove = (addOnId: string) => {
@@ -55,6 +60,8 @@ export function ProductCustomizationModal({
             price: totalPrice,
             quantity: 1,
             addOns: selectedAddOns,
+            sugar_type: sugarType,
+            possibleQty: product.possible_qty || undefined,
         };
 
         onAddToCart(cartItem);
@@ -100,6 +107,24 @@ export function ProductCustomizationModal({
                             </div>
                         )}
                         <p className="text-lg font-semibold">{formatCurrency(product.price)}</p>
+                    </div>
+
+                    <div className="space-y-2">
+                        <h4 className="text-sm font-medium">Type</h4>
+                        <Select onValueChange={handleSugarTypeChange} value={sugarType}>
+                            <SelectTrigger className="w-full">
+                                <SelectValue placeholder="Select add-ons" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                {product.sugar_type?.map((type: any) => (
+                                    <SelectItem key={type} value={type}>
+                                        <div className="flex justify-between w-full">
+                                            <span>{convertToTitleCase(type)}</span>
+                                        </div>
+                                    </SelectItem>
+                                ))}
+                            </SelectContent>
+                        </Select>
                     </div>
 
                     <div className="space-y-2">

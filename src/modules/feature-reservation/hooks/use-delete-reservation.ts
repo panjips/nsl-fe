@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useReservationStore } from "../stores";
 import { toast } from "sonner";
+import { ReservationStatus } from "../domain";
 
 export const useDeleteReservation = () => {
     const { modal, deleteReservation, reservations, resetDeleteReservationState, resetModal } = useReservationStore();
@@ -16,7 +17,7 @@ export const useDeleteReservation = () => {
     const handleSubmitDelete = async (id: string | number) => {
         try {
             await deleteReservation.deleteReservation(id);
-            await reservations.getAllReservations();
+            await reservations.getAllReservations(`${ReservationStatus.PENDING},${ReservationStatus.CONFIRMED},${ReservationStatus.WAITING_DEPOSIT},${ReservationStatus.DEPOSIT_PAID},${ReservationStatus.PAYMENT_PENDING}`,);
         } finally {
             modal.onClose();
             resetModal();

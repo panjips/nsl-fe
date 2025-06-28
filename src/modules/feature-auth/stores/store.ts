@@ -62,11 +62,10 @@ export const useAuthStore = create<AuthState>((set) => ({
     resetPassword: async (data: ResetPasswordReqDTOType, token: string) => {
         set({ resetPasswordState: loadingState() });
         try {
-            // const reset = await authApi.resetPassword({...data, token });
-            // set({
-            //   resetPasswordState: successState(reset),
-            // });
-            console.log({ ...data, token });
+            const reset = await authApi.resetPassword({ ...data, token });
+            set({
+                resetPasswordState: successState(reset),
+            });
         } catch (error) {
             set({
                 resetPasswordState: errorState(error instanceof Error ? error.message : "Reset password failed"),

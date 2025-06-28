@@ -156,7 +156,7 @@ export const UserForm = ({ type }: { type: string }) => {
                         </div>
 
                         <div className="flex justify-end">
-                            <Button type="submit" disabled={isLoading}>
+                            <Button type="submit">
                                 {id
                                     ? isLoading
                                         ? "Saving..."

@@ -13,6 +13,7 @@ import { useOrderStore } from "../stores";
 import { MidtransPayment } from "@/modules/feature-shared";
 import { toast } from "sonner";
 import { Input } from "@/components/ui/input";
+import { useStrickerStore } from "@/stores/sticker/store";
 
 interface OrderModalProps {
     cart: CartItem[];
@@ -31,7 +32,8 @@ export function OrderModal({ cart, cartTotal }: OrderModalProps) {
     const { isSubmitting, createOrder, createOrderState, setShowMidtransPayment, showMidtransPayment } =
         useCreateOrder();
     const paymentMethods = ["CASH", "QRIS MIDTRANS", "QRIS OFFLINE"];
-    const { modal, resetModal } = useOrderStore();
+    const { modal, resetModal, modalInvoice } = useOrderStore();
+    const { modalStricker } = useStrickerStore();
 
     const transactionToken = createOrderState.state === "success" && createOrderState.data?.data?.token;
 
@@ -54,12 +56,18 @@ export function OrderModal({ cart, cartTotal }: OrderModalProps) {
             return;
         }
 
+        if (paymentMethod === "QRIS OFFLINE") {
+            modalInvoice.onOpen(cart);
+            modalStricker.onOpen(cart);
+        }
         await createOrder(paymentMethod, notes);
     };
 
     const handlePaymentSuccess = () => {
         toast.dismiss();
         toast.success("Payment completed successfully!");
+        modalStricker.onOpen(cart);
+        modalInvoice.onOpen(cart);
         handleClose();
     };
 
@@ -85,8 +93,10 @@ export function OrderModal({ cart, cartTotal }: OrderModalProps) {
         return value.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     }
 
-    const handleCreateOrder = () => {
-        createOrder(paymentMethod, notes);
+    const handleCreateOrder = async () => {
+        await createOrder(paymentMethod, notes);
+        modalStricker.onOpen(cart);
+        modalInvoice.onOpen(cart);
     };
 
     return (

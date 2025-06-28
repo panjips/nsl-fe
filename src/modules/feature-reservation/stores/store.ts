@@ -7,7 +7,7 @@ import type { ReservationWithOrderCateringAndPackage } from "../domain";
 export const useReservationStore = create<ReservationState>((set) => ({
     reservations: {
         state: initialState(),
-        getAllReservations: async () => {
+        getAllReservations: async (params?: string) => {
             set((state) => ({
                 reservations: {
                     ...state.reservations,
@@ -15,7 +15,7 @@ export const useReservationStore = create<ReservationState>((set) => ({
                 },
             }));
             try {
-                const reservations = await reservationApi.getReservations();
+                const reservations = await reservationApi.getReservations(params);
                 if (!reservations?.data) {
                     throw new Error("Reservations response data is missing");
                 }

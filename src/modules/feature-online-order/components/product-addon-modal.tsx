@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { X } from "lucide-react";
-import { formatCurrency, getInitials } from "@/lib/utils";
+import { convertToTitleCase, formatCurrency, getInitials } from "@/lib/utils";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import type { CartAddon } from "../hooks";
 import type { Addon } from "@/modules/feature-addon/domain";
@@ -12,7 +12,7 @@ import type { Addon } from "@/modules/feature-addon/domain";
 interface ProductAddonModalProps {
     isOpen: boolean;
     onClose: () => void;
-    onAddToCart: (product: any, quantity: number, addons: CartAddon[]) => void;
+    onAddToCart: (product: any, quantity: number, addons: CartAddon[], sugar_type?: string) => void;
     product: any;
     availableAddons: Addon[];
 }
@@ -21,6 +21,11 @@ export function ProductAddonModal({ isOpen, onClose, onAddToCart, product, avail
     const [selectedAddons, setSelectedAddons] = useState<CartAddon[]>([]);
     const [quantity, setQuantity] = useState(1);
     const [imageError, setImageError] = useState(false);
+    const [sugarType, setSugarType] = useState<string | undefined>(undefined);
+
+    const handleSugarTypeChange = (value: string) => {
+        setSugarType(value);
+    };
 
     useEffect(() => {
         if (isOpen) {
@@ -43,7 +48,7 @@ export function ProductAddonModal({ isOpen, onClose, onAddToCart, product, avail
                     addon_id: addon.id,
                     name: addon.name,
                     price: addon.price,
-                    quantity: 1,
+                    quantity: quantity, // Set initial addon quantity to match product quantity
                 },
             ]);
         }
@@ -57,14 +62,38 @@ export function ProductAddonModal({ isOpen, onClose, onAddToCart, product, avail
         setImageError(true);
     };
 
-    const incrementQuantity = () => setQuantity((prev) => prev + 1);
-    const decrementQuantity = () => setQuantity((prev) => Math.max(1, prev - 1));
+    const incrementQuantity = () => {
+        const newQuantity = quantity + 1;
+        setQuantity(newQuantity);
 
-    const addonTotal = selectedAddons.reduce((sum, addon) => Number(sum) + Number(addon.price || 0), 0);
-    const totalPrice = (Number(product?.price || 0) + Number(addonTotal)) * Number(quantity);
+        setSelectedAddons((prevAddons) =>
+            prevAddons.map((addon) => ({
+                ...addon,
+                quantity: newQuantity,
+            })),
+        );
+    };
+
+    const decrementQuantity = () => {
+        if (quantity <= 1) return;
+
+        const newQuantity = quantity - 1;
+        setQuantity(newQuantity);
+
+        setSelectedAddons((prevAddons) =>
+            prevAddons.map((addon) => ({
+                ...addon,
+                quantity: newQuantity,
+            })),
+        );
+    };
+
+    const addonTotal = selectedAddons.reduce((sum, addon) => sum + Number(addon.price || 0) * (addon.quantity || 1), 0);
+
+    const totalPrice = Number(product?.price || 0) * quantity + Number(addonTotal);
 
     const handleAddToCart = () => {
-        onAddToCart(product, quantity, selectedAddons);
+        onAddToCart(product, quantity, selectedAddons, sugarType);
         onClose();
     };
 
@@ -112,7 +141,29 @@ export function ProductAddonModal({ isOpen, onClose, onAddToCart, product, avail
                     </div>
 
                     <div className="space-y-2">
-                        <h4 className="font-medium">Add-ons</h4>
+                        <h4 className="text-sm font-medium">Type</h4>
+                        <Select
+                            onValueChange={handleSugarTypeChange}
+                            value={sugarType}
+                            disabled={unselectedAddons.length === 0}
+                        >
+                            <SelectTrigger className="w-full">
+                                <SelectValue placeholder="Select add-ons" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                {product.sugar_type.map((type: any) => (
+                                    <SelectItem key={type} value={type}>
+                                        <div className="flex justify-between w-full">
+                                            <span>{convertToTitleCase(type)}</span>
+                                        </div>
+                                    </SelectItem>
+                                ))}
+                            </SelectContent>
+                        </Select>
+                    </div>
+
+                    <div className="space-y-2">
+                        <h4 className="text-sm font-medium">Add-ons</h4>
                         <Select onValueChange={handleAddAddon} disabled={unselectedAddons.length === 0}>
                             <SelectTrigger className="w-full">
                                 <SelectValue placeholder="Select add-ons" />
@@ -150,10 +201,15 @@ export function ProductAddonModal({ isOpen, onClose, onAddToCart, product, avail
                                                     className="text-sm font-medium cursor-pointer"
                                                 >
                                                     {addon.name}
+                                                    <span className="ml-1 text-xs text-muted-foreground">
+                                                        (x{addon.quantity || 1})
+                                                    </span>
                                                 </label>
                                             </div>
                                             <div className="flex items-center gap-2">
-                                                <span className="text-sm">{formatCurrency(addon.price || 0)}</span>
+                                                <span className="text-sm">
+                                                    {formatCurrency((addon.price || 0) * (addon.quantity || 1))}
+                                                </span>
                                                 <Button
                                                     variant="ghost"
                                                     size="icon"

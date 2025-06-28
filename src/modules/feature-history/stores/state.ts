@@ -20,9 +20,9 @@ export interface HistoryState {
         state: ViewState<ReservationWithOrderCateringAndPackage[], string>;
         getReservations: (params?: any) => Promise<void>;
     };
-    productOrder: {
-        state: ViewState<OnlineOrder | null, string>;
-    }
+    // productOrder: {
+    //     state: ViewState<OnlineOrder | null, string>;
+    // }
 
     modal: {
         isOpen: boolean;

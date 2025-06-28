@@ -1,5 +1,5 @@
 import type { ViewState } from "@/stores/core";
-import type { ProductRecipe } from "../domain";
+import type { ProductRecipe, SugarType } from "../domain";
 import type { BulkCreateProductRecipeDTOType } from "../data";
 import type { ApiResponse } from "@/lib/api";
 
@@ -11,7 +11,12 @@ export interface ProductRecipeState {
 
     productRecipe: {
         state: ViewState<ProductRecipe, string>;
-        getProductRecipeByProductId: (productId: string | number) => Promise<void>;
+        getProductRecipeByProductId: (
+            productId: string | number,
+            params?: {
+                type?: SugarType;
+            },
+        ) => Promise<void>;
     };
 
     createProductRecipe: {

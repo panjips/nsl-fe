@@ -4,7 +4,7 @@ import type { UpdateUserDTOType } from "../data";
 import { toast } from "sonner";
 
 export const useProfileUser = () => {
-    const { getUser, updateUser, resetPasswordProfile, resetUpdateUser, resetResetPasswordProfile } = useUserStore();
+    const { getUser, selfUpdate, resetPasswordProfile, resetSelfUpdate, resetResetPasswordProfile } = useUserStore();
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const [editError, setEditError] = useState("");
 
@@ -60,7 +60,7 @@ export const useProfileUser = () => {
             phone_number: editForm.phone_number,
         };
 
-        await updateUser.updateUser(userData?.id || "", updatedData);
+        await selfUpdate.selfUpdate(updatedData);
 
         setIsEditModalOpen(false);
     };
@@ -121,13 +121,14 @@ export const useProfileUser = () => {
     };
 
     useEffect(() => {
-        if (updateUser.state.state === "success") {
-            resetUpdateUser();
+        if (selfUpdate.state.state === "success") {
+            toast.success("User updated successfully");
+            resetSelfUpdate();
             getUserData();
         }
 
-        if (updateUser.state.state === "error") {
-            toast.error(updateUser.state.error || "Failed to update user");
+        if (selfUpdate.state.state === "error") {
+            toast.error(selfUpdate.state.error || "Failed to update user");
         }
 
         if (resetPasswordProfile.state.state === "success") {
@@ -138,7 +139,7 @@ export const useProfileUser = () => {
         if (resetPasswordProfile.state.state === "error") {
             toast.error(resetPasswordProfile.state.error || "Failed to reset password");
         }
-    }, [updateUser.state, resetPasswordProfile.state]);
+    }, [selfUpdate.state, resetPasswordProfile.state]);
 
     return {
         userData,

@@ -56,3 +56,24 @@ export const formatDateTime = (dateString: string) => {
     };
     return date.toLocaleString("id-ID", options).replace(",", "");
 };
+
+export const convertToTitleCase = (inputString: string): string => {
+    if (!inputString) {
+        return "";
+    }
+
+    return inputString
+        .toLowerCase()
+        .replace(/_/g, " ")
+        .split(" ")
+        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(" ");
+};
+
+export const formatNumberWithDots = (amount: number | string) => {
+    return new Intl.NumberFormat("id-ID", {
+        style: "decimal",
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0,
+    }).format(Number(amount));
+};

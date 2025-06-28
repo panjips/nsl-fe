@@ -4,7 +4,7 @@ import { CateringTable } from "../components";
 export const ListCateringsPage = () => {
     return (
         <div className="flex flex-col gap-4">
-            <PageHeader title="My Transaction History" />
+            <PageHeader title="Catering History" />
             <CateringTable />
         </div>
     );

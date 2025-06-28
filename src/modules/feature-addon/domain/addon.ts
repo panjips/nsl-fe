@@ -4,5 +4,6 @@ export interface Addon {
     description?: string;
     cost: number;
     price: number;
+    possible_qty?: number;
     is_active: boolean;
 }

@@ -6,7 +6,7 @@ import type { ApiResponse } from "@/lib/api";
 export interface ReservationState {
     reservations: {
         state: ViewState<ReservationWithOrderCateringAndPackage[], string>;
-        getAllReservations: () => Promise<void>;
+        getAllReservations: (params?: string) => Promise<void>;
     };
 
     reservation: {

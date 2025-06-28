@@ -126,6 +126,38 @@ export const useUserStore = create<UserState>((set) => ({
             }
         },
     },
+
+    selfUpdate: {
+        state: initialState(),
+        selfUpdate: async (data: UpdateUserDTOType) => {
+            set((state) => ({
+                selfUpdate: {
+                    ...state.selfUpdate,
+                    state: loadingState(),
+                },
+            }));
+            try {
+                const response = await userApi.selfUpdate(data);
+                if (!response) {
+                    throw new Error("Self update response data is missing");
+                }
+                set((state) => ({
+                    selfUpdate: {
+                        ...state.selfUpdate,
+                        state: successState(response),
+                    },
+                }));
+            } catch (error) {
+                set((state) => ({
+                    selfUpdate: {
+                        ...state.selfUpdate,
+                        state: errorState(error instanceof Error ? error.message : "Failed to update profile"),
+                    },
+                }));
+            }
+        },
+    },
+
     deleteUser: {
         state: initialState(),
         deleteUser: async (id: string | number) => {
@@ -232,6 +264,14 @@ export const useUserStore = create<UserState>((set) => ({
         set((state) => ({
             resetPasswordProfile: {
                 ...state.resetPasswordProfile,
+                state: initialState(),
+            },
+        }));
+    },
+    resetSelfUpdate: () => {
+        set((state) => ({
+            selfUpdate: {
+                ...state.selfUpdate,
                 state: initialState(),
             },
         }));

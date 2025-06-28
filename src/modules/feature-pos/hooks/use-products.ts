@@ -43,7 +43,6 @@ export const useProducts = () => {
 
     const isLoading = isLoadingProducts || isLoadingCategories;
 
-    console.log(filteredProducts);
     return {
         products: filteredProducts,
         allProducts: products,

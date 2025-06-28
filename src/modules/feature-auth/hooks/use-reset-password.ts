@@ -15,7 +15,7 @@ export function useResetPassword() {
     const [countdown, setCountdown] = useState(5);
     const { token }: { token: string } = useSearch({
         strict: true,
-        from: "/reset-password",
+        from: "/(auth)/reset-password",
     });
 
     const { resetPassword, resetPasswordState, resetResetPasswordState } = useAuthStore();

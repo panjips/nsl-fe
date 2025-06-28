@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useReservationStore } from "../stores";
+import { ReservationStatus } from "../domain";
 
 export const useListReservation = () => {
     const [searchTerm, setSearchTerm] = useState("");
@@ -7,7 +8,9 @@ export const useListReservation = () => {
     const { reservations, resetReservationsState } = useReservationStore();
 
     useEffect(() => {
-        reservations.getAllReservations();
+        reservations.getAllReservations(
+            `${ReservationStatus.PENDING},${ReservationStatus.CONFIRMED},${ReservationStatus.WAITING_DEPOSIT},${ReservationStatus.DEPOSIT_PAID},${ReservationStatus.PAYMENT_PENDING}`,
+        );
 
         return () => {
             resetReservationsState();

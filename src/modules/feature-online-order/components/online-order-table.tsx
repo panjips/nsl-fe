@@ -6,6 +6,7 @@ import { onlineOrderColumnHelper, setupOnlineOrderColumns } from "./online-order
 import { DataTable } from "@/components/data-table";
 import { OnlineOrderStatusModal } from "./online-order-status-modal";
 import { OnlineOrderDetailModal } from "./online-order-detail-modal";
+import { ConfirmationStrickerModal } from "@/modules/feature-pos/components/sticker-detail-product-modal";
 
 export const OnlineOrderTable = () => {
     const { data, isLoading, setSearchTerm, searchTerm } = useProcessingOrder();
@@ -42,6 +43,7 @@ export const OnlineOrderTable = () => {
 
             <OnlineOrderDetailModal />
             <OnlineOrderStatusModal id={modalTable.id || undefined} data={modalTable.data || undefined} />
+            <ConfirmationStrickerModal />
         </>
     );
 };

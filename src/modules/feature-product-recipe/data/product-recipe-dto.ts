@@ -2,6 +2,7 @@ import { z } from "zod";
 
 export const BulkCreateProductRecipeDTO = z.object({
     product_id: z.number().int().positive("Product ID is required"),
+    sugar_type: z.enum(["NORMAL", "LESS_SUGAR", "NO_SUGAR"]).optional(),
     recipes: z
         .array(
             z.object({

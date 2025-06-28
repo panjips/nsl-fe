@@ -23,7 +23,7 @@ export const setupInventoryUsageColumns = ({ columnHelper, onDetail }: SetupInve
                 headColStyle: { textAlign: "left", fontWeight: "bold" },
                 bodyColStyle: { textAlign: "left" },
             },
-            cell: ({ row }) => <div>#{row.original.id}</div>,
+            cell: ({ row }) => <div>{row.original.id}</div>,
         }),
 
         columnHelper.accessor("inventory.name", {

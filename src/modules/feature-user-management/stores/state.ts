@@ -21,6 +21,10 @@ export interface UserState {
         state: ViewState<ApiResponse<any>, string>;
         updateUser: (id: string | number, data: UpdateUserDTOType) => Promise<void>;
     };
+    selfUpdate: {
+        state: ViewState<ApiResponse<any>, string>;
+        selfUpdate: (data: UpdateUserDTOType) => Promise<void>;
+    };
     deleteUser: {
         state: ViewState<ApiResponse<null>, string>;
         deleteUser: (id: string | number) => Promise<void>;
@@ -36,4 +40,5 @@ export interface UserState {
     resetUpdateUser: () => void;
     resetDeleteUser: () => void;
     resetResetPasswordProfile: () => void;
+    resetSelfUpdate: () => void;
 }

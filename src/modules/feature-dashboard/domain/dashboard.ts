@@ -10,3 +10,10 @@ export interface TopProduct {
     quantity: number;
     type: string;
 }
+
+export type DateFilterPeriod = "7days" | "30days" | "custom";
+
+export interface DateRangeFilter {
+    startDate: string | null;
+    endDate: string | null;
+}

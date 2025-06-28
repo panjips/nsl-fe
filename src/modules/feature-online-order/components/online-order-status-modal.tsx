@@ -14,8 +14,8 @@ export const OnlineOrderStatusModal = ({
     const { handleUpdateStatus, isLoading, isOpen, onOpenChange } = useOnlineOrderStatus();
 
     const handleSubmit = async () => {
-        if (id) {
-            await handleUpdateStatus(id);
+        if (id && data) {
+            await handleUpdateStatus(id, data.items);
             onOpenChange(false);
         }
     };

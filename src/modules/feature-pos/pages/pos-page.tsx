@@ -7,6 +7,8 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { OrderModal } from "../components/order-modal";
 import { useNotificationStore } from "@/stores";
 import { toast } from "sonner";
+import { ConfirmationInvoiceModal } from "../components/confirmation-invoice-modal";
+import { ConfirmationStrickerModal } from "../components/sticker-detail-product-modal";
 
 export const POSPage = () => {
     const {
@@ -137,6 +139,8 @@ export const POSPage = () => {
             />
 
             <OrderModal cart={cart} cartTotal={cartTotal()} />
+            <ConfirmationInvoiceModal />
+            <ConfirmationStrickerModal />
         </div>
     );
 };

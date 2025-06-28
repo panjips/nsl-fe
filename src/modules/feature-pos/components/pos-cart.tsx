@@ -37,12 +37,13 @@ export function Cart({
             const addons: CreateOrderAddonItemDTOType[] =
                 item.addOns?.map((addon) => ({
                     addon_id: Number(addon.id),
-                    quantity: 1,
+                    quantity: Number(addon.quantity || 1),
                 })) || [];
 
             return {
                 product_id: Number(item.productId),
                 quantity: item.quantity,
+                sugar_type: item.sugar_type,
                 addons: addons.length > 0 ? addons : undefined,
             } as CreateOrderProductItemDTOType;
         }) as CreateOrderProductItemDTOType[];

@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useReservationStore } from "../stores";
 import { toast } from "sonner";
 import type { CreateReservationDTOType } from "../data";
+import { ReservationStatus } from "../domain";
 
 export const useCreateReservation = () => {
     const { modal, createReservation, reservations, resetCreateReservationState, resetModal } = useReservationStore();
@@ -11,7 +12,9 @@ export const useCreateReservation = () => {
     const handleSubmitCreate = async (data: CreateReservationDTOType) => {
         try {
             await createReservation.createReservation(data);
-            await reservations.getAllReservations();
+            await reservations.getAllReservations(
+                `${ReservationStatus.PENDING},${ReservationStatus.CONFIRMED},${ReservationStatus.WAITING_DEPOSIT},${ReservationStatus.DEPOSIT_PAID},${ReservationStatus.PAYMENT_PENDING}`,
+            );
         } finally {
             modal.onClose();
             resetModal();

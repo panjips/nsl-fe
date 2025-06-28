@@ -31,5 +31,14 @@ export interface OrderState {
         ) => void;
         onClose: () => void;
     };
+
+    modalInvoice: {
+        isOpen: boolean;
+        mode?: "view";
+        data?: CartItem[];
+        onOpen: ( data: CartItem[]) => void;
+        onClose: () => void;
+    };
+    resetModalInvoice: () => void;
     resetModal: () => void;
 }

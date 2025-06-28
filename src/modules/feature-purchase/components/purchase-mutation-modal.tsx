@@ -100,7 +100,7 @@ export const PurchaseMutationModal = ({
                                     <SelectContent>
                                         {inventories?.map((item) => (
                                             <SelectItem key={item.id} value={item.id.toString()}>
-                                                {item.name}
+                                                {item.name} - {item.quantity} {item.unit}
                                             </SelectItem>
                                         ))}
                                     </SelectContent>
@@ -114,22 +114,30 @@ export const PurchaseMutationModal = ({
                         <FormField
                             control={forms.control}
                             name="quantity"
-                            render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel>Quantity</FormLabel>
-                                    <FormControl>
-                                        <Input
-                                            type="text"
-                                            placeholder="Quantity"
-                                            {...field}
-                                            onChange={(e) => field.onChange(Number.parseInt(e.target.value) || 1)}
-                                            className="input"
-                                            min={1}
-                                        />
-                                    </FormControl>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
+                            render={({ field }) => {
+                                const selectedInventoryId = forms.watch("inventory_id");
+                                const selectedInventory = inventories?.find((item) => item.id === selectedInventoryId);
+
+                                return (
+                                    <FormItem>
+                                        <FormLabel>Quantity</FormLabel>
+                                        <FormControl>
+                                            <Input
+                                                suffix={
+                                                    selectedInventory ? <span>{selectedInventory.unit}</span> : null
+                                                }
+                                                type="text"
+                                                placeholder="Quantity"
+                                                {...field}
+                                                onChange={(e) => field.onChange(Number.parseInt(e.target.value) || 1)}
+                                                className="input"
+                                                min={1}
+                                            />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                );
+                            }}
                         />
 
                         <FormField

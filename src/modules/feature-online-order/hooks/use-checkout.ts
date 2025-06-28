@@ -22,12 +22,13 @@ export const useCheckout = () => {
                 toast.error("Cannot create an order with an empty cart");
                 return false;
             }
+
             const orderData: CreateOrderDTOType = {
                 user_id: user?.id ? Number(user.id) : undefined,
                 order_type: OrderType.ONLINE,
                 payment_type: "QRIS MIDTRANS",
                 notes: notes || undefined,
-                items: modal.data as [CreateOrderProductItemDTOType, ...CreateOrderProductItemDTOType[]],
+                items: cart as [CreateOrderProductItemDTOType, ...CreateOrderProductItemDTOType[]],
             };
 
             await createOrder.createOrder(orderData);

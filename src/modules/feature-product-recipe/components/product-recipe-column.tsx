@@ -2,6 +2,8 @@ import { createTypedColumnHelper } from "@/components/data-table/types";
 import type { ProductRecipe } from "../domain/product-recipe";
 import type { ColumnHelper } from "@tanstack/react-table";
 import { TableActions } from "@/components/dropdown-table-action";
+import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover";
+import { Badge } from "@/components/ui/badge";
 
 export const productRecipeColumnHelper = createTypedColumnHelper<ProductRecipe>();
 
@@ -44,7 +46,7 @@ export const setupProductRecipeColumns = ({ columnHelper, onEdit, onDelete }: Se
             },
         }),
         columnHelper.accessor("recipes", {
-            header: "Recipes Count",
+            header: "Recipes",
             meta: {
                 headColStyle: {
                     textAlign: "left",
@@ -55,7 +57,48 @@ export const setupProductRecipeColumns = ({ columnHelper, onEdit, onDelete }: Se
                 },
             },
             cell: ({ row }) => {
-                return <div>{row.original.recipes.length}</div>;
+                return (
+                    <Popover>
+                        <PopoverTrigger className="cursor-pointer text-primary underline">
+                            {row.original.recipes.length}
+                        </PopoverTrigger>
+                        <PopoverContent className=" text-sm space-y-1">
+                            {row.original.recipes.map((recipe, index) => (
+                                <p key={index}>
+                                    {recipe.inventory?.name} - {recipe.quantity_used} {recipe.inventory?.unit}
+                                </p>
+                            ))}
+                        </PopoverContent>
+                    </Popover>
+                );
+            },
+        }),
+        columnHelper.accessor("recipes.sugar_type", {
+            header: "Sugar Type",
+            meta: {
+                headColStyle: {
+                    textAlign: "left",
+                    fontWeight: "bold",
+                },
+                bodyColStyle: {
+                    textAlign: "left",
+                },
+            },
+            cell: ({ row }) => {
+                let sugarType = row.original.recipes[0]?.sugar_type;
+                let type;
+
+                if (sugarType === "LESS_SUGAR") {
+                    type = "Less Sugar";
+                } else if (sugarType === "NORMAL") {
+                    type = "Normal";
+                } else if (sugarType === "NO_SUGAR") {
+                    type = "No Sugar";
+                } else {
+                    type = "Unknown";
+                }
+
+                return <Badge variant={"outline"}>{type}</Badge>;
             },
         }),
         columnHelper.display({

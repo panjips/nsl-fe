@@ -64,7 +64,6 @@ export const OnlineOrderDetailModal = () => {
             isFooter={false}
         >
             <div className="space-y-6">
-                {/* Order Status Badge */}
                 <div className="flex justify-between items-center">
                     <div className="flex items-center gap-2">
                         <Badge
@@ -87,7 +86,6 @@ export const OnlineOrderDetailModal = () => {
 
                 <Separator />
 
-                {/* Order Information */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="space-y-2">
                         <h3 className="text-sm font-medium text-gray-500">Order Information</h3>
@@ -130,7 +128,6 @@ export const OnlineOrderDetailModal = () => {
                     </div>
                 </div>
 
-                {/* Notes if available */}
                 {order.notes && (
                     <div className="p-3 bg-gray-50 rounded-md">
                         <p className="flex items-start gap-2 text-sm">
@@ -144,7 +141,6 @@ export const OnlineOrderDetailModal = () => {
 
                 <Separator />
 
-                {/* Order Items */}
                 <div className="space-y-3">
                     <h3 className="text-sm font-medium flex items-center gap-2">
                         <PackageIcon className="h-4 w-4" />
@@ -164,7 +160,6 @@ export const OnlineOrderDetailModal = () => {
                                                 {formatCurrency(Number(item.price))} each
                                             </p>
 
-                                            {/* Addons */}
                                             {item.addons && item.addons.length > 0 && (
                                                 <div className="pl-3 mt-2 space-y-1 border-l-2 border-gray-200">
                                                     {item.addons.map((addon) => (
@@ -197,7 +192,6 @@ export const OnlineOrderDetailModal = () => {
                         </div>
                     </ScrollArea>
 
-                    {/* Order Total */}
                     <div className="flex justify-between font-medium pt-2 border-t">
                         <span>Total</span>
                         <span>{formatCurrency(order.total_amount)}</span>

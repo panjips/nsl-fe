@@ -4,10 +4,14 @@ import type { PelangganStatistik, TopProduct } from "../domain";
 import { isAxiosError } from "axios";
 
 export const dashboardApi = {
-    getStatistics: async () => {
+    getStatistics: async (params?: {
+        startDate?: string;
+        endDate?: string;
+    }) => {
         try {
             const response = await axiosInstance.get<ApiResponse<PelangganStatistik[]>>(
                 `${ENDPOINTS.DASHBOARD}/statistics`,
+                { params },
             );
             return response.data;
         } catch (error) {

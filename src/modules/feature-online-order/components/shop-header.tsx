@@ -8,7 +8,7 @@ import { useNavigate } from "@tanstack/react-router";
 import type { UserLogin } from "@/modules/feature-auth";
 import { formatCurrency, getInitials } from "@/lib/utils";
 import { cartToDTO, type CartProduct } from "../hooks";
-import { CheckoutModal } from "./online-order-modal";
+import { CheckoutModal } from "./online-checkout-modal";
 import { onlineOrderStore } from "../stores";
 
 interface ShopHeaderProps {
@@ -45,14 +45,13 @@ export function ShopHeader({
 
     const handleCalculateCartTotal = (cart: CartProduct) => {
         let itemTotal = (cart.price || 0) * cart.quantity;
+        let addonTotal = 0;
 
         if (cart.addons && cart.addons.length > 0) {
-            itemTotal +=
-                cart.addons.reduce((addonTotal, addon) => addonTotal + (addon.price || 0) * addon.quantity, 0) *
-                cart.quantity;
+            addonTotal = cart.addons.reduce((addonTotal, addon) => addonTotal + (addon.price || 0) * addon.quantity, 0);
         }
 
-        return Number(itemTotal);
+        return Number(itemTotal) + Number(addonTotal);
     };
 
     const handleLoginClick = () => {

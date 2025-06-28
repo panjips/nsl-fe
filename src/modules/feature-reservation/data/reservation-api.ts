@@ -5,10 +5,15 @@ import type { ReservationWithOrderCateringAndPackage } from "../domain/reservati
 import type { CreateReservationDTOType, UpdateReservationDTOType } from "./reservation-dto";
 
 export const reservationApi = {
-    getReservations: async () => {
+    getReservations: async (params?: string) => {
         try {
             const response = await axiosInstance.get<ApiResponse<ReservationWithOrderCateringAndPackage[]>>(
                 ENDPOINTS.RESERVATION,
+                {
+                    params: {
+                        status: params ? params : undefined,
+                    },
+                },
             );
             return response.data;
         } catch (error) {

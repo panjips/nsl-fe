@@ -28,6 +28,7 @@ export interface OnlineOrderState {
         onOpen: (mode: "review" | "payment", data?: CreateOrderProductItemDTOType[] | null) => void;
         onClose: () => void;
     };
+
     resetModalTabel: () => void;
     resetModal: () => void;
     resetOnlineOrdersState: () => void;

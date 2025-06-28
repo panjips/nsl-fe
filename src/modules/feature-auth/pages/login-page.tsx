@@ -27,7 +27,7 @@ export function LoginPage({ className, ...props }: React.ComponentProps<"div">) 
                                 render={({ field }) => (
                                     <FormItem>
                                         <div className="flex items-center gap-1">
-                                            <FormLabel>Identifier</FormLabel>
+                                            <FormLabel>Email/Username</FormLabel>
                                             <InfoTooltip content="Identifier are username/email/phone number" />
                                         </div>
                                         <FormControl>

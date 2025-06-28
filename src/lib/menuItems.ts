@@ -56,7 +56,7 @@ export const menuItems: NavMainProps[] = [
                 icon: User,
                 items: [
                     {
-                        roles: ["Staf", "Pemilik"],
+                        roles: ["Pemilik"],
                         title: "Employee",
                         url: "/dashboard/user/employee",
                     },
@@ -113,11 +113,11 @@ export const menuItems: NavMainProps[] = [
     },
     {
         group: "Reservation",
-        roles: ["Staf", "Pemilik", "Kasir", "Pelanggan"],
+        roles: ["Pemilik", "Kasir", "Pelanggan"],
         items: [
             {
                 title: "Reservation",
-                roles: ["Staf", "Pemilik", "Kasir"],
+                roles: ["Pemilik", "Kasir"],
                 url: "/dashboard/reservation",
                 icon: NotepadText,
             },

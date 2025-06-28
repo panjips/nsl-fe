@@ -9,6 +9,7 @@ export const CreateOrderAddonItemDTO = z.object({
 export const CreateOrderProductItemDTO = z.object({
     product_id: z.number().int().positive("Product ID is required"),
     quantity: z.number().int().positive("Quantity must be positive").default(1),
+    sugar_type: z.string().optional(),
     addons: z.array(CreateOrderAddonItemDTO).optional(),
 });
 

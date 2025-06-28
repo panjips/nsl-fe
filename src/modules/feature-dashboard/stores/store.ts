@@ -2,12 +2,15 @@ import { create } from "zustand";
 import type { DashboardState } from "./state";
 import { errorState, initialState, loadingState, successState } from "@/stores/core";
 import { dashboardApi } from "../data";
-import type { PelangganStatistik, TopProduct } from "../domain";
+import type { PelangganStatistik, TopProduct, DateRangeFilter } from "../domain";
 
 export const useDashboardStore = create<DashboardState>((set) => ({
     statistics: {
         state: initialState(),
-        getStatistics: async () => {
+        getStatistics: async (params?: {
+            startDate?: string;
+            endDate?: string;
+        }) => {
             set((state) => ({
                 statistics: {
                     ...state.statistics,
@@ -15,7 +18,7 @@ export const useDashboardStore = create<DashboardState>((set) => ({
                 },
             }));
             try {
-                const response = await dashboardApi.getStatistics();
+                const response = await dashboardApi.getStatistics(params);
                 if (!response?.data) {
                     throw new Error("Statistics response data is missing");
                 }
@@ -66,6 +69,13 @@ export const useDashboardStore = create<DashboardState>((set) => ({
             }
         },
     },
+
+    dateRange: {
+        startDate: null,
+        endDate: null,
+    },
+
+    setDateRange: (range: DateRangeFilter) => set({ dateRange: range }),
 
     resetStatisticsState: () => set((state) => ({ statistics: { ...state.statistics, state: initialState() } })),
     resetTopProductsState: () => set((state) => ({ topProducts: { ...state.topProducts, state: initialState() } })),
