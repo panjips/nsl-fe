@@ -3,7 +3,6 @@ import { findMenuItem } from "@/lib/menuItems";
 import { NotFound } from "@/modules/feature-shared";
 import { useGlobalAuthStore, useNotificationStore } from "@/stores";
 import { Outlet, createRootRoute, redirect, type BeforeLoadContextOptions } from "@tanstack/react-router";
-import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 import { useEffect } from "react";
 
 export const withAuthGuard = ({
@@ -57,7 +56,6 @@ export const Route = createRootRoute({
         return (
             <>
                 <Outlet />
-                <TanStackRouterDevtools />
             </>
         );
     },
