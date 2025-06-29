@@ -3,7 +3,7 @@ import { io, Socket } from "socket.io-client";
 import type { NotificationStore } from "./state";
 import { persist } from "zustand/middleware";
 
-const SOCKET_URL = "http://localhost:3000";
+const SOCKET_URL = import.meta.env.VITE_SOCKET_URL || "http://localhost:3000";
 const STORAGE_KEY = "notification-storage";
 
 export const useNotificationStore = create<NotificationStore>()(
