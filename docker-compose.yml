@@ -1,0 +1,15 @@
+services:
+  nsl-fe:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "9090:8000"
+    environment:
+      - NODE_ENV=development
+      - VITE_API_URL=${VITE_API_URL}
+      - VITE_MIDTRANS_CLIENT_KEY=${VITE_MIDTRANS_CLIENT_KEY}
+    volumes:
+      - ./:/app
+      - /app/node_modules
+    command: npm run dev
