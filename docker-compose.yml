@@ -14,10 +14,10 @@ services:
       - /app/node_modules
     command: npm run dev
     networks:
-      - nsl-network
+      - nsl-be_nsl-network
       - cloudflare-tunnel
 networks:
-  nsl-network:
+  nsl-be_nsl-network:
     external: true
   cloudflare-tunnel:
     external: true
