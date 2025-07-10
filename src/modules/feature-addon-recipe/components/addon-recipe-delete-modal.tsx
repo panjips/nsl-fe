@@ -13,7 +13,7 @@ export const AddonRecipeDeleteModal = () => {
     };
 
     return (
-        <Modal title="Delete Addon Recipe" open={isOpen} onOpenChange={onOpenChange}>
+        <Modal closeOnOutsideClick={false} title="Delete Addon Recipe" open={isOpen} onOpenChange={onOpenChange}>
             <div className="pb-4 pt-2 text-sm text-muted-foreground">
                 Are you sure you want to delete this addon recipe? This action cannot be undone.
             </div>

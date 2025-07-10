@@ -101,7 +101,7 @@ export function ProductAddonModal({ isOpen, onClose, onAddToCart, product, avail
 
     return (
         <Dialog open={isOpen} onOpenChange={onClose}>
-            <DialogContent className="sm:max-w-md">
+            <DialogContent onInteractOutside={(e) => e.preventDefault()} className="sm:max-w-md">
                 <DialogHeader>
                     <DialogTitle className="text-lg">Customize {product?.name}</DialogTitle>
                 </DialogHeader>

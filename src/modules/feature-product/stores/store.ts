@@ -155,6 +155,41 @@ export const useProductStore = create<ProductState>((set) => ({
             }
         },
     },
+    modal: {
+        isOpen: false,
+        mode: null,
+        id: null,
+        onOpen: (mode, id) => {
+            set((state) => ({
+                modal: {
+                    ...state.modal,
+                    isOpen: true,
+                    mode,
+                    id,
+                },
+            }));
+        },
+        onClose: () => {
+            set((state) => ({
+                modal: {
+                    ...state.modal,
+                    isOpen: false,
+                    mode: null,
+                    id: null,
+                },
+            }));
+        },
+    },
+    resetModal: () => {
+        set((state) => ({
+            modal: {
+                ...state.modal,
+                isOpen: false,
+                mode: null,
+                id: null,
+            },
+        }));
+    },
     resetProductsState: () => {
         set((state) => ({
             products: {

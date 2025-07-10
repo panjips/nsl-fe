@@ -158,7 +158,6 @@ export const useCart = () => {
                 return { ...item, quantity };
             });
 
-            // Update localStorage immediately with the new cart state
             localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(updatedCart));
 
             return updatedCart;

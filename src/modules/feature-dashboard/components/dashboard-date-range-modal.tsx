@@ -24,7 +24,6 @@ export function DateRangeModal({ isOpen, onClose, onApply, initialRange }: DateR
     );
     const [error, setError] = useState<string | null>(null);
 
-    // Reset form when modal opens with new initialRange
     useEffect(() => {
         if (isOpen) {
             setStartDate(initialRange?.startDate ? new Date(initialRange.startDate) : undefined);
@@ -33,7 +32,6 @@ export function DateRangeModal({ isOpen, onClose, onApply, initialRange }: DateR
         }
     }, [isOpen, initialRange]);
 
-    // Validate dates when they change
     useEffect(() => {
         if (startDate && endDate && startDate > endDate) {
             setError("End date cannot be earlier than start date");

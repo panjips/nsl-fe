@@ -24,6 +24,7 @@ export interface OrderProductItem {
     product_id: number;
     cost: string;
     price: string;
+    selected_sugar_type?: string;
     quantity: number;
     subtotal: string;
     product: Product;

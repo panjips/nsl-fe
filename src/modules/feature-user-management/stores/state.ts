@@ -33,7 +33,15 @@ export interface UserState {
         state: ViewState<ApiResponse<any>, string>;
         resetPasswordProfile: (data: { newPassword: string; newPasswordConfirm: string }) => Promise<void>;
     };
+    modal: {
+        isOpen: boolean;
+        mode: "delete" | null;
+        id: string | number | null;
+        onOpen: (mode: "delete", id: string | number) => void;
+        onClose: () => void;
+    };
 
+    resetModal: () => void;
     resetUsers: () => void;
     resetCreateUser: () => void;
     resetGetUser: () => void;

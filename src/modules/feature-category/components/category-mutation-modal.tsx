@@ -45,6 +45,7 @@ export const CategoryMutationModal = ({
 
     return (
         <Modal
+            closeOnOutsideClick={false}
             open={isOpenEdit || isOpenCreate}
             onOpenChange={onOpenChange}
             title={isEdit ? "Edit Category" : "Create Category"}

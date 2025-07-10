@@ -42,6 +42,7 @@ export const OnlineOrderStatusModal = ({
 
     return (
         <Modal
+            closeOnOutsideClick={false}
             open={isOpen}
             onOpenChange={onOpenChange}
             title="Complete Order"

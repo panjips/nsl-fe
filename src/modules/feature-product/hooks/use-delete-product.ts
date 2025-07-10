@@ -1,29 +1,32 @@
 import { useEffect } from "react";
 import { useProductStore } from "../stores";
 import { toast } from "sonner";
-import { useNavigate } from "@tanstack/react-router";
 
 export const useDeleteProduct = () => {
-    const { deleteProduct, products, resetDeleteProductsState } = useProductStore();
-    const navigate = useNavigate();
+    const { deleteProduct, products, resetDeleteProductsState, modal, resetModal } = useProductStore();
 
-    const handleDeleteProduct = async (id: string | number) => {
-        if (id) {
-            await deleteProduct.deleteProduct(id);
+    const onOpenChange = (isOpen: boolean) => {
+        if (!isOpen) {
+            modal.onClose();
+            resetModal();
         }
     };
 
-    const refetchProducts = async () => {
-        await products.getProducts();
+    const handleDeleteProduct = async (id: string | number) => {
+        try {
+            await deleteProduct.deleteProduct(id);
+            await products.getProducts();
+        } catch (error) {
+            console.error("Failed to delete product:", error);
+        } finally {
+            modal.onClose();
+            resetModal();
+        }
     };
-
-    const isLoading = deleteProduct.state.state === "loading";
 
     useEffect(() => {
         if (deleteProduct.state.state === "success") {
-            toast.success(deleteProduct.state.data.message || "Product delete successfully");
-            refetchProducts();
-            navigate({ to: "/dashboard/product" });
+            toast.success(deleteProduct.state.data.message || "Product deleted successfully");
         }
         if (deleteProduct.state.state === "error") {
             toast.error(deleteProduct.state.error || "Failed to delete product");
@@ -34,7 +37,9 @@ export const useDeleteProduct = () => {
     }, [deleteProduct.state.state, resetDeleteProductsState]);
 
     return {
-        isLoading,
+        isOpen: modal.isOpen && modal.mode === "delete",
+        onOpenChange,
         handleDeleteProduct,
+        isLoading: deleteProduct.state.state === "loading",
     };
 };

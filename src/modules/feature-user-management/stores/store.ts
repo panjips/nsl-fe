@@ -191,7 +191,10 @@ export const useUserStore = create<UserState>((set) => ({
 
     resetPasswordProfile: {
         state: initialState(),
-        resetPasswordProfile: async (data: { newPassword: string; newPasswordConfirm: string }) => {
+        resetPasswordProfile: async (data: {
+            newPassword: string;
+            newPasswordConfirm: string;
+        }) => {
             set((state) => ({
                 resetPasswordProfile: {
                     ...state.resetPasswordProfile,
@@ -218,6 +221,42 @@ export const useUserStore = create<UserState>((set) => ({
                 }));
             }
         },
+    },
+
+    modal: {
+        isOpen: false,
+        mode: null,
+        id: null,
+        onOpen: (mode, id) => {
+            set((state) => ({
+                modal: {
+                    ...state.modal,
+                    isOpen: true,
+                    mode,
+                    id,
+                },
+            }));
+        },
+        onClose: () => {
+            set((state) => ({
+                modal: {
+                    ...state.modal,
+                    isOpen: false,
+                    mode: null,
+                    id: null,
+                },
+            }));
+        },
+    },
+    resetModal: () => {
+        set((state) => ({
+            modal: {
+                ...state.modal,
+                isOpen: false,
+                mode: null,
+                id: null,
+            },
+        }));
     },
 
     resetUsers: () => {

@@ -1,19 +1,18 @@
 import { Modal } from "@/components/modal";
-import { useDeleteCategory } from "../hooks";
+import { useDeleteUser } from "../hooks/use-delete-user";
 
-export const CategoryDeleteModal = ({
+export const UserDeleteModal = ({
     id,
 }: {
     id: number | string | undefined;
 }) => {
-    const { isLoading, isOpen, handleSubmitDelete, onOpenChange } = useDeleteCategory();
+    const { isLoading, isOpen, handleSubmitDelete, onOpenChange } = useDeleteUser();
 
     return (
         <Modal
-            closeOnOutsideClick={false}
             open={isOpen}
             onOpenChange={onOpenChange}
-            title="Delete Category"
+            title="Delete User"
             size="md"
             actionText={isLoading ? "Deleting..." : "Delete"}
             actionVariant="destructive"
@@ -25,7 +24,10 @@ export const CategoryDeleteModal = ({
             }}
         >
             <div className="space-y-4">
-                <p>Are you sure you want to delete this category?</p>
+                <p>Are you sure you want to delete this user?</p>
+                <p className="text-sm text-muted-foreground">
+                    This action cannot be undone and will permanently remove the user account.
+                </p>
             </div>
         </Modal>
     );

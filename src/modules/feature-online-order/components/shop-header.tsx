@@ -66,6 +66,10 @@ export function ShopHeader({
         navigate({ to: "/dashboard/profile" });
     };
 
+    const handleMyTransactionsClick = () => {
+        navigate({ to: "/dashboard/history/my-transaction" });
+    };
+
     return (
         <>
             <header className="bg-white shadow-sm border-b">
@@ -176,6 +180,17 @@ export function ShopHeader({
                                                     <LayoutDashboard className="mr-2 h-4 w-4" />
                                                     Dashboard
                                                 </Button>
+                                                {user?.role === "Pelanggan" && (
+                                                    <Button
+                                                        variant="ghost"
+                                                        className="w-full justify-start"
+                                                        size="sm"
+                                                        onClick={handleMyTransactionsClick}
+                                                    >
+                                                        <User className="mr-2 h-4 w-4" />
+                                                        My Transactions
+                                                    </Button>
+                                                )}
                                                 <Button
                                                     variant="ghost"
                                                     className="w-full justify-start"

@@ -70,7 +70,7 @@ export function CheckoutModal({ isOpen, onClose, cart, cartTotal, clearCart }: C
     return (
         <>
             <Dialog open={isOpen} onOpenChange={handleClose}>
-                <DialogContent className="sm:max-w-md md:max-w-lg">
+                <DialogContent onInteractOutside={(e) => e.preventDefault()} className="sm:max-w-md md:max-w-lg">
                     <DialogHeader>
                         <DialogTitle className="flex items-center gap-2">
                             <ShoppingBag className="h-5 w-5" />

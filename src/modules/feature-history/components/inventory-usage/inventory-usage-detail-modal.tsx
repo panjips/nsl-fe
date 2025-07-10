@@ -120,30 +120,6 @@ export const InventoryUsageDetailModal = () => {
                         </div>
                     </div>
                 </div>
-
-                {/* Usage Metrics */}
-                <div className="bg-muted/50 p-4 rounded-md">
-                    <h4 className="text-sm font-medium mb-2">Usage Metrics</h4>
-                    <div className="grid grid-cols-2 gap-3">
-                        <div className="bg-background rounded-md p-3 text-center">
-                            <p className="text-xs text-muted-foreground">Quantity Used</p>
-                            <p className="text-lg font-semibold">
-                                {usage.quantity_used} <span className="text-xs">{usage.inventory?.unit}</span>
-                            </p>
-                        </div>
-                        <div className="bg-background rounded-md p-3 text-center">
-                            <p className="text-xs text-muted-foreground">% of Minimum Stock</p>
-                            <p className="text-lg font-semibold">
-                                {usage.inventory?.min_quantity
-                                    ? Math.round(
-                                          (Number(usage.quantity_used) / Number(usage.inventory.min_quantity)) * 100,
-                                      )
-                                    : 0}
-                                %
-                            </p>
-                        </div>
-                    </div>
-                </div>
             </div>
         </Modal>
     );

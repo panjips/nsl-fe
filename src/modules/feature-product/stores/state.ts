@@ -24,6 +24,15 @@ export interface ProductState {
         deleteProduct: (id: string | number) => Promise<void>;
     };
 
+    modal: {
+        isOpen: boolean;
+        mode: "delete" | null;
+        id: string | number | null;
+        onOpen: (mode: "delete", id: string | number) => void;
+        onClose: () => void;
+    };
+    resetModal: () => void;
+
     resetProductsState: () => void;
     resetGetProductState: () => void;
     resetCreateProductsState: () => void;

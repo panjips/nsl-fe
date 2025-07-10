@@ -56,6 +56,7 @@ export const OnlineOrderDetailModal = () => {
 
     return (
         <Modal
+            closeOnOutsideClick={false}
             open={isOpen}
             onOpenChange={onOpenChange}
             title="Order Details"
@@ -154,10 +155,10 @@ export const OnlineOrderDetailModal = () => {
                                     <div className="flex justify-between">
                                         <div className="space-y-1">
                                             <p className="font-medium">
-                                                {item.product.name} × {item.quantity}
+                                                [{item.selected_sugar_type}] {item.product.name} × {item.quantity}
                                             </p>
                                             <p className="text-sm text-gray-500">
-                                                {formatCurrency(Number(item.price))} each
+                                                {formatCurrency(Number(item.price))}
                                             </p>
 
                                             {item.addons && item.addons.length > 0 && (

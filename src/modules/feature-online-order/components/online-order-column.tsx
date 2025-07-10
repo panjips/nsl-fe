@@ -173,7 +173,7 @@ function getOrderSummary(order: OnlineOrder): string[] {
     const summary: string[] = [];
 
     order.items.forEach((item) => {
-        summary.push(`${item.product.name} x ${item.quantity}`);
+        summary.push(`[${item.selected_sugar_type}] ${item.product.name} x ${item.quantity}`);
 
         item.addons?.forEach((addon) => {
             summary.push(` - ${addon.addon.name} x ${addon.quantity}`);

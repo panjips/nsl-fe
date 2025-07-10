@@ -140,6 +140,7 @@ export const AddonRecipeMutationModal = ({
 
     return (
         <Modal
+            closeOnOutsideClick={false}
             title={isEdit ? "Edit Addon Recipe" : "Add Addon Recipe"}
             open={isOpen}
             onOpenChange={onOpenChangeHandler}
