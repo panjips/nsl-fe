@@ -129,6 +129,37 @@ export const useHistoryStore = create<HistoryState>((set) => ({
         },
     },
 
+    repaymentToken: {
+        state: initialState(),
+        getRepaymentToken: async (id: string | number) => {
+            set((state) => ({
+                repaymentToken: {
+                    ...state.repaymentToken,
+                    state: loadingState(),
+                },
+            }));
+            try {
+                const token = await historyApi.getRepaymentToken(id);
+                if (!token?.data) {
+                    throw new Error("Repayment token response data is missing");
+                }
+                set((state) => ({
+                    repaymentToken: {
+                        ...state.repaymentToken,
+                        state: successState(token?.data || { token: "" }),
+                    },
+                }));
+            } catch (error) {
+                set((state) => ({
+                    repaymentToken: {
+                        ...state.repaymentToken,
+                        state: errorState(error instanceof Error ? error.message : "Failed to fetch repayment token"),
+                    },
+                }));
+            }
+        },
+    },
+
     modal: {
         isOpen: false,
         mode: null,
@@ -157,10 +188,59 @@ export const useHistoryStore = create<HistoryState>((set) => ({
         },
     },
 
+    modalRepayment: {
+        isOpen: false,
+        mode: null,
+        data: null,
+        id: null,
+        onOpen: (mode, data, id) => {
+            set((state) => ({
+                modalRepayment: {
+                    ...state.modalRepayment,
+                    isOpen: true,
+                    mode,
+                    id: id ?? null,
+                    data: data ?? null,
+                },
+            }));
+        },
+        onClose: () => {
+            set((state) => ({
+                modalRepayment: {
+                    ...state.modalRepayment,
+                    isOpen: false,
+                    mode: null,
+                    data: null,
+                },
+            }));
+        },
+    },
+
+    resetRepaymentToken: () => {
+        set((state) => ({
+            repaymentToken: {
+                ...state.repaymentToken,
+                state: initialState(),
+            },
+        }));
+    },
+
     resetModal: () => {
         set((state) => ({
             modal: {
                 ...state.modal,
+                isOpen: false,
+                mode: null,
+                data: null,
+                id: null,
+            },
+        }));
+    },
+
+    resetModalRepayment: () => {
+        set((state) => ({
+            modalRepayment: {
+                ...state.modalRepayment,
                 isOpen: false,
                 mode: null,
                 data: null,

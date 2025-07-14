@@ -23,4 +23,5 @@ export enum ENDPOINTS {
     ORDER = "/order",
     REPORT = "/report",
     DASHBOARD = "/dashboard",
+    PAYMENT = "/payment",
 }

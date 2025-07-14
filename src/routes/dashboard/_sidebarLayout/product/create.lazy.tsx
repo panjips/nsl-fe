@@ -1,7 +1,7 @@
 import { CreateProductPage } from "@/modules/feature-product";
-import { createFileRoute } from "@tanstack/react-router";
+import { createLazyFileRoute } from "@tanstack/react-router";
 
-export const Route = createFileRoute("/dashboard/_sidebarLayout/product/create")({
+export const Route = createLazyFileRoute("/dashboard/_sidebarLayout/product/create")({
     component: RouteComponent,
 });
 

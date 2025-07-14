@@ -8,11 +8,11 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from "@/components/ui/sidebar";
-import type { NavUserProps } from "./types";
 import { getInitials } from "@/lib/utils";
 import { useNavigate } from "@tanstack/react-router";
+import type { UserLogin } from "@/modules/feature-auth";
 
-export function NavUser({ user, handleLogout }: { user: NavUserProps; handleLogout?: () => void }) {
+export function NavUser({ user, handleLogout }: { user: UserLogin; handleLogout?: () => void }) {
     const { isMobile } = useSidebar();
     const navigate = useNavigate();
     const initialName = getInitials(user.name || "Guest User");
@@ -47,10 +47,12 @@ export function NavUser({ user, handleLogout }: { user: NavUserProps; handleLogo
                         sideOffset={4}
                     >
                         <DropdownMenuGroup>
-                            <DropdownMenuItem onClick={navigateToProfile}>
-                                <User />
-                                Profile
-                            </DropdownMenuItem>
+                            {user.role === "Pelanggan" && (
+                                <DropdownMenuItem onClick={navigateToProfile}>
+                                    <User />
+                                    Profile
+                                </DropdownMenuItem>
+                            )}
                             <DropdownMenuItem onClick={handleLogout}>
                                 <LogOut />
                                 Log out

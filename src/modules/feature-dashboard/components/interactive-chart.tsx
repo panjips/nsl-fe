@@ -177,7 +177,6 @@ export const InteractiveChart = ({ data, selectedPeriod, setSelectedPeriod }: In
                                             if (name === "total_amount") {
                                                 return [`${formatCurrency(value.toString())}`, " Total Amount"];
                                             }
-                                            console.log(name);
                                             return [value, " Order Quantity"];
                                         }}
                                     />

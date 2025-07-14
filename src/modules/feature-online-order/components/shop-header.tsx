@@ -181,25 +181,28 @@ export function ShopHeader({
                                                     Dashboard
                                                 </Button>
                                                 {user?.role === "Pelanggan" && (
-                                                    <Button
-                                                        variant="ghost"
-                                                        className="w-full justify-start"
-                                                        size="sm"
-                                                        onClick={handleMyTransactionsClick}
-                                                    >
-                                                        <User className="mr-2 h-4 w-4" />
-                                                        My Transactions
-                                                    </Button>
+                                                    <>
+                                                        <Button
+                                                            variant="ghost"
+                                                            className="w-full justify-start"
+                                                            size="sm"
+                                                            onClick={handleMyTransactionsClick}
+                                                        >
+                                                            <User className="mr-2 h-4 w-4" />
+                                                            My Transactions
+                                                        </Button>
+
+                                                        <Button
+                                                            variant="ghost"
+                                                            className="w-full justify-start"
+                                                            size="sm"
+                                                            onClick={handleProfileClick}
+                                                        >
+                                                            <User className="mr-2 h-4 w-4" />
+                                                            Profile
+                                                        </Button>
+                                                    </>
                                                 )}
-                                                <Button
-                                                    variant="ghost"
-                                                    className="w-full justify-start"
-                                                    size="sm"
-                                                    onClick={handleProfileClick}
-                                                >
-                                                    <User className="mr-2 h-4 w-4" />
-                                                    Profile
-                                                </Button>
                                             </div>
                                             <Separator />
                                             <Button

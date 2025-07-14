@@ -1,7 +1,7 @@
 import { ListPurchasePage } from "@/modules/feature-purchase";
-import { createFileRoute } from "@tanstack/react-router";
+import { createLazyFileRoute } from "@tanstack/react-router";
 
-export const Route = createFileRoute("/dashboard/_sidebarLayout/purchase")({
+export const Route = createLazyFileRoute("/dashboard/_sidebarLayout/purchase")({
     component: RouteComponent,
 });
 

@@ -1,9 +1,9 @@
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { Link, createLazyFileRoute } from "@tanstack/react-router";
 import { useGlobalAuthStore } from "@/stores";
 
-export const Route = createFileRoute("/access-denied")({
+export const Route = createLazyFileRoute("/access-denied")({
     component: RouteComponent,
 });
 

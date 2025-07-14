@@ -3,20 +3,20 @@ import type { OnlineOrder } from "@/modules/feature-online-order";
 import type { ColumnHelper } from "@tanstack/react-table";
 import { formatCurrency, formatDateTime } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Eye } from "lucide-react";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { orderStatusDisplayNames, paymentStatusDisplayNames } from "../../domain";
 import { orderStatusIcons, paymentStatusIcons } from "../shared";
+import { TableActions } from "@/components/dropdown-table-action";
 
 export const myTransactionColumnHelper = createTypedColumnHelper<OnlineOrder>();
 
 export interface SetupMyTransactionColumnsProps {
     columnHelper: ColumnHelper<OnlineOrder>;
     onDetail?: (id: string | number, data?: OnlineOrder) => void;
+    onRepayment?: (id: string | number, data?: OnlineOrder) => void;
 }
 
-export const setupMyTransactionColumns = ({ columnHelper, onDetail }: SetupMyTransactionColumnsProps) => {
+export const setupMyTransactionColumns = ({ columnHelper, onDetail, onRepayment }: SetupMyTransactionColumnsProps) => {
     return [
         columnHelper.accessor("id", {
             header: "Order ID",
@@ -107,19 +107,20 @@ export const setupMyTransactionColumns = ({ columnHelper, onDetail }: SetupMyTra
             id: "actions",
             header: "Actions",
             cell: ({ row }) => {
+                const { id } = row.original;
+                const paymentStatus = row.original.payment?.trx_status;
+
+                const customActions = [];
+
+                if (paymentStatus === "PENDING") {
+                    customActions.push({
+                        label: "Repayment",
+                        onClick: () => onRepayment?.(id, row.original),
+                    });
+                }
+
                 return (
-                    <Button
-                        variant="ghost"
-                        size="icon"
-                        onClick={() => {
-                            if (onDetail) {
-                                onDetail(row.original.id, row.original);
-                            }
-                        }}
-                    >
-                        <Eye className="h-4 w-4" />
-                        <span className="sr-only">View details</span>
-                    </Button>
+                    <TableActions id={id} onDetail={() => onDetail?.(id, row.original)} customActions={customActions} />
                 );
             },
         }),
@@ -130,7 +131,7 @@ function getOrderSummary(order: OnlineOrder): string[] {
     const summary: string[] = [];
 
     order.items.forEach((item) => {
-        summary.push(`${item.product.name} x ${item.quantity}`);
+        summary.push(`[${item.selected_sugar_type}] ${item.product.name} x ${item.quantity}`);
 
         item.addons?.forEach((addon) => {
             summary.push(` - ${addon.addon.name} x ${addon.quantity}`);

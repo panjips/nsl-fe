@@ -25,10 +25,30 @@ export const useLogin = () => {
         await login(data);
     };
 
+    const navigateByRole = (role: string) => {
+        switch (role) {
+            case "Pelanggan":
+                navigate({ to: "/" });
+                break;
+            case "Kasir":
+                navigate({ to: "/dashboard/pos" });
+                break;
+            case "Staf":
+                navigate({ to: "/dashboard" });
+                break;
+            case "Pemilik":
+                navigate({ to: "/dashboard" });
+                break;
+            default:
+                navigate({ to: "/" });
+                break;
+        }
+    };
+
     useEffect(() => {
         if (loginState.state === "success" && loginState.data.data?.user) {
             setGlobalUser(loginState.data.data.user, loginState.data.data?.token);
-            navigate({ to: "/" });
+            navigateByRole(loginState.data.data.user.role);
             toast.success(capitalizeFirstLetter(loginState.data.message));
             resetLoginState();
         }

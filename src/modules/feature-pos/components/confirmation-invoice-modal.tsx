@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Printer, X } from "lucide-react";
 import { useOrderStore } from "../stores";
 import { toast } from "sonner";
-import { formatCurrency, formatDateTime, formatNumberWithDots } from "@/lib/utils";
+import { formatCurrency, formatNumberWithDots } from "@/lib/utils";
 
 export const ConfirmationInvoiceModal = () => {
     const { modalInvoice, resetModalInvoice } = useOrderStore();
@@ -90,6 +90,11 @@ export const ConfirmationInvoiceModal = () => {
                 .join("") || "";
 
         const date = new Date();
+        const formatted = new Intl.DateTimeFormat("en-GB", {
+            day: "2-digit",
+            month: "short",
+            year: "numeric",
+        }).format(date);
 
         const heightInvoice = () => {
             const headerHeight = 35;
@@ -148,7 +153,8 @@ export const ConfirmationInvoiceModal = () => {
                 body {
                   width: 58mm;
                   margin: 0;
-                  padding: 2mm 3mm;
+                  padding: 2mm 5mm;
+                  font-weight: bold;
                   font-size: 8px;
                   line-height: 1.2;
                   -webkit-print-color-adjust: exact;
@@ -239,7 +245,6 @@ export const ConfirmationInvoiceModal = () => {
                 .no-print {
                   display: none;
                 }
-
                 
                 .section-height { height: 12px; }
                 .section-header-height { height: 35px }
@@ -262,7 +267,7 @@ export const ConfirmationInvoiceModal = () => {
             <div class="divider divider-height"></div>
 
             <div class="section section-height date-row-height">
-              <div>Date: ${formatDateTime(date.toISOString())}</div>
+              <div>${formatted}</div>
             </div>
 
             <div class="divider divider-height"></div>
@@ -290,11 +295,11 @@ export const ConfirmationInvoiceModal = () => {
             <div class="divider divider-height"></div>
 
             <div class="section section-height">
-              <div class="thank-you thank-you-height">Thanks</div>
+              <div class="thank-you thank-you-height">Thanks for your order!</div>
             </div>
           </body>
           </html>
-        `; 
+        `;
     };
 
     return (

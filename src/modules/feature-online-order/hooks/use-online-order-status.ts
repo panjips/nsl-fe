@@ -36,7 +36,6 @@ export const useOnlineOrderStatus = () => {
         try {
             await updateOrderStatus.updateOrderStatus(id, { order_status: OrderStatus.COMPLETED });
             if (data) {
-                console.log(convertOrderProductItemToCartItem(data));
                 modalStricker.onOpen(convertOrderProductItemToCartItem(data));
             }
             await onlineOrders.getAllOnlineOrders();

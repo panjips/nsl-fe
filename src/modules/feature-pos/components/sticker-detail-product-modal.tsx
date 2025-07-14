@@ -116,32 +116,31 @@ export const ConfirmationStrickerModal = () => {
           width: calc(50mm - 0px); 
           height: calc(30mm - 0px); 
           box-sizing: border-box; 
-          position: relative; /* Needed for pseudo-element positioning */
+          position: relative; 
           overflow: hidden; 
-          /* Removed background-image, filter, and opacity from here */
         }
 
-        /* Pseudo-element for the background logo */
+        
         .container::before {
-            content: ''; /* Essential for pseudo-elements */
+            content: ''; 
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             background-image: url("/bnw-nsl-logo.png");
-            background-size: 70%; /* Adjust size as needed */
+            background-size: 70%; 
             background-repeat: no-repeat;
             background-position: center center;
-            filter: grayscale(100%); /* Grayscale filter */
-            opacity: 0.15; /* Low opacity */
-            z-index: 0; /* Place behind content */
+            filter: grayscale(100%); 
+            opacity: 0.15; 
+            z-index: 0; 
         }
 
-        /* All content elements now need to be explicitly placed above the pseudo-element */
+        
         .header, .footer {
             position: relative;
-            z-index: 1; /* Ensure these are above the background pseudo-element */
+            z-index: 1; 
         }
 
 

@@ -20,9 +20,10 @@ export interface HistoryState {
         state: ViewState<ReservationWithOrderCateringAndPackage[], string>;
         getReservations: (params?: any) => Promise<void>;
     };
-    // productOrder: {
-    //     state: ViewState<OnlineOrder | null, string>;
-    // }
+    repaymentToken: {
+        state: ViewState<{ token: string }, string>;
+        getRepaymentToken: (id: string | number) => Promise<void>;
+    };
 
     modal: {
         isOpen: boolean;
@@ -32,7 +33,19 @@ export interface HistoryState {
         onOpen: (mode: "detail", data?: any | null, id?: string | number) => void;
         onClose: () => void;
     };
+
+    modalRepayment: {
+        isOpen: boolean;
+        mode: "repayment" | "loading" | null;
+        data?: string | null;
+        id?: string | number | null;
+        onOpen: (mode: "repayment" | "loading", data?: string | null, id?: string | number) => void;
+        onClose: () => void;
+    };
+
     resetModal: () => void;
+    resetModalRepayment: () => void;
+    resetRepaymentToken: () => void;
     resetTransactionsState: () => void;
     resetMyTransactionsState: () => void;
     resetInventoryUsageHistoryState: () => void;

@@ -1,7 +1,7 @@
 import { ReservationCateringPage } from "@/modules/feature-reservation-catering";
-import { createFileRoute } from "@tanstack/react-router";
+import { createLazyFileRoute } from "@tanstack/react-router";
 
-export const Route = createFileRoute("/dashboard/_sidebarLayout/reservation-catering")({
+export const Route = createLazyFileRoute("/dashboard/_sidebarLayout/reservation-catering")({
     component: RouteComponent,
 });
 

@@ -27,7 +27,6 @@ export const POSPage = () => {
     const toastShownRef = useRef(false);
 
     useEffect(() => {
-        console.log(socket);
         if (!socket || toastShownRef.current) return;
 
         const handleNewOrder = (order: any) => {

@@ -7,6 +7,7 @@ import { menuItems } from "@/lib/menuItems";
 import { useMemo } from "react";
 import { useGlobalAuthStore } from "@/stores";
 import { useNavigate } from "@tanstack/react-router";
+import type { UserLogin } from "@/modules/feature-auth";
 
 export const Route = createFileRoute("/dashboard/_sidebarLayout")({
     component: RouteComponent,
@@ -17,12 +18,16 @@ function RouteComponent() {
     const { user, logout } = useGlobalAuthStore();
     const navigate = useNavigate();
 
-    const memoizedFakeUser = useMemo(
+    const memoizedUser: UserLogin = useMemo(
         () => ({
             name: user?.name || "Guest User",
             email: user?.email || "",
+            role: user?.role || "Guest",
+            username: user?.username || "guest_user",
+            id: user?.id || 0,
+            phone_number: user?.phone_number || "",
         }),
-        [],
+        [user?.name, user?.email, user?.role, user?.username, user?.id, user?.phone_number],
     );
 
     const handleLogout = () => {
@@ -32,12 +37,7 @@ function RouteComponent() {
 
     return (
         <SidebarProvider>
-            <AppSidebar
-                variant="inset"
-                menuItems={memoizedMenuItems}
-                user={memoizedFakeUser}
-                handleLogout={handleLogout}
-            />
+            <AppSidebar variant="inset" menuItems={memoizedMenuItems} user={memoizedUser} handleLogout={handleLogout} />
             <SidebarInset>
                 <SiteHeader />
                 <div className="flex flex-1 flex-col">

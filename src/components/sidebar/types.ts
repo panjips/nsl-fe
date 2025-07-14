@@ -1,3 +1,4 @@
+import type { UserLogin } from "@/modules/feature-auth";
 import type { LucideIcon } from "lucide-react";
 
 export type Role = "Staf" | "Kasir" | "Pemilik" | "Pelanggan";
@@ -26,6 +27,6 @@ export interface NavUserProps {
 
 export interface AppSidebarProps {
     menuItems: NavMainProps[];
-    user: NavUserProps;
+    user: UserLogin;
     handleLogout?: () => void;
 }

@@ -44,18 +44,14 @@ export const TableActions: React.FC<TableActionsProps> = ({
     const [isOpen, setIsOpen] = useState(false);
     const triggerRef = useRef<HTMLButtonElement>(null);
 
-    // Safely handle actions and close dropdown
     const handleAction = (action: (id: string | number) => void, e: React.MouseEvent) => {
         e.preventDefault();
-        // Close dropdown before executing action
         setIsOpen(false);
 
-        // Ensure we maintain focus on the trigger after closing
         if (triggerRef.current) {
             triggerRef.current.focus();
         }
 
-        // Execute after dropdown is closed
         setTimeout(() => {
             action(id);
         }, 10);

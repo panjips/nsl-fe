@@ -18,7 +18,6 @@ export const OnlineOrderPage = () => {
 
     const { cart, cartItemsCount, cartTotal, addToCart, clearCart, removeFromCart } = useCart();
 
-    console.log(cart);
 
     useEffect(() => {}, [cart]);
 

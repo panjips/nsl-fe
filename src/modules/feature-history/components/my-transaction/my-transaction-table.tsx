@@ -4,7 +4,7 @@ import { DataTable } from "@/components/data-table";
 import { useHistoryStore } from "../../stores";
 import { myTransactionColumnHelper, setupMyTransactionColumns } from "./my-transaction-column";
 import type { OnlineOrder } from "@/modules/feature-online-order";
-import { useMyTransaction } from "../../hooks";
+import { useMyTransaction, useRepayment } from "../../hooks";
 import { MyTransactionDetailModal } from "./my-transaction-detail-modal";
 import {
     DropdownMenu,
@@ -16,10 +16,15 @@ import {
 import { Button } from "@/components/ui/button";
 import { ChevronDown, Filter, FilterX } from "lucide-react";
 import { orderStatusDisplayNames, paymentStatusDisplayNames } from "../../domain";
+import { MidtransPayment } from "@/modules/feature-shared";
+
+const clientKey = import.meta.env.VITE_MIDTRANS_CLIENT_KEY;
 
 export const OnlineOrderTable = () => {
     const { data, isLoading, setSearchTerm, searchTerm, setStatusFilter, statusFilter } = useMyTransaction();
-    const { modal } = useHistoryStore();
+    const { modal, modalRepayment } = useHistoryStore();
+    const { token, state, handleOpenRepayment, handlePaymentSuccess, handlePaymentError, handlePaymentClose } =
+        useRepayment();
 
     const handleOpenDetail = (id: number | string, data?: OnlineOrder) => {
         modal.onOpen("detail", data, id);
@@ -29,6 +34,7 @@ export const OnlineOrderTable = () => {
         return setupMyTransactionColumns({
             columnHelper: myTransactionColumnHelper,
             onDetail: handleOpenDetail,
+            onRepayment: handleOpenRepayment,
         });
     }, []);
 
@@ -147,6 +153,18 @@ export const OnlineOrderTable = () => {
             />
 
             <MyTransactionDetailModal />
+            {modalRepayment.isOpen &&
+                modalRepayment.mode === "repayment" &&
+                modalRepayment.data &&
+                state.state === "success" && (
+                    <MidtransPayment
+                        clientKey={clientKey}
+                        transactionToken={token as string}
+                        onSuccess={handlePaymentSuccess}
+                        onError={handlePaymentError}
+                        onClose={handlePaymentClose}
+                    />
+                )}
         </>
     );
 };

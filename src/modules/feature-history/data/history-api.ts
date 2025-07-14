@@ -54,4 +54,16 @@ export const historyApi = {
             throw error;
         }
     },
+    getRepaymentToken: async (id: string | number) => {
+        try {
+            const response = await axiosInstance.get<ApiResponse<{ token: string }>>(
+                `${ENDPOINTS.PAYMENT}/${id}/repayment`,
+            );
+            return response.data;
+        } catch (error) {
+            if (isAxiosError(error)) {
+                throw new Error(error.response?.data.message);
+            }
+        }
+    }
 };

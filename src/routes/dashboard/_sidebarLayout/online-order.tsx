@@ -12,8 +12,6 @@ function RouteComponent() {
 
     useEffect(() => {
         resetOnlineOrderCount();
-
-        console.log("Online order count reset");
     }, [resetOnlineOrderCount]);
 
     return (

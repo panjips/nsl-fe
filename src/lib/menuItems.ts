@@ -35,7 +35,7 @@ export const menuItems: NavMainProps[] = [
     },
     {
         group: "Data Master",
-        roles: ["Staf", "Kasir", "Pemilik"],
+        roles: ["Staf", "Pemilik"],
         items: [
             {
                 title: "Category",
@@ -45,14 +45,14 @@ export const menuItems: NavMainProps[] = [
             },
             {
                 title: "Product",
-                roles: ["Staf", "Pemilik", "Kasir"],
+                roles: ["Staf", "Pemilik"],
                 url: "/dashboard/product",
                 icon: Box,
             },
             {
                 title: "User",
                 url: "/dashboard/user",
-                roles: ["Staf", "Pemilik"],
+                roles: ["Pemilik"],
                 icon: User,
                 items: [
                     {
@@ -81,7 +81,7 @@ export const menuItems: NavMainProps[] = [
             },
             {
                 title: "Addon",
-                roles: ["Staf", "Pemilik", "Kasir"],
+                roles: ["Staf", "Pemilik"],
                 url: "/dashboard/addon",
                 icon: NotepadText,
             },
@@ -106,18 +106,18 @@ export const menuItems: NavMainProps[] = [
             {
                 title: "Catering Package",
                 url: "/dashboard/catering-package",
-                roles: ["Staf", "Pemilik"],
+                roles: ["Pemilik"],
                 icon: ShoppingBasket,
             },
         ],
     },
     {
         group: "Reservation",
-        roles: ["Pemilik", "Kasir", "Pelanggan"],
+        roles: ["Pemilik", "Pelanggan"],
         items: [
             {
                 title: "Reservation",
-                roles: ["Pemilik", "Kasir"],
+                roles: ["Pemilik"],
                 url: "/dashboard/reservation",
                 icon: NotepadText,
             },
@@ -165,7 +165,7 @@ export const menuItems: NavMainProps[] = [
             },
             {
                 title: "Catering",
-                roles: ["Staf", "Pemilik", "Kasir"],
+                roles: ["Staf", "Pemilik"],
                 url: "/dashboard/history/catering",
                 icon: History,
             },
@@ -185,7 +185,7 @@ export const menuItems: NavMainProps[] = [
     },
     {
         group: "Reports",
-        roles: ["Staf", "Pemilik"],
+        roles: ["Pemilik"],
         items: [
             {
                 title: "Product Sales ",
@@ -195,13 +195,13 @@ export const menuItems: NavMainProps[] = [
             },
             {
                 title: "Inventory ",
-                roles: ["Staf", "Pemilik"],
+                roles: ["Pemilik"],
                 url: "/dashboard/reports/inventory",
                 icon: FileText,
             },
             {
                 title: "Purchase ",
-                roles: ["Staf", "Pemilik"],
+                roles: ["Pemilik"],
                 url: "/dashboard/reports/purchase",
                 icon: FileText,
             },
