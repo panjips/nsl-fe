@@ -74,6 +74,12 @@ export const menuItems: NavMainProps[] = [
                 icon: Package,
             },
             {
+                title: "Inventory Opnames",
+                url: "/dashboard/inventory-opnames",
+                roles: ["Staf", "Pemilik"],
+                icon: Package,
+            },
+            {
                 title: "Purchase",
                 roles: ["Staf", "Pemilik"],
                 url: "/dashboard/purchase",

@@ -36,6 +36,37 @@ export const useInventoryStore = create<InventoryState>((set) => ({
         },
     },
 
+    inventoryOpnames: {
+        state: initialState(),
+        getAllInventoryOpnames: async () => {
+            set((state) => ({
+                inventoryOpnames: {
+                    ...state.inventoryOpnames,
+                    state: loadingState(),
+                },
+            }));
+            try {
+                const opnames = await inventoryApi.getInventoryOpnames();
+                if (!opnames?.data) {
+                    throw new Error("Inventory opnames response data is missing");
+                }
+                set((state) => ({
+                    inventoryOpnames: {
+                        ...state.inventoryOpnames,
+                        state: successState(opnames.data || []),
+                    },
+                }));
+            } catch (error) {
+                set((state) => ({
+                    inventoryOpnames: {
+                        ...state.inventoryOpnames,
+                        state: errorState(error instanceof Error ? error.message : "Failed to fetch inventory opnames"),
+                    },
+                }));
+            }
+        },
+    },
+
     inventory: {
         state: initialState(),
         getInventory: async (id: string | number) => {
@@ -129,6 +160,37 @@ export const useInventoryStore = create<InventoryState>((set) => ({
         },
     },
 
+    createInventoryOpname: {
+        state: initialState(),
+        createInventoryOpname: async (data) => {
+            set((state) => ({
+                createInventoryOpname: {
+                    ...state.createInventoryOpname,
+                    state: loadingState(),
+                },
+            }));
+            try {
+                const opname = await inventoryApi.createInventoryOpname(data);
+                if (!opname?.data) {
+                    throw new Error("Inventory opname response data is missing");
+                }
+                set((state) => ({
+                    createInventoryOpname: {
+                        ...state.createInventoryOpname,
+                        state: successState(opname),
+                    },
+                }));
+            } catch (error) {
+                set((state) => ({
+                    createInventoryOpname: {
+                        ...state.createInventoryOpname,
+                        state: errorState(error instanceof Error ? error.message : "Failed to create inventory opname"),
+                    },
+                }));
+            }
+        },
+    },
+
     deleteInventory: {
         state: initialState(),
         deleteInventory: async (id: string | number) => {
@@ -188,6 +250,34 @@ export const useInventoryStore = create<InventoryState>((set) => ({
         },
     },
 
+    modalOpname: {
+        isOpen: false,
+        mode: "create",
+        data: null,
+        id: null,
+        onOpen: (mode, data, id) => {
+            set((state) => ({
+                modalOpname: {
+                    ...state.modalOpname,
+                    isOpen: true,
+                    mode,
+                    id: id ?? null,
+                    data: data ?? null,
+                },
+            }));
+        },
+        onClose: () => {
+            set((state) => ({
+                modalOpname: {
+                    ...state.modalOpname,
+                    isOpen: false,
+                    mode: "create",
+                    data: null,
+                },
+            }));
+        },
+    },
+
     resetModal: () => {
         set((state) => ({
             modal: {
@@ -200,10 +290,31 @@ export const useInventoryStore = create<InventoryState>((set) => ({
         }));
     },
 
+    resetModalOpname: () => {
+        set((state) => ({
+            modalOpname: {
+                ...state.modalOpname,
+                isOpen: false,
+                mode: "create",
+                data: null,
+                id: null,
+            },
+        }));
+    },
+
     resetInventoriesState: () => {
         set((state) => ({
             inventories: {
                 ...state.inventories,
+                state: initialState(),
+            },
+        }));
+    },
+
+    resetInventoryOpnamesState: () => {
+        set((state) => ({
+            inventoryOpnames: {
+                ...state.inventoryOpnames,
                 state: initialState(),
             },
         }));
@@ -231,6 +342,15 @@ export const useInventoryStore = create<InventoryState>((set) => ({
         set((state) => ({
             createInventory: {
                 ...state.createInventory,
+                state: initialState(),
+            },
+        }));
+    },
+
+    resetCreateInventoryOpnameState: () => {
+        set((state) => ({
+            createInventoryOpname: {
+                ...state.createInventoryOpname,
                 state: initialState(),
             },
         }));

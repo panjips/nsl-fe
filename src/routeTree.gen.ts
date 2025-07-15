@@ -53,6 +53,9 @@ const DashboardSidebarLayoutOperationLazyRouteImport = createFileRoute(
 const DashboardSidebarLayoutMyReservationLazyRouteImport = createFileRoute(
   '/dashboard/_sidebarLayout/my-reservation',
 )()
+const DashboardSidebarLayoutInventoryOpnamesLazyRouteImport = createFileRoute(
+  '/dashboard/_sidebarLayout/inventory-opnames',
+)()
 const DashboardSidebarLayoutCateringPackageLazyRouteImport = createFileRoute(
   '/dashboard/_sidebarLayout/catering-package',
 )()
@@ -190,6 +193,16 @@ const DashboardSidebarLayoutMyReservationLazyRoute =
     getParentRoute: () => DashboardSidebarLayoutRoute,
   } as any).lazy(() =>
     import('./routes/dashboard/_sidebarLayout/my-reservation.lazy').then(
+      (d) => d.Route,
+    ),
+  )
+const DashboardSidebarLayoutInventoryOpnamesLazyRoute =
+  DashboardSidebarLayoutInventoryOpnamesLazyRouteImport.update({
+    id: '/inventory-opnames',
+    path: '/inventory-opnames',
+    getParentRoute: () => DashboardSidebarLayoutRoute,
+  } as any).lazy(() =>
+    import('./routes/dashboard/_sidebarLayout/inventory-opnames.lazy').then(
       (d) => d.Route,
     ),
   )
@@ -401,6 +414,7 @@ export interface FileRoutesByFullPath {
   '/dashboard/addon': typeof DashboardSidebarLayoutAddonLazyRoute
   '/dashboard/category': typeof DashboardSidebarLayoutCategoryLazyRoute
   '/dashboard/catering-package': typeof DashboardSidebarLayoutCateringPackageLazyRoute
+  '/dashboard/inventory-opnames': typeof DashboardSidebarLayoutInventoryOpnamesLazyRoute
   '/dashboard/my-reservation': typeof DashboardSidebarLayoutMyReservationLazyRoute
   '/dashboard/operation': typeof DashboardSidebarLayoutOperationLazyRoute
   '/dashboard/purchase': typeof DashboardSidebarLayoutPurchaseLazyRoute
@@ -441,6 +455,7 @@ export interface FileRoutesByTo {
   '/dashboard/addon': typeof DashboardSidebarLayoutAddonLazyRoute
   '/dashboard/category': typeof DashboardSidebarLayoutCategoryLazyRoute
   '/dashboard/catering-package': typeof DashboardSidebarLayoutCateringPackageLazyRoute
+  '/dashboard/inventory-opnames': typeof DashboardSidebarLayoutInventoryOpnamesLazyRoute
   '/dashboard/my-reservation': typeof DashboardSidebarLayoutMyReservationLazyRoute
   '/dashboard/operation': typeof DashboardSidebarLayoutOperationLazyRoute
   '/dashboard/purchase': typeof DashboardSidebarLayoutPurchaseLazyRoute
@@ -482,6 +497,7 @@ export interface FileRoutesById {
   '/dashboard/_sidebarLayout/addon': typeof DashboardSidebarLayoutAddonLazyRoute
   '/dashboard/_sidebarLayout/category': typeof DashboardSidebarLayoutCategoryLazyRoute
   '/dashboard/_sidebarLayout/catering-package': typeof DashboardSidebarLayoutCateringPackageLazyRoute
+  '/dashboard/_sidebarLayout/inventory-opnames': typeof DashboardSidebarLayoutInventoryOpnamesLazyRoute
   '/dashboard/_sidebarLayout/my-reservation': typeof DashboardSidebarLayoutMyReservationLazyRoute
   '/dashboard/_sidebarLayout/operation': typeof DashboardSidebarLayoutOperationLazyRoute
   '/dashboard/_sidebarLayout/purchase': typeof DashboardSidebarLayoutPurchaseLazyRoute
@@ -524,6 +540,7 @@ export interface FileRouteTypes {
     | '/dashboard/addon'
     | '/dashboard/category'
     | '/dashboard/catering-package'
+    | '/dashboard/inventory-opnames'
     | '/dashboard/my-reservation'
     | '/dashboard/operation'
     | '/dashboard/purchase'
@@ -564,6 +581,7 @@ export interface FileRouteTypes {
     | '/dashboard/addon'
     | '/dashboard/category'
     | '/dashboard/catering-package'
+    | '/dashboard/inventory-opnames'
     | '/dashboard/my-reservation'
     | '/dashboard/operation'
     | '/dashboard/purchase'
@@ -604,6 +622,7 @@ export interface FileRouteTypes {
     | '/dashboard/_sidebarLayout/addon'
     | '/dashboard/_sidebarLayout/category'
     | '/dashboard/_sidebarLayout/catering-package'
+    | '/dashboard/_sidebarLayout/inventory-opnames'
     | '/dashboard/_sidebarLayout/my-reservation'
     | '/dashboard/_sidebarLayout/operation'
     | '/dashboard/_sidebarLayout/purchase'
@@ -738,6 +757,13 @@ declare module '@tanstack/react-router' {
       path: '/my-reservation'
       fullPath: '/dashboard/my-reservation'
       preLoaderRoute: typeof DashboardSidebarLayoutMyReservationLazyRouteImport
+      parentRoute: typeof DashboardSidebarLayoutRoute
+    }
+    '/dashboard/_sidebarLayout/inventory-opnames': {
+      id: '/dashboard/_sidebarLayout/inventory-opnames'
+      path: '/inventory-opnames'
+      fullPath: '/dashboard/inventory-opnames'
+      preLoaderRoute: typeof DashboardSidebarLayoutInventoryOpnamesLazyRouteImport
       parentRoute: typeof DashboardSidebarLayoutRoute
     }
     '/dashboard/_sidebarLayout/catering-package': {
@@ -926,6 +952,7 @@ interface DashboardSidebarLayoutRouteChildren {
   DashboardSidebarLayoutAddonLazyRoute: typeof DashboardSidebarLayoutAddonLazyRoute
   DashboardSidebarLayoutCategoryLazyRoute: typeof DashboardSidebarLayoutCategoryLazyRoute
   DashboardSidebarLayoutCateringPackageLazyRoute: typeof DashboardSidebarLayoutCateringPackageLazyRoute
+  DashboardSidebarLayoutInventoryOpnamesLazyRoute: typeof DashboardSidebarLayoutInventoryOpnamesLazyRoute
   DashboardSidebarLayoutMyReservationLazyRoute: typeof DashboardSidebarLayoutMyReservationLazyRoute
   DashboardSidebarLayoutOperationLazyRoute: typeof DashboardSidebarLayoutOperationLazyRoute
   DashboardSidebarLayoutPurchaseLazyRoute: typeof DashboardSidebarLayoutPurchaseLazyRoute
@@ -964,6 +991,8 @@ const DashboardSidebarLayoutRouteChildren: DashboardSidebarLayoutRouteChildren =
       DashboardSidebarLayoutCategoryLazyRoute,
     DashboardSidebarLayoutCateringPackageLazyRoute:
       DashboardSidebarLayoutCateringPackageLazyRoute,
+    DashboardSidebarLayoutInventoryOpnamesLazyRoute:
+      DashboardSidebarLayoutInventoryOpnamesLazyRoute,
     DashboardSidebarLayoutMyReservationLazyRoute:
       DashboardSidebarLayoutMyReservationLazyRoute,
     DashboardSidebarLayoutOperationLazyRoute:
