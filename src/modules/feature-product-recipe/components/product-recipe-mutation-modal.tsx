@@ -151,9 +151,11 @@ export const ProductRecipeMutationModal = ({
 
     return (
         <Modal
+            size="2xl"
             title={isEdit ? "Edit Product Recipe" : "Add Product Recipe"}
             open={isOpen}
             onOpenChange={onOpenChangeHandler}
+            closeOnOutsideClick={false}
         >
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">

@@ -51,9 +51,7 @@ export const productRecipeApi = {
 
     deleteProductRecipesByProductId: async (productId: string | number) => {
         try {
-            const response = await axiosInstance.delete<ApiResponse<null>>(
-                `${ENDPOINTS.PRODUCT_RECIPE}/product/${productId}`,
-            );
+            const response = await axiosInstance.delete<ApiResponse<null>>(`${ENDPOINTS.PRODUCT_RECIPE}/${productId}`);
             return response.data;
         } catch (error) {
             if (isAxiosError(error)) {

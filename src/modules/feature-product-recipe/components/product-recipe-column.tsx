@@ -27,7 +27,9 @@ export const setupProductRecipeColumns = ({ columnHelper, onEdit, onDelete }: Se
                 },
             },
             cell: ({ row }) => {
-                return <div>{row.original.id}</div>;
+                // Extract original product ID from combined ID
+                const originalId = row.original.id.toString().split("-")[0];
+                return <div>{originalId}</div>;
             },
         }),
         columnHelper.accessor("name", {
@@ -62,9 +64,9 @@ export const setupProductRecipeColumns = ({ columnHelper, onEdit, onDelete }: Se
                         <PopoverTrigger className="cursor-pointer text-primary underline">
                             {row.original.recipes.length}
                         </PopoverTrigger>
-                        <PopoverContent className=" text-sm space-y-1">
+                        <PopoverContent className="text-sm space-y-1">
                             {row.original.recipes.map((recipe, index) => (
-                                <p key={index}>
+                                <p key={`${recipe.id}-${index}`}>
                                     {recipe.inventory?.name} - {recipe.quantity_used} {recipe.inventory?.unit}
                                 </p>
                             ))}
@@ -73,7 +75,7 @@ export const setupProductRecipeColumns = ({ columnHelper, onEdit, onDelete }: Se
                 );
             },
         }),
-        columnHelper.accessor("recipes.sugar_type", {
+        columnHelper.accessor("sugar_type", {
             header: "Sugar Type",
             meta: {
                 headColStyle: {
@@ -85,7 +87,7 @@ export const setupProductRecipeColumns = ({ columnHelper, onEdit, onDelete }: Se
                 },
             },
             cell: ({ row }) => {
-                let sugarType = row.original.recipes[0]?.sugar_type;
+                const sugarType = row.original.sugar_type;
                 let type;
 
                 if (sugarType === "LESS_SUGAR") {
@@ -114,13 +116,13 @@ export const setupProductRecipeColumns = ({ columnHelper, onEdit, onDelete }: Se
                 },
             },
             cell: ({ row }) => {
-                const { id } = row.original;
+                const originalId = row.original.id.toString().split("-")[0];
                 return (
                     <div className="flex items-center justify-center">
                         <TableActions
-                            id={id}
-                            onEdit={() => onEdit?.(id, row.original)}
-                            onDelete={() => onDelete?.(id)}
+                            id={originalId}
+                            onEdit={() => onEdit?.(originalId, row.original)}
+                            onDelete={() => onDelete?.(originalId)}
                         />
                     </div>
                 );

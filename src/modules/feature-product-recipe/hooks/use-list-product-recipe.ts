@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { useProductRecipeStore } from "../stores";
+import type { ProductRecipe } from "../domain/product-recipe";
 
 export const useListProductRecipe = () => {
     const [searchTerm, setSearchTerm] = useState("");
@@ -17,17 +18,49 @@ export const useListProductRecipe = () => {
         if (productRecipes.state.state === "success") {
             return productRecipes.state.data;
         }
+        return [];
     }, [productRecipes.state.state]);
 
-    const filteredData = useMemo(() => {
-        if (!searchTerm.trim() || !listProductRecipe) return listProductRecipe;
+    // Group products by id and sugar_type to create unique entries
+    const groupedData = useMemo(() => {
+        if (!listProductRecipe) return [];
 
-        return listProductRecipe.filter(
+        const grouped: ProductRecipe[] = [];
+
+        listProductRecipe.forEach((product) => {
+            // Group recipes by sugar_type
+            const recipesBySugarType: Record<string, any[]> = {};
+
+            product.recipes.forEach((recipe) => {
+                const sugarType = recipe.sugar_type || "NORMAL";
+                if (!recipesBySugarType[sugarType]) {
+                    recipesBySugarType[sugarType] = [];
+                }
+                recipesBySugarType[sugarType].push(recipe);
+            });
+
+            Object.entries(recipesBySugarType).forEach(([sugarType, recipes]) => {
+                grouped.push({
+                    ...product,
+                    id: `${product.id}-${sugarType}`,
+                    sugar_type: sugarType as any,
+                    recipes: recipes,
+                });
+            });
+        });
+
+        return grouped;
+    }, [listProductRecipe]);
+
+    const filteredData = useMemo(() => {
+        if (!searchTerm.trim() || !groupedData) return groupedData;
+
+        return groupedData.filter(
             (item) =>
                 item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
                 item.description?.toLowerCase().includes(searchTerm.toLowerCase()),
         );
-    }, [listProductRecipe, searchTerm]);
+    }, [groupedData, searchTerm]);
 
     return {
         data: filteredData,
